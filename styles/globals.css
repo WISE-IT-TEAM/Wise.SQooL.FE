@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'NanumSqureNeoV';
+  src: url(/fonts/NanumSquareNeo-Variable.woff) fomat('woff');
+  src: url(/fonts/NanumSquareNeo-Variable.woff2) fomat('woff2');
+}
+
+@font-face {
+  font-family: 'PretendardV';
+  src: url(/fonts/PretendardVariable.woff2) fomat('woff2');
+}
+
+@font-face {
+  font-family: 'EliceDigitalCoding';
+  src: url(/fonts/EliceDigitalCodingverH.woff) fomat('woff');
+  src: url(/fonts/EliceDigitalCodingverH.woff2) fomat('woff2');
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -15,8 +32,18 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+@media (max-width: 640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
 
 body {
+  font-family: 'NanumSqureNeoV', 'PretendardV', sans-serif;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
