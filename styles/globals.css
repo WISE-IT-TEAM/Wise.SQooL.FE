@@ -19,6 +19,15 @@
   src: url(/fonts/EliceDigitalCodingverH.woff2) fomat('woff2');
 }
 
+
+body.dark {
+  @apply bg-gray-900 text-white;
+}
+
+body.light {
+  @apply bg-white text-gray-900;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -28,7 +37,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --background-start-rgb: 34, 35, 36;
     --background-end-rgb: 0, 0, 0;
   }
 }

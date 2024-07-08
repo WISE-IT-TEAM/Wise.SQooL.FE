@@ -1,0 +1,12 @@
+/* styles/components/navBar.css */
+.navbar {
+  @apply bg-gray-800 p-4;
+}
+
+.navbar a {
+  @apply text-gray-300 hover:text-white;
+}
+
+.navbar img {
+  @apply h-8 w-8;
+}
