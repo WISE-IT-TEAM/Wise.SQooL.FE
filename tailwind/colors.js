@@ -1,9 +1,13 @@
 // tailwind/colors.js
 
 const colors = {
-    primary: "bg-emerald-500",
-    secondary: "#666",
-    danger: "#a00",
+    bgDark: "#111519",
+    primaryLight: "#0CAD4D",
+    primaryDark: "#33E364",
+    secondaryLight: "#8A2BE2",
+    secondaryDark: "#AA55FF",
+    subLight: "#A832C7",
+    subDark: "#C944EA",
 };
 
 export default colors;
