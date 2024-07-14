@@ -1,6 +1,6 @@
 /* styles/components/navBar.css */
 .navbar {
-  @apply bg-gray-800 p-4;
+  @apply bg-white;
 }
 
 .navbar a {

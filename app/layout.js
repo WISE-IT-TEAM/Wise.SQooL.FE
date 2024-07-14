@@ -35,11 +35,11 @@ export default function RootLayout({ children }) {
     return (
         <html lang="ko">
             <body className={darkMode ? "dark" : ""}>
-                <header className="bg-emerald-500 text-white p-4">
+                <header className="text-slate-50 p-4">
                     <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
                 </header>
                 <main>{children}</main>
-                <footer className="bg-emerald-100 text-slate-600 p-4 mt-8 text-center">
+                <footer className="bg-slate-900 text-slate-400 p-4 mt-8 text-center">
                     <p>&copy; 2024 WISEIT. All rights reserved.</p>
                 </footer>
             </body>

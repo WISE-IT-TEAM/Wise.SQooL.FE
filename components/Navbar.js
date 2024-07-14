@@ -16,9 +16,9 @@ export default function NavBar({ toggleDarkMode, darkMode }) {
                     <Link href="/" legacyBehavior>
                         <a>
                             <Image 
-                                src="/logo_ex.svg" 
+                                src="/wise_logo.svg" 
                                 alt="Logo" 
-                                width={32} 
+                                width={135} 
                                 height={32} 
                             />
                         </a>
@@ -26,20 +26,23 @@ export default function NavBar({ toggleDarkMode, darkMode }) {
                 </div>
                 <div className="space-x-4">
                     <Link href="/" legacyBehavior>
-                        <a className="text-gray-300 hover:text-white">홈</a>
+                        <a className="text-slate-900 hover:text-white">홈</a>
                     </Link>
                     <Link href="/about" legacyBehavior>
-                        <a className="text-gray-300 hover:text-white">서비스소개</a>
+                        <a className="text-slate-900 hover:text-white">시작하기</a>
                     </Link>
                     <Link href="/docs" legacyBehavior>
-                        <a className="text-gray-300 hover:text-white">학습안내서</a>
+                        <a className="text-slate-900 hover:text-white">에디터</a>
+                    </Link>
+                    <Link href="/docs" legacyBehavior>
+                        <a className="text-slate-900 hover:text-white">질문과 답변</a>
                     </Link>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <button onClick={toggleDarkMode} className="text-gray-300 hover:text-white">
+                    <button onClick={toggleDarkMode} className="text-slate-900 hover:text-white">
                         <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
                     </button>
-                    <button className="text-gray-300 hover:text-white md:hidden">
+                    <button className="text-slate-900 hover:text-white md:hidden">
                         <FontAwesomeIcon icon={faBars} className="mr-2" />
                     </button>
                 </div>

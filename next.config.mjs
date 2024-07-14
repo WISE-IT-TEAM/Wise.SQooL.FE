@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 여기에 필요한 설정을 추가할 수 있습니다.
-}
+  // 필요한 설정 추가
+  webpack: (config, { isServer }) => {
+    return config;
+  },
+};
 
-export default nextConfig
+export default nextConfig;
