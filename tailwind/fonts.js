@@ -1,7 +1,5 @@
-// tailwind/colors.js
-module.exports = {
-    fontFamily: {
-        default: ["NanumSqureNeoV", "PretendardV", "sans-serif"],
-        codefont: ["EliceDigitalCodingverH", "PretendardV", "sans-serif"],
-    }
+// tailwind/fonts.js
+export const fontFamily = {
+    default: ["NanumSqureNeoV", "PretendardV", "sans-serif"],
+    codefont: ["EliceDigitalCodingverH", "PretendardV", "sans-serif"],
 };
