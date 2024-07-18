@@ -10,7 +10,7 @@ export const content = [
 export const theme = {
   extend: {
     colors: {
-      bgDark: colors.bgDark,
+      bgdark: colors.bgDark,
       primaryLight: colors.primaryLight,
       primaryDark: colors.primaryDark,
       secondaryLight: colors.secondaryLight,
@@ -18,10 +18,10 @@ export const theme = {
       subLight: colors.subLight,
       subDark: colors.subDark,
     },
-    backgroundImage: {
-      "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-      "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+    maxWidth: {
+      'default-width':'1200px',
     },
   },
+  darkMode: 'class', // 다크모드 활성화
 };
 export const plugins = [];

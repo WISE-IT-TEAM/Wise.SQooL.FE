@@ -1,11 +1,15 @@
+// pages/_app.js
 import Layout from './layout';
 import '../styles/globals.css';
+import { DarkModeProvider } from '../context/DarkModeContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <DarkModeProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </DarkModeProvider>
   );
 }
 
