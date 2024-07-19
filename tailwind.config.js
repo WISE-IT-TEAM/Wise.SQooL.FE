@@ -18,8 +18,14 @@ export const theme = {
       subLight: colors.subLight,
       subDark: colors.subDark,
     },
+    height: {
+      'hero': '91vh',
+    },
     maxWidth: {
-      'default-width':'1200px',
+      'default-width': '1200px',
+    },
+    lineHeight: {
+      'h1': '72px',
     },
   },
   darkMode: 'class', // 다크모드 활성화

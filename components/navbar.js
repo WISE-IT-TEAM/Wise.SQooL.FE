@@ -1,5 +1,5 @@
 // components/NavBar.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { useDarkMode } from '../context/DarkModeContext';
@@ -7,15 +7,33 @@ import { useDarkMode } from '../context/DarkModeContext';
 
 const NavBar = () => {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
+    const [scrolled, setScrolled] = useState(false);
 
-    const containerClass = `w-full py-4 text-xl`;
+    useEffect(() => {
+        const handScroll = () => {
+            setScrolled(window.scrollY > 68);
+        };
+
+        window.addEventListener('scroll', handScroll);
+        
+        return () => {
+            window.removeEventListener('scroll', handScroll)
+        };
+    }, []);
+
+    const container = `w-full py-4 text-xl font-bold fixed top-0 left-0 z-50 transition-colors duration-300 
+        ${scrolled ? (
+            isDarkMode 
+            ? 'bg-slate-900 border-b-2 border-slate-700'
+            : 'bg-slate-50 border-b-2 border-slate-300'
+        ) : 'bg-transparent'}`
     const navWrap = `max-w-default-width mx-auto flex justify-between item-center`
-    const navListClass = `flex justify-center item-center gap-12`
-    const listItemClass = `${isDarkMode ? 'text-slate-50 hover:text-primaryDark' : 'text-slate-900 hover:text-primaryLight'} duration-150`
-    const toggleBtnClass = `p-1 rounded-lg ${isDarkMode ? 'bg-secondaryDark' : 'bg-secondaryLight'}`
+    const navList = `flex justify-center item-center gap-12`
+    const listItem = `${isDarkMode ? 'text-slate-50 hover:text-primaryDark' : 'text-slate-900 hover:text-primaryLight'} duration-300`
+    const toggleBtn = `p-1 rounded-lg hover:animate-pulse duration-300 ${isDarkMode ? 'bg-secondaryDark' : 'bg-secondaryLight'}`
 
     return (
-        <nav className={containerClass}>
+        <nav className={container}>
             <div className={navWrap}>
                 <div>
                     {isDarkMode ? (
@@ -25,21 +43,21 @@ const NavBar = () => {
                     )}
                 </div>
                 <div>
-                    <ul className={navListClass}>
-                        <li className={listItemClass}>
+                    <ul className={navList}>
+                        <li className={listItem}>
                             <Link href="/">홈</Link>
                         </li>
-                        <li className={listItemClass}>
+                        <li className={listItem}>
                             <Link href="/start">시작하기</Link>
                         </li>
-                        <li className={listItemClass}>
+                        <li className={listItem}>
                             <Link href="/editor">에디터</Link>
                         </li>
-                        <li className={listItemClass}>
+                        <li className={listItem}>
                             <Link href="/article">아티클</Link>
                         </li>
-                        <li className={listItemClass}>
-                            <button onClick={toggleDarkMode} className={toggleBtnClass}>
+                        <li className={listItem}>
+                            <button onClick={toggleDarkMode} className={toggleBtn}>
                                 {isDarkMode ? (
                                     <Image src="/img/toggle_dark.svg" alt="Dark mode" width={24} height={24} />
                                 ) : (

@@ -11,7 +11,7 @@ const Footer = () => {
   const containerClass = `w-full py-4 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'} text-slate-400`;
   const footerWrap = `max-w-default-width mx-auto flex justify-between items-center`;
   const iconListClass = `flex justify-center items-center gap-2`;
-  const listItemClass = `w-8 h-8 p-1 flex justify-center items-center rounded-2xl border-2 border-slate-300 hover:opacity-70 ease-in-out duration-150`;
+  const listItemClass = `w-8 h-8 p-1 flex justify-center items-center rounded-2xl border-2 ${isDarkMode ? 'border-slate-500' : 'border-slate-300' } hover:opacity-70 ease-in-out duration-150`;
 
   return (
     <footer className={containerClass}>
@@ -19,7 +19,11 @@ const Footer = () => {
         <div className='flex items-end gap-4'>
           <Link href="/" legacyBehavior>  
             <a>
-              <Image src='/img/logo_ci.svg' alt='Logo' width={117} height={24} className='mr-2' />  
+              {isDarkMode ? (
+                <Image src='/img/ci_logo_mono_dark.svg' alt='Logo' width={117} height={24} className='mr-2' />  
+              ) : (
+                <Image src='/img/ci_logo_mono_light.svg' alt='Logo' width={117} height={24} className='mr-2' />  
+              )}
             </a>
           </Link>
           <span className='text-xs'>Copyright ©WISE IT All Rights Reserved.</span>
