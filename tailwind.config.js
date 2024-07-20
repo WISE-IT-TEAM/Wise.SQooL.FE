@@ -18,6 +18,9 @@ export const theme = {
       subLight: colors.subLight,
       subDark: colors.subDark,
     },
+    width: {
+      'card-pc': '288px',
+    },
     height: {
       'hero': '91vh',
     },

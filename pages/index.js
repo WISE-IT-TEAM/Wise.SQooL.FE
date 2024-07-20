@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useDarkMode } from '../context/DarkModeContext';
+import TeamMember from '../components/TeamMember';
+import teamMembers from '../data/teamMembers';
 import styles from '../styles/index.module.css';
 
 const Index = () => {
   const { isDarkMode } = useDarkMode();
-  const hero = `h-hero flex flex-col justify-center items-center relative`
+  const hero = `h-screen flex flex-col justify-center items-center relative`
   const heroContent = `flex flex-col gap-10 justify-center items-center text-center`
   const heroBtn = `w-auto inline-flex px-8 py-4 rounded-lg gap-2 ${isDarkMode ? 'bg-slate-50 text-slate-900 hover:bg-secondaryDark': 'bg-slate-900 text-slate-50 hover:bg-secondaryLight'} duration-300`
   const scrollDownBtn = `w-16 h-16 flex justify-center item-center absolute bottom-10 hover:opacity-60 duration-300`
@@ -68,7 +70,15 @@ const Index = () => {
         <section>
           <h2>팀 와이즈 잇 - WISE IT</h2>
           <article>
-
+            {teamMembers.map((member, index) => (
+              <TeamMember 
+                key={index}
+                avatarDark={member.avatarDark}
+                avatarLight={member.avatarLight}
+                email={member.email}
+                github={member.github}
+              />
+            ))}
           </article>
         </section>
       </div>

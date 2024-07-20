@@ -24,8 +24,8 @@ const NavBar = () => {
     const container = `w-full py-4 text-xl font-bold fixed top-0 left-0 z-50 transition-colors duration-300 
         ${scrolled ? (
             isDarkMode 
-            ? 'bg-slate-900 border-b-2 border-slate-700'
-            : 'bg-slate-50 border-b-2 border-slate-300'
+            ? 'bg-slate-900 border-b-2 border-slate-800 opacity-90'
+            : 'bg-slate-50 border-b-2 border-slate-200 opacity-90'
         ) : 'bg-transparent'}`
     const navWrap = `max-w-default-width mx-auto flex justify-between item-center`
     const navList = `flex justify-center item-center gap-12`

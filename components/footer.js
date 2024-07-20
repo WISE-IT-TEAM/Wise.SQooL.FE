@@ -8,13 +8,13 @@ import { useDarkMode } from '../context/DarkModeContext';
 const Footer = () => {
   const { isDarkMode } = useDarkMode();
 
-  const containerClass = `w-full py-4 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'} text-slate-400`;
+  const container = `w-full py-4 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'} text-slate-400`;
   const footerWrap = `max-w-default-width mx-auto flex justify-between items-center`;
-  const iconListClass = `flex justify-center items-center gap-2`;
-  const listItemClass = `w-8 h-8 p-1 flex justify-center items-center rounded-2xl border-2 ${isDarkMode ? 'border-slate-500' : 'border-slate-300' } hover:opacity-70 ease-in-out duration-150`;
+  const iconList = `flex justify-center items-center gap-2`;
+  const listItem = `w-8 h-8 p-1 flex justify-center items-center rounded-2xl border-2 ${isDarkMode ? 'border-slate-500' : 'border-slate-300' } hover:opacity-70 ease-in-out duration-150`;
 
   return (
-    <footer className={containerClass}>
+    <footer className={container}>
       <div className={footerWrap}>
         <div className='flex items-end gap-4'>
           <Link href="/" legacyBehavior>  
@@ -29,28 +29,28 @@ const Footer = () => {
           <span className='text-xs'>Copyright ©WISE IT All Rights Reserved.</span>
         </div>
         <div>
-            <ul className={iconListClass}>
-                <li className={listItemClass}>
+            <ul className={iconList}>
+                <li className={listItem}>
                   <Link href="/" legacyBehavior>
                     <a>
-                      <Image src="/img/link_wise.svg" alt="wise-logo" width={20} height={20}/>
+                      <Image src="/img/link_wise.svg" alt="WISE IT link" width={20} height={20}/>
                     </a>
                   </Link>
                 </li>
-                <li className={listItemClass}>
+                <li className={listItem}>
                     <a 
                         href='https://github.com'
                         target='_blank'
                         rel='noopener noreferrer'>
-                        <Image src='/img/link_github.svg' alt='wise-logo' width={20} height={20}/>
+                        <Image src='/img/link_github.svg' alt='github link' width={20} height={20}/>
                     </a>
                 </li>
-                <li className={listItemClass}>
+                <li className={listItem}>
                     <a 
                         href='https://discord.com'
                         target='_blank'
                         rel='noopener noreferrer'>
-                        <Image src='/img/link_discord.svg' alt='wise-logo' width={20} height={20}/>
+                        <Image src='/img/link_discord.svg' alt='discord link' width={20} height={20}/>
                     </a>
                 </li>
             </ul>
