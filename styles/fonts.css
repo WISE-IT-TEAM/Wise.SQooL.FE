@@ -1,0 +1,21 @@
+/* styles/fonts.css */
+@font-face {
+  font-family: 'NanumSquareNeo-Variable';
+  src: url('/fonts/NanumSquareNeo-Variable.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PretendardVariable-Regular';
+  src: url('/fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EliceDigitalCodingver.H';
+  src: url('/fonts/EliceDigitalCodingverH.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

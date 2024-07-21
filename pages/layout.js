@@ -3,6 +3,7 @@ import React from 'react';
 import Head from 'next/head'
 import Navbar from '/components/navbar.js';
 import Footer from '/components/footer.js';
+
 // import styles from '../styles/layout.module.css';
 
 const MetaTags = () => (
@@ -24,7 +25,7 @@ const MetaTags = () => (
 const Layout = ({ children }) => {
 
   return (
-    <div>
+    <div className='font-body tracking-wide'>
       <MetaTags />
       <Navbar />
       <main>{children}</main>
