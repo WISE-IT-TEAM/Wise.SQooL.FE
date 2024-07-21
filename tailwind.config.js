@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 import * as colors from './tailwind/colors.js';
+import * as fonts from './tailwind/fonts.js';
 
 export const content = [
   "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -18,19 +19,33 @@ export const theme = {
       subLight: colors.subLight,
       subDark: colors.subDark,
     },
+    fontFamily: {
+      body: fonts.body,
+      code: fonts.code,
+    },
     width: {
       'card-pc': '288px',
     },
-    height: {
-      'hero': '91vh',
-    },
     maxWidth: {
-      'default-width': '1200px',
+      'content-width': '1200px',
     },
     lineHeight: {
       'h1': '72px',
     },
+    borderWidth: {
+      '1': '1px',
+    },
+    keyframes: {
+      fadeIn: {
+        '0%': { opacity: 0, transform: 'translateY(24px)' },
+        '100%': { opacity: 1, transform: 'translateY(0)' },
+      }
+    },
+    animation: {
+      fadeIn: 'fadeIn .6s ease-out',
+    },
   },
   darkMode: 'class', // 다크모드 활성화
 };
+
 export const plugins = [];
