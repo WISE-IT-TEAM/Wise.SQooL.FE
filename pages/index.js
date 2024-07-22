@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import HeroSection from '../components/index/HeroSection';
+import ServiceSection from '../components/index/ServiceSection';
 import TeamSection from '../components/index/TeamSection';
 import styles from '../styles/index.module.css';
 
@@ -39,9 +40,7 @@ const Index = () => {
     <div>
       <HeroSection scrollToContent={scrollToContent} />
       <div id="main-content" className={styles.content}>
-        <section className={styles.section}>
-          <h2 className='text-2xl font-bold'>여기엔 일단 서비스 소개가 들어가야 하고!</h2>
-        </section>
+        <ServiceSection />
         <TeamSection />
       </div>
     </div>
