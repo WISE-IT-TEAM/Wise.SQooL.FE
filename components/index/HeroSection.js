@@ -15,7 +15,7 @@ const HeroSection = ({ scrollToContent }) => {
     return (
     <div className={`${hero} ${isDarkMode ? styles.heroDark : styles.heroLight}`}>
         <section className={heroContent}>
-            <h1 className='text-5xl leading-h1 text-center font-semibold'>한글 데이터로 배우는<br />마음편한 SQLite!</h1>
+            <h1 className='text-5xl leading-h1 text-center font-semibold'>한글 데이터로 배우는<br />마음 편한 SQLite!</h1>
             <Link href="/editor" legacyBehavior>
             <a className={heroBtn}>
                 {isDarkMode ? (
