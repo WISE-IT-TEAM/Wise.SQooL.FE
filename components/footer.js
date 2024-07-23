@@ -29,31 +29,31 @@ const Footer = () => {
           <span className='text-xs'>Copyright ©WISE IT All Rights Reserved.</span>
         </div>
         <div>
-            <ul className={iconList}>
-                <li className={listItem}>
-                  <Link href="/" legacyBehavior>
-                    <a>
-                      <Image src="/img/link_wise.svg" alt="WISE IT link" width={20} height={20}/>
-                    </a>
-                  </Link>
-                </li>
-                <li className={listItem}>
-                    <a 
-                        href='https://github.com'
-                        target='_blank'
-                        rel='noopener noreferrer'>
-                        <Image src='/img/link_github.svg' alt='github link' width={20} height={20}/>
-                    </a>
-                </li>
-                <li className={listItem}>
-                    <a 
-                        href='https://discord.com'
-                        target='_blank'
-                        rel='noopener noreferrer'>
-                        <Image src='/img/link_discord.svg' alt='discord link' width={20} height={20}/>
-                    </a>
-                </li>
-            </ul>
+          <ul className={iconList}>
+            <li className={listItem}>
+              <Link href="/" legacyBehavior>
+                <a>
+                  <Image src="/img/link_wise.svg" alt="WISE IT link" width={20} height={20}/>
+                </a>
+              </Link>
+            </li>
+            <li className={listItem}>
+                <a 
+                  href='https://github.com'
+                  target='_blank'
+                  rel='noopener noreferrer'>
+                  <Image src='/img/link_github.svg' alt='github link' width={20} height={20}/>
+                </a>
+            </li>
+            <li className={listItem}>
+                <a 
+                  href='https://discord.com'
+                  target='_blank'
+                  rel='noopener noreferrer'>
+                  <Image src='/img/link_discord.svg' alt='discord link' width={20} height={20}/>
+                </a>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>

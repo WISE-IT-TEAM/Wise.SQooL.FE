@@ -7,11 +7,13 @@ import { useDarkMode } from '../context/DarkModeContext';
 
 const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  // 스크롤 상태를 관리하기 위한 상태
   const [scrolled, setScrolled] = useState(false);
 
+  // 스크롤 이벤트 핸들러 등록 및 해제
   useEffect(() => {
     const handleScroll = () => {
-        setScrolled(window.scrollY > 68);
+        setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -38,9 +40,9 @@ const NavBar = () => {
         <div>
           <Link href="/">
             {isDarkMode ? (
-                <Image src="/img/logo_dark.svg" alt="Logo" width={137} height={36} />
+              <Image src="/img/logo_dark.svg" alt="Logo" width={137} height={36} />
             ) : (
-                <Image src="/img/logo_light.svg" alt="Logo" width={137} height={36} />
+              <Image src="/img/logo_light.svg" alt="Logo" width={137} height={36} />
             )}
           </Link>
         </div>
@@ -61,9 +63,9 @@ const NavBar = () => {
             <li className={listItem}>
               <button onClick={toggleDarkMode} className={toggleBtn}>
                 {isDarkMode ? (
-                    <Image src="/img/toggle_dark.svg" alt="Dark mode" width={24} height={24} />
+                  <Image src="/img/toggle_dark.svg" alt="Dark mode" width={24} height={24} />
                 ) : (
-                    <Image src="/img/toggle_light.svg" alt="Light mode" width={24} height={24} />
+                  <Image src="/img/toggle_light.svg" alt="Light mode" width={24} height={24} />
                 )}
               </button>
             </li>
