@@ -4,8 +4,8 @@
 import React from 'react'; 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useDarkMode } from '../context/DarkModeContext';
-import { useToast } from '../context/ToastContext';
+import useDarkMode from '../hooks/useDarkMode'; // 커스텀 훅 사용
+import useToast from '../hooks/useToast'; // 커스텀 훅 사용
 import { MemberGithub, MemberEmail } from './IconSet';
 
 const TeamMember = ({ avatarDark, avatarLight, bio, position, nickname, github, email, className }) => {

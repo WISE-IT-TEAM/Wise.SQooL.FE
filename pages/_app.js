@@ -6,13 +6,13 @@ import { DarkModeProvider } from '../context/DarkModeContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ToastProvider>
-      <DarkModeProvider>
+    <DarkModeProvider>
+      <ToastProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </DarkModeProvider>
-    </ToastProvider>
+      </ToastProvider>
+    </DarkModeProvider>
   );
 }
 
