@@ -1,8 +1,7 @@
 // components/index/HeroSection.js
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { useDarkMode } from '../../context/DarkModeContext';
+import useDarkMode from '../../hooks/useDarkMode';
 import { HeroBtn, ScrollDown } from '../IconSet'; // 아이콘 불러오기
 import styles from '../../styles/index.module.css';
 
@@ -11,10 +10,10 @@ const HeroSection = ({ scrollToContent }) => {
 
   // 클래스 네임 정의
   const hero = `h-screen flex flex-col justify-center items-center relative`;
+  const heroIcon = `${isDarkMode ? 'fill-slate-900' : 'fill-slate-50'}`;
   const heroContent = `flex flex-col gap-10 justify-center items-center text-center`;
   const heroBtn = `w-auto inline-flex px-8 py-4 rounded-lg gap-2 ${isDarkMode ? 'bg-slate-50 text-slate-900 hover:bg-secondaryDark': 'bg-slate-900 text-slate-50 hover:bg-secondaryLight'} duration-300`;
   const scrollDownBtn = `w-16 h-16 flex justify-center item-center absolute bottom-10 animate-bounce hover:opacity-80 duration-300`;
-  const heroIcon = `${isDarkMode ? 'fill-slate-900' : 'fill-slate-50'}`;
 
   return (
   <div className={`${hero} ${isDarkMode ? styles.heroDark : styles.heroLight}`}>
@@ -27,7 +26,7 @@ const HeroSection = ({ scrollToContent }) => {
         </a>
       </Link>
       <button className={scrollDownBtn} onClick={scrollToContent}>
-        <ScrollDown width={32} height={67} className={heroIcon} />
+        <ScrollDown width={32} height={67} className='fill-slate-400 stroke-slate-400' />
       </button>
     </section>
   </div>

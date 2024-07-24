@@ -1,49 +1,55 @@
-import React, { useEffect } from 'react';
+// pages/index.js
+import React, { useEffect, useCallback } from 'react';
 import HeroSection from '../components/index/HeroSection';
 import ServiceSection from '../components/index/ServiceSection';
 import TeamSection from '../components/index/TeamSection';
 import styles from '../styles/index.module.css';
 
 const Index = () => {
+  const NAVBAR_HEIGHT = 68; // 네비게이션 바 높이
+
   // 컨텐츠로 스크롤하는 함수
   const scrollToContent = () => {
-    const content = document.getElementById('main-content');
+    const content = document.getElementById('service-section');
     if (content) {
-      content.scrollIntoView({ behavior: 'smooth' });
+      const offsetTop = content.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   };
 
-  // 스크롤 이벤트 핸들러 함수
-  const handleScroll = () => {
-    const navbar = document.querySelector('nav');
-    console.log('scrolling', window.scrollY); // 스크롤 위치 로그 출력
-    if (window.scrollY > 10) {
-      navbar.classList.add('scrolled');
-      console.log('scrolled class added'); // 클래스 추가 시 로그 출력
-    } else {
-      navbar.classList.remove('scrolled');
-      console.log('scrolled class removed'); // 클래스 제거 시 로그 출력
+  // 휠 스크롤 이벤트 핸들러 함수
+  const handleWheel = useCallback((event) => {
+    if (event.deltaY > 0) { // 휠을 아래로 스크롤할 때만
+      scrollToContent();
     }
-  };
-
-  // 스크롤 이벤트 핸들러 설정
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    console.log('Event listener added'); // 이벤트 리스너 추가 시 로그 출력
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      console.log('Event listener removed'); // 이벤트 리스너 제거 시 로그 출력
-    };
   }, []);
 
+  // 휠 스크롤 이벤트 핸들러 설정
+  useEffect(() => {
+    const heroSection = document.getElementById('hero-section');
+    if (heroSection) {
+      heroSection.addEventListener('wheel', handleWheel);
+    }
+
+    return () => {
+      if (heroSection) {
+        heroSection.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, [handleWheel]);
+
   return (
-    <div>
-      <HeroSection scrollToContent={scrollToContent} />
-      <div id="main-content" className={styles.content}>
+    <>
+      <div id="hero-section" className={styles.hero}>
+        <HeroSection scrollToContent={scrollToContent} />
+      </div>
+      <div id="service-section" className={styles.content}>
         <ServiceSection />
+      </div>
+      <div id="team-section">
         <TeamSection />
       </div>
-    </div>
+    </>
   );
 };
 

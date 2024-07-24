@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import './fonts.css';
 
 :root {
@@ -16,4 +17,5 @@
 body {
   color: rgb(var(--foreground-rgb));
   background-color: rgb(var(--background-rgb));
+  font-family: 'NanumSquareNeo-Variable', sans-serif;
 }

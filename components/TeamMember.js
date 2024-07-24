@@ -8,7 +8,7 @@ import useDarkMode from '../hooks/useDarkMode'; // 커스텀 훅 사용
 import useToast from '../hooks/useToast'; // 커스텀 훅 사용
 import { MemberGithub, MemberEmail } from './IconSet';
 
-const TeamMember = ({ avatarDark, avatarLight, bio, position, nickname, github, email, className }) => {
+const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, email, className }) => {
   const { isDarkMode } = useDarkMode();
   // Toast 메시지 표시 함수
   const showToast = useToast();
@@ -25,12 +25,20 @@ const TeamMember = ({ avatarDark, avatarLight, bio, position, nickname, github, 
   const memberCard = `w-card-pc flex flex-col gap-3 px-6 py-10 justify-center items-center border-1 rounded-2xl`;
   const iconWrap = `flex gap-2`;
   const memberIcon = `${isDarkMode ? 'fill-slate-400 hover:fill-subDark' : 'fill-slate-400 hover:fill-subLight'} duration-300`;
-  
+  const roleBadge = `text-xs px-2 py-1 rounded font-semibold ${isDarkMode ? 'bg-primaryDark text-slate-900' : 'bg-primaryLight text-slate-50'}`
+
   return (
     <div className={memberCard}>
-      <Image src={isDarkMode ? avatarDark : avatarLight} alt={`${nickname} 아바타`} width={160} height={160} />
+      <div style={{ position: 'relative', width: '160px', height: '160px' }}>
+        <Image 
+          src={isDarkMode ? avatarDark : avatarLight} 
+          alt={`${nickname} 아바타`} 
+          fill 
+          style={{ objectFit: 'contain' }} 
+        />
+      </div>
       <h3 className="text-xl font-bold">{nickname}</h3>
-      <span>{position}</span>
+      <span className={roleBadge}>{role}</span>
       <p className='text-center'>{bio}</p>
       <div className={iconWrap}>
         <Link href={github} legacyBehavior>

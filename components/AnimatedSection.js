@@ -10,6 +10,9 @@ const AnimatedSection = ({ children }) => {
   // '0px'는 인터섹션 관찰자에 사용할 루트 마진
   const isVisible = useIntersection(ref, '0px');
 
+  // 상태 확인을 위한 콘솔 로그 추가
+  // console.log('isVisible:', isVisible);
+
   return (
     <div
       ref={ref}
