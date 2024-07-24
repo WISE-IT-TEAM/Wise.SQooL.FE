@@ -6,7 +6,7 @@ import AnimatedSection from '../AnimatedSection';
 import Slider from '../sliders/Slider';
 
 const ServiceSection = () => {
-  const section = `max-w-content-width mx-auto flex flex-col justify-center items-center gap-10 my-20`;
+  const section = `max-w-content-width mx-auto flex flex-col justify-center items-center gap-10 pt-20 select-none`;
 
   // 서비스 인트로 데이터를 슬라이드로 변환
   const slides = serviceData.map((service) => (
