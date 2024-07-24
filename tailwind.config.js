@@ -1,5 +1,5 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
-
 import * as colors from './tailwind/colors.js';
 import * as fonts from './tailwind/fonts.js';
 
@@ -8,6 +8,7 @@ export const content = [
   "./components/**/*.{js,ts,jsx,tsx,mdx}",
   "./app/**/*.{js,ts,jsx,tsx,mdx}",
 ];
+
 export const theme = {
   extend: {
     colors: {
@@ -27,7 +28,8 @@ export const theme = {
       'card-pc': '288px',
     },
     maxWidth: {
-      'content-width': '1200px',
+      'content-full': '1200px',
+      'content-half': '592px',
     },
     lineHeight: {
       'h1': '72px',
