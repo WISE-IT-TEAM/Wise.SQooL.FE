@@ -1,64 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { EditorView, basicSetup } from 'codemirror';
 import { sql } from '@codemirror/lang-sql';
-
-const sqoolTheme = EditorView.theme({
-  '&': {
-    color: '#2d3748',
-    backgroundColor: '#edf2f7',
-    fontFamily: 'D2Coding, monospace',
-    fontSize: '16px',
-    lineHeight: '1.5',
-    tabSize: '4',
-    whiteSpace: 'pre',
-    wordWrap: 'normal',
-    overflowWrap: 'normal',
-    hyphens: 'none',
-    minHeight: '200px',
-  },
-  '&.cm-editor': {
-    outline: 'none',
-  },
-  '.cm-content': {
-    padding: '8px',
-  },
-});
+import styles from '../styles/sql_editor.module.css';
 
 const SQLEditor = ({ initialValue }) => {
   const [queryResult, setQueryResult] = useState({ columns: [], rows: [] });
   const editorElement = useRef(null);
   const editorView = useRef(null);
 
-  useEffect(() => {
-    const createDatabase = async () => {
-      try {
-        const response = await fetch('https://1e44-121-131-9-81.ngrok-free.app/api/sqool/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8'
-          },
-          body: JSON.stringify({ dbname: "Artist" }),
-          credentials: 'include'
-        });
-
-        if (!response.ok) {
-          throw new Error('Database creation failed');
-        }
-
-        const data = await response.json();
-        console.log('Database created successfully', data);
-      } catch (error) {
-        console.error('Error creating database:', error);
-      }
-    };
-
-    createDatabase();
-  }, []);
+  const apiQueryUrl = process.env.NEXT_PUBLIC_API_QUERY_URL;
 
   useEffect(() => {
     if (editorElement.current) {
       editorView.current = new EditorView({
-        extensions: [basicSetup, sql(), sqoolTheme],
+        extensions: [
+          basicSetup,
+          sql(),
+          EditorView.theme({
+            '&': styles.sqoolTheme,
+            '&.cm-editor': styles.sqoolThemeEditor,
+            '.cm-content': styles.sqoolThemeContent,
+          }),
+        ],
         parent: editorElement.current,
         doc: initialValue,
       });
@@ -76,7 +39,7 @@ const SQLEditor = ({ initialValue }) => {
     console.log('Executing query:', query);
 
     try {
-      const response = await fetch('https://1e44-121-131-9-81.ngrok-free.app/api/sqool/query', {
+      const response = await fetch(apiQueryUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=UTF-8'

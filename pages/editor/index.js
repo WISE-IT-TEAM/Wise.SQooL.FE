@@ -3,10 +3,12 @@ import styles from './index.module.css';
 import SQLEditor from '../../components/sql_editor';
 
 const Editor = () => {
+  const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
+
   useEffect(() => {
     const createDatabase = async () => {
       try {
-        const response = await fetch('https://1e44-121-131-9-81.ngrok-free.app/api/sqool/', {
+        const response = await fetch(apiInitUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=UTF-8'
