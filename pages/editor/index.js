@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import styles from './index.module.css';
 import SQLEditor from '../../components/sql_editor';
 
 const Editor = () => {
@@ -27,10 +26,10 @@ const Editor = () => {
     };
 
     createDatabase();
-  }, []);
+  }, [apiInitUrl]);
 
   return (
-    <div className={styles.container}>
+    <div className="flex flex-col items-center justify-center h-full w-full p-5">
       <SQLEditor initialValue="SELECT * FROM Artist;" />
     </div>
   );
