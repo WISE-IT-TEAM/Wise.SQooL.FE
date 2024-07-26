@@ -3,7 +3,12 @@ import SQLEditor from '../../components/sql_editor';
 
 const StartPage = () => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
+  const [categories, setCategories] = useState([]);
+  const [content, setContent] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_ARTIST_URL;
+  const apiCategoryUrl = process.env.NEXT_PUBLIC_API_CATEGORY_URL;
+  const apiContentsUrl = process.env.NEXT_PUBLIC_API_CONTENTS_URL;
 
   const toggleEditor = () => {
     setIsEditorOpen(!isEditorOpen);
@@ -33,59 +38,83 @@ const StartPage = () => {
     createDatabase();
   }, [apiInitUrl]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(apiCategoryUrl);
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+
+        const data = await response.json();
+        if (Array.isArray(data.categories)) {
+          setCategories(data.categories);
+
+          // 첫 번째 카테고리의 내용을 가져오기
+          if (data.categories.length > 0) {
+            fetchContent(data.categories[0].Id);
+          }
+        } else {
+          setCategories([]);
+        }
+        setIsLoading(false); // 로딩 상태 변경
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setCategories([]); // 에러가 발생하면 빈 배열로 설정
+        setIsLoading(false); // 로딩 상태 변경
+      }
+    };
+
+    fetchCategories();
+  }, [apiCategoryUrl]);
+
+  const fetchContent = async (id) => {
+    try {
+      const response = await fetch(`${apiContentsUrl}${id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch content');
+      }
+
+      const data = await response.json();
+      setContent(data.status);
+    } catch (error) {
+      console.error('Error fetching content:', error);
+      setContent('');
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시할 내용
+  }
+
   return (
     <div className="flex flex-col h-screen">
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-1/6 p-4 bg-gray-100 overflow-auto">
-          <h2 className="text-xl font-bold mb-4">시작하기</h2>
           <ul>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">사전 체크 포인트</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">환경 설정</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">편의 모드 설정</a>
-            </li>
-            <h2 className="text-xl font-bold mb-4 mt-4">SQL 학습안내</h2>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">SQL이란?</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">테이블과 스키마</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">데이터 출력</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">조건에 맞는 데이터 가져오기</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">테이블 합치기</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">함수</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">그룹 만들기</a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="text-gray-700">테이블 관리하기</a>
-            </li>
+            {categories.map((category) => (
+              <li key={category.Id} className="mb-2">
+                {category.Title === "시작하기" || category.Title === "학습문서" ? (
+                  <span className="text-gray-700 font-bold">{category.Title}</span>
+                ) : (
+                  <button
+                    onClick={() => fetchContent(category.Id)}
+                    className="text-gray-700 hover:underline"
+                  >
+                    {category.Title}
+                  </button>
+                )}
+              </li>
+            ))}
           </ul>
         </aside>
         <div className={`flex-1 flex ${isEditorOpen ? 'flex-row' : 'flex-col'}`}>
           <main className={`p-4 overflow-auto ${isEditorOpen ? 'w-1/2' : 'w-full'}`}>
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold">시작하기</h2>
-              <h3 className="text-xl font-semibold mt-4">사전 체크 포인트</h3>
-              <p className="mt-2 text-gray-700">제1항의 탄핵소추는 국회의 재적의원 3분의 1 이상의 발의가 있어야 하며, 그 의결은 국회재적의원 과반수의 찬성이 있어야 한다. 단, 대통령에 대한 탄핵소추는 국회재적의원 3분의 2 이상의 찬성이 있어야 한다. 제2항 모든 국민은 법앞에 평등하다. 누구든지 성별·종교 또는 사회적 신분에 의하여 정치적·경제적·사회적 또는 문화적 생활의 모든 영역에 있어서 차별을 받지 아니한다.</p>
-              <h3 className="text-xl font-semibold mt-4">환경 설정</h3>
-              <p className="mt-2 text-gray-700">현재재판소 재판관은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는 파면되지 아니한다.</p>
-              <h3 className="text-xl font-semibold mt-4">편의 모드 설정</h3>
-              <p className="mt-2 text-gray-700">이 헌법시행 당시의 법령과 조약은 이 헌법에 위배되지 아니하는 한 그 효력을 지속한다.</p>
-            </div>
+            {content && (
+              <div className="mb-8">
+                <div className="mt-4">{content}</div>
+              </div>
+            )}
           </main>
           {isEditorOpen && (
             <div className="w-1/2 border-l border-gray-300 p-4">
@@ -95,7 +124,7 @@ const StartPage = () => {
         </div>
         <button
           onClick={toggleEditor}
-          className="fixed bottom-4 right-4 bg-purple-500 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110"
+          className="fixed bottom-20 right-4 bg-purple-500 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110"
         >
           {isEditorOpen ? '편집기 닫기' : '편집기 열기'}
         </button>
