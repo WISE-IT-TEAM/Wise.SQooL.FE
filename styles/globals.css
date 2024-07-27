@@ -7,15 +7,25 @@
 :root {
   --foreground-rgb: 15, 23, 42;
   --background-rgb: 255, 255, 255;
+  --drag-background-color: #cccccc;
+  --drag-text-color: #000000;
+  
 }
 
 .dark {
   --foreground-rgb: 248, 250, 252;
   --background-rgb: 17, 21, 25;
+  --drag-background-color: #444444;
+  --drag-text-color: #ffffff;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background-color: rgb(var(--background-rgb));
   font-family: 'NanumSquareNeo-Variable', sans-serif;
+}
+
+.dragging {
+  background-color: var(--drag-background-color) !important;
+  color: var(--drag-text-color) !important;
 }
