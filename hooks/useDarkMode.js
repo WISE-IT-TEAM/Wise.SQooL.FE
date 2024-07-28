@@ -1,13 +1,18 @@
-// src/hooks/useDarkMode.js
+// hooks/useDarkMode.js
 
-import { useContext } from 'react';
-import { DarkModeContext } from '../context/DarkModeContext';
+import useStore from '../store/useStore';
 
 /**
  * useDarkMode 훅
- * DarkModeContext를 사용하여 다크 모드 상태와 토글 함수를 반환
+ * Zustand 스토어를 사용하여 다크 모드 상태와 토글 함수를 반환
  * @returns {object} - isDarkMode (boolean)와 toggleDarkMode (function)를 포함하는 객체
  */
-const useDarkMode = () => useContext(DarkModeContext);
+const useDarkMode = () => {
+  const { isDarkMode, toggleDarkMode } = useStore((state) => ({
+    isDarkMode: state.isDarkMode,
+    toggleDarkMode: state.toggleDarkMode,
+  }));
+  return { isDarkMode, toggleDarkMode };
+};
 
 export default useDarkMode;

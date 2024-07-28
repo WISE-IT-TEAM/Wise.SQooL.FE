@@ -1,30 +1,33 @@
-import React from 'react';
+// components/Toast.js
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import useStore from '../store/useStore';
 
-const Toast = ({ message = '', visible = false, type = 'info' }) => {
+const Toast = () => {
+  const { toastMessage, toastType, hideToast } = useStore((state) => ({
+    toastMessage: state.toastMessage,
+    toastType: state.toastType,
+    hideToast: state.hideToast,
+  }));
+
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        hideToast();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage, hideToast]);
+
+  if (!toastMessage) return null;
+
   const baseClass = 'fixed top-32 left-1/2 transform -translate-x-1/2 py-4 px-8 rounded transition-opacity duration-300';
-  const visibleClass = visible ? 'block' : 'hidden';
-
-  let typeClass;
-  switch (type) {
-    case 'success':
-      typeClass = 'bg-green-500 bg-opacity-85 text-slate-50';
-      break;
-    case 'error':
-      typeClass = 'bg-red-500 bg-opacity-85 text-slate-50';
-      break;
-    case 'info':
-      typeClass = 'bg-blue-500 bg-opacity-85 text-slate-50';
-      break;
-    default:
-      typeClass = 'bg-gray-500 bg-opacity-85 text-slate-50';
-  }
-
-  const toastClass = `${baseClass} ${visibleClass} ${typeClass}`;
+  const typeClass = toastType === 'success' ? 'bg-green-500 bg-opacity-85 text-slate-50' : 'bg-red-500 bg-opacity-85 text-slate-50';
+  const toastClass = `${baseClass} ${typeClass}`;
 
   return (
     <div className={toastClass}>
-      {message}
+      {toastMessage}
     </div>
   );
 };
