@@ -119,3 +119,12 @@ export const SlidePause = ({ title, width, height, ...props }) => (
     <path d="M16 15.0298V8.9698C16 8.4898 15.8 8.2998 15.29 8.2998H14C13.49 8.2998 13.29 8.4898 13.29 8.9698V15.0298C13.29 15.5098 13.49 15.6998 14 15.6998H15.29C15.8 15.6998 16 15.5098 16 15.0298Z" fill=""/>
   </Icon>
 );
+
+// ResizeRow 아이콘
+export const ResizeRow = ({ title, width, height, ...props }) => (
+  <Icon title={title} width={width} height={height} {...props}>
+    <rect x="4" y="4" width="40" height="2" fill=""/>
+    <rect x="4" y="10" width="40" height="2" fill=""/>
+    <rect x="4" y="16" width="40" height="2" fill=""/>
+  </Icon>
+);
