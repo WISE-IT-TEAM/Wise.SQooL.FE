@@ -8,7 +8,6 @@ export const createSqoolTheme = (isDarkMode) => EditorView.theme({
     tabSize: '4',
     whiteSpace: 'pre',
     hyphens: 'none',
-    minHeight: '400px',
   },
   '&.cm-editor': {
     outline: 'none',
@@ -41,7 +40,6 @@ export const createSqoolTheme = (isDarkMode) => EditorView.theme({
   },
   '.cm-scroller': {
     overflowY: 'auto',
-    maxHeight: '400px',
   },
   '.cm-cursor': {
     borderLeftColor: `${isDarkMode ? '#f8fafc' : '#0f172a'}`,

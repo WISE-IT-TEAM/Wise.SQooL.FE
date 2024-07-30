@@ -7,7 +7,7 @@ const ResultSection = ({ queryResult, minHeight }) => {
 
   const queryWrap = `w-full flex flex-col rounded-lg border-1 flex-grow ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const queryHead = `w-full p-4 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-slate-800 text-slate-50" : "bg-slate-200 text-slate-600"}`;
-  const resultField = `w-full p-4 min-h-40`;
+  const resultField = `w-full h-full p-4 flex-grow overflow-auto`;
 
   const renderTable = (data) => {
     const { columns, rows } = data;
