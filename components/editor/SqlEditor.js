@@ -1,5 +1,5 @@
 // component/editor/SqlEditor.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import QuerySection from './QuerySection';
 import ResultSection from './ResultSection';
 import { createDatabase, executeQuery as executeQueryApi } from './Api';
@@ -10,6 +10,7 @@ const SQLEditor = ({ initialValue, page }) => {
   const [queryResult, setQueryResult] = useState({ columns: [], rows: [] });
   const [editorHeight, setEditorHeight] = useState(300); // 초기 에디터 높이 설정
   const [containerHeight, setContainerHeight] = useState(0); // 초기값을 0으로 설정
+  const editorViewRef = useRef(null); // editorView를 참조하는 ref 추가
   const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const SQLEditor = ({ initialValue, page }) => {
   }, []);
 
   const executeQuery = () => {
-    const editorView = editorElement.current?.editorView;
+    const editorView = editorViewRef.current;
     if (editorView) {
       const query = editorView.state.doc.toString();
       executeQueryApi(query, setQueryResult);
@@ -41,10 +42,11 @@ const SQLEditor = ({ initialValue, page }) => {
     }
   };
 
-  const container = `w-full max-w-${page === 'editor' ? '1200px' : '5xl'} flex flex-col gap-4 mt-20 mx-auto h-full`;
-  const handler = `flex py-1 justify-center cursor-row-resize bg-transparent border-1 rounded-lg ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
+  const container = `w-full max-w-${page === 'editor' ? '1200px' : '5xl'} flex flex-col mt-20 mx-auto h-full`;
+  const handler = `flex py-3 justify-center cursor-row-resize bg-transparent`;
 
-  const minEditorHeight = 240; // 최소 에디터 높이 설정
+  const minEditorHeight = 320; // 최소 에디터 높이 설정
+  const minResultHeight = 240; // 최소 에디터 높이 설정
 
   return (
     <section className={container} style={{ height: containerHeight }}>
@@ -53,19 +55,24 @@ const SQLEditor = ({ initialValue, page }) => {
         editorHeight={editorHeight}
         executeQuery={executeQuery}
         minHeight={minEditorHeight} // 최소 높이 설정
+        setEditorView={(view) => editorViewRef.current = view} // editorView 설정
       />
       <div
         className={handler}
         onMouseDown={(e) => {
           const startY = e.clientY;
           const startHeight = editorHeight;
+          let animationFrameId;
+          
           const onMouseMove = (e) => {
             const newHeight = Math.max(startHeight + (e.clientY - startY), minEditorHeight);
+            cancelAnimationFrame(animationFrameId);
             setEditorHeight(newHeight);
           };
           const onMouseUp = () => {
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mouseup', onMouseUp);
+            cancelAnimationFrame(animationFrameId);
           };
           window.addEventListener('mousemove', onMouseMove);
           window.addEventListener('mouseup', onMouseUp);
@@ -78,7 +85,7 @@ const SQLEditor = ({ initialValue, page }) => {
         queryResult={queryResult}
         containerHeight={containerHeight}
         editorHeight={editorHeight}
-        minHeight={minEditorHeight} // 최소 높이 설정
+        minHeight={minResultHeight} // 최소 높이 설정
       />
     </section>
   );

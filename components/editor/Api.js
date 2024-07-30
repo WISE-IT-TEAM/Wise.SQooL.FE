@@ -1,7 +1,7 @@
 // component/editor/Api.js
 export const createDatabase = async () => {
   try {
-    const response = await fetch('https://1e44-121-131-9-81.ngrok-free.app/api/sqool/', {
+    const response = await fetch('https://be.wiseit.kr/api/sqool/init', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -25,7 +25,7 @@ export const executeQuery = async (query, setQueryResult) => {
   console.log('Executing query:', query);
 
   try {
-    const response = await fetch('https://1e44-121-131-9-81.ngrok-free.app/api/sqool/query', {
+    const response = await fetch('https://be.wiseit.kr/api/sqool/query', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',

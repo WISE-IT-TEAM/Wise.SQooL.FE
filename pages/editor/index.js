@@ -7,7 +7,7 @@ const Editor = () => {
   useEffect(() => {
     const createDatabase = async () => {
       try {
-        const response = await fetch(apiInitUrl, {
+        const response = await fetch(`https://be.wiseit.kr/api/sqool/query`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=UTF-8'
