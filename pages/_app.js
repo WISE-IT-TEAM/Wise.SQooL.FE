@@ -1,18 +1,20 @@
 // pages/_app.js
-import Layout from './layout';
 import '../styles/globals.css';
-import { ToastProvider } from '../context/ToastContext';
-import { DarkModeProvider } from '../context/DarkModeContext';
+import React from 'react';
+import Layout from './layout';
+import Toast from '../components/Toast';
+import useSystemDarkMode from '../hooks/useSystemDarkMode';
 
 function MyApp({ Component, pageProps }) {
+  useSystemDarkMode();
+
   return (
-    <DarkModeProvider>
-      <ToastProvider>
+    <>
         <Layout>
           <Component {...pageProps} />
+          <Toast />
         </Layout>
-      </ToastProvider>
-    </DarkModeProvider>
+    </>
   );
 }
 

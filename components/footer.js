@@ -9,7 +9,7 @@ import { LinkWISE, LinkGithub, LinkDiscord } from './IconSet'; // 아이콘 불�
 const Footer = () => {
   const { isDarkMode } = useDarkMode();
 
-  const container = `w-full py-4 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'} text-slate-400`;
+  const container = `w-full py-4 ${isDarkMode ? 'bg-slate-900' : 'bg-slate-200'} text-slate-400 absolute`;
   const footerWrap = `max-w-content-full mx-auto flex justify-between items-center`;
   const iconList = `flex justify-center items-center gap-2`;
   const linkIcon = `w-8 h-8 p-1 flex justify-center items-center rounded-2xl border-2 ${isDarkMode ? 'border-slate-500' : 'border-slate-300' } hover:opacity-70 ease-in-out duration-150`

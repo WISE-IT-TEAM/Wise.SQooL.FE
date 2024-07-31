@@ -3,10 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
-import useDarkMode from '../hooks/useDarkMode';
+import useStore from '../store/useStore';
+import DarkModeToggle from './DarkModeToggle';
 
 const NavBar = () => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore((state) => ({
+    isDarkMode: state.isDarkMode,
+  }));
   // 스크롤 상태를 관리하기 위한 상태
   const [scrolled, setScrolled] = useState(false);
 
@@ -32,7 +35,7 @@ const NavBar = () => {
   const navWrap = `max-w-content-full mx-auto flex justify-between items-center`;
   const navList = `flex justify-center items-center gap-12`;
   const listItem = `${isDarkMode ? 'text-slate-50 hover:text-primaryDark' : 'text-slate-900 hover:text-primaryLight'} duration-300`;
-  const toggleBtn = `p-1 rounded-lg hover:animate-pulse duration-300 ${isDarkMode ? 'bg-secondaryDark' : 'bg-secondaryLight'}`;
+
 
   return (
     <nav className={container}>
@@ -40,9 +43,9 @@ const NavBar = () => {
         <div>
           <Link href="/">
             {isDarkMode ? (
-              <Image src="/img/logo_dark.svg" alt="Logo" width={137} height={36} priority />
+              <Image src="/img/logo_dark.svg" alt="다크모드 상태입니다" width={137} height={36} priority />
             ) : (
-              <Image src="/img/logo_light.svg" alt="Logo" width={137} height={36} priority />
+              <Image src="/img/logo_light.svg" alt="라이트모드 상태입니다" width={137} height={36} priority />
             )}
           </Link>
         </div>
@@ -61,13 +64,7 @@ const NavBar = () => {
               <Link href="/article">아티클</Link>
             </li>
             <li className={listItem}>
-              <button onClick={toggleDarkMode} className={toggleBtn}>
-                {isDarkMode ? (
-                  <Image src="/img/toggle_dark.svg" alt="Dark mode" width={24} height={24} />
-                ) : (
-                  <Image src="/img/toggle_light.svg" alt="Light mode" width={24} height={24} />
-                )}
-              </button>
+              <DarkModeToggle />
             </li>
           </ul>
         </div>

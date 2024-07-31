@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import useDarkMode from '../../hooks/useDarkMode';
-import { HeroBtn, ScrollDown } from '../IconSet'; // 아이콘 불러오기
+import { HeroBtn, ScrollDown } from '../IconSet';
 import styles from '../../styles/index.module.css';
 
 const HeroSection = ({ scrollToContent }) => {

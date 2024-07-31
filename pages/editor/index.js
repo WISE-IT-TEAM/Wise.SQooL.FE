@@ -3,6 +3,8 @@ import styles from './index.module.css';
 import SQLEditor from '../../components/sql_editor';
 
 const Editor = () => {
+  const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
+
   useEffect(() => {
     const createDatabase = async () => {
       try {
@@ -25,7 +27,7 @@ const Editor = () => {
     };
 
     createDatabase();
-  }, []);
+  }, [apiInitUrl]);
 
   return (
     <div className={styles.container}>
