@@ -1,15 +1,20 @@
 // pages/_app.js
-import Layout from './layout';
 import '../styles/globals.css';
-import { DarkModeProvider } from '../context/DarkModeContext';
+import React from 'react';
+import Layout from './layout';
+import Toast from '../components/Toast';
+import useSystemDarkMode from '../hooks/useSystemDarkMode';
 
 function MyApp({ Component, pageProps }) {
+  useSystemDarkMode();
+
   return (
-    <DarkModeProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </DarkModeProvider>
+    <>
+        <Layout>
+          <Component {...pageProps} />
+          <Toast />
+        </Layout>
+    </>
   );
 }
 

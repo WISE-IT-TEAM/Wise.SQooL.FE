@@ -1,12 +1,13 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* h1 {
-    font-size: 2rem;
-    color: #333;
-  } */
+.hero {
+  transition: background-image .5s ease;
+}
+
+.heroLight {
+  background-image: url('/img/hero_bg_light.png');
+  background-size: cover;
+}
+
+.heroDark {
+  background-image: url('/img/hero_bg_dark.png');
+  background-size: cover;
+}

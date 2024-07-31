@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import styles from './index.module.css';
 import SQLEditor from '../../components/sql_editor';
 
 const Editor = () => {
@@ -7,7 +8,7 @@ const Editor = () => {
   useEffect(() => {
     const createDatabase = async () => {
       try {
-        const response = await fetch(apiInitUrl, {
+        const response = await fetch('https://1e44-121-131-9-81.ngrok-free.app/api/sqool/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=UTF-8'
@@ -29,7 +30,7 @@ const Editor = () => {
   }, [apiInitUrl]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full p-5">
+    <div className={styles.container}>
       <SQLEditor initialValue="SELECT * FROM Artist;" />
     </div>
   );
