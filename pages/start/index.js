@@ -20,18 +20,18 @@ const StartPage = () => {
         const response = await fetch(apiInitUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json; charset=UTF-8'
+            'Content-Type': 'application/json; charset=UTF-8',
           },
-          body: JSON.stringify({ dbname: "Artist" })
+          body: JSON.stringify({ dbname: 'Artist' }),
         });
 
         if (!response.ok) {
-          throw new Error('Database creation failed');
+          throw new Error('데이터베이스 생성 실패');
         }
 
-        console.log('Database created successfully');
+        console.log('데이터베이스가 성공적으로 생성되었습니다.');
       } catch (error) {
-        console.error('Error creating database:', error);
+        console.error('데이터베이스 생성 중 오류 발생:', error);
       }
     };
 
@@ -43,48 +43,51 @@ const StartPage = () => {
       try {
         const response = await fetch(apiCategoryUrl);
         if (!response.ok) {
-          throw new Error('Failed to fetch categories');
+          throw new Error('카테고리 가져오기 실패');
         }
 
         const data = await response.json();
+        console.log('카테고리 데이터:', data);
         if (Array.isArray(data.categories)) {
           setCategories(data.categories);
 
-          // 첫 번째 카테고리의 내용을 가져오기
           if (data.categories.length > 0) {
             fetchContent(data.categories[0].Id);
           }
         } else {
           setCategories([]);
         }
-        setIsLoading(false); // 로딩 상태 변경
+        setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching categories:', error);
-        setCategories([]); // 에러가 발생하면 빈 배열로 설정
-        setIsLoading(false); // 로딩 상태 변경
+        console.error('카테고리 가져오는 중 오류 발생:', error);
+        setCategories([]);
+        setIsLoading(false);
       }
     };
 
     fetchCategories();
   }, [apiCategoryUrl]);
 
-  const fetchContent = async (id) => {
+  const fetchContent = async (documentId) => {
     try {
-      const response = await fetch(`${apiContentsUrl}${id}`);
+      const url = `${apiContentsUrl}${documentId}`;
+      console.log('콘텐츠 요청 URL:', url);
+      const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Failed to fetch content');
+        throw new Error('콘텐츠 가져오기 실패');
       }
 
       const data = await response.json();
-      setContent(data.status);
+      console.log('콘텐츠 데이터:', data);
+      setContent(data.content); // 'data.content'에 상세 콘텐츠가 포함되어 있다고 가정합니다.
     } catch (error) {
-      console.error('Error fetching content:', error);
-      setContent('');
+      console.error('콘텐츠 가져오는 중 오류 발생:', error);
+      setContent('콘텐츠를 불러오는 데 실패했습니다.');
     }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // 로딩 중일 때 표시할 내용
+    return <div>로딩 중...</div>;
   }
 
   return (
@@ -94,16 +97,12 @@ const StartPage = () => {
           <ul>
             {categories.map((category) => (
               <li key={category.Id} className="mb-2">
-                {category.Title === "시작하기" || category.Title === "학습문서" ? (
-                  <span className="text-gray-700 font-bold">{category.Title}</span>
-                ) : (
-                  <button
-                    onClick={() => fetchContent(category.Id)}
-                    className="text-gray-700 hover:underline"
-                  >
-                    {category.Title}
-                  </button>
-                )}
+                <button
+                  onClick={() => fetchContent(category.Id)}
+                  className="text-gray-700 hover:underline"
+                >
+                  {category.Title}
+                </button>
               </li>
             ))}
           </ul>
