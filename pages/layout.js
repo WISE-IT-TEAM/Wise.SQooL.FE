@@ -13,7 +13,7 @@ const MetaTags = () => (
     <meta property="og:title" content="WISE SQooL" />
     <meta property="og:description" content="한글 데이터로 배우는 마음 편한 SQLite!" />
     <meta property="og:image" content="/img/wise-meta-img.jpg" />
-    <meta property="og:url" content="https://wiseit.kr" />
+    <meta property="og:url" content="https://sqool.wiseit.kr" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="WISE SQooL" />
     <meta name="twitter:description" content="한글 데이터로 배우는 마음 편한 SQLite!" />

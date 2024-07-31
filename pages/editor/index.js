@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from './index.module.css';
-import SQLEditor from '../../components/sql_editor';
+import SQLEditor from '../../components/editor/SqlEditor';
 
 const Editor = () => {
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
@@ -8,7 +7,7 @@ const Editor = () => {
   useEffect(() => {
     const createDatabase = async () => {
       try {
-        const response = await fetch('https://1e44-121-131-9-81.ngrok-free.app/api/sqool/', {
+        const response = await fetch(`https://be.wiseit.kr/api/sqool/query`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=UTF-8'
@@ -30,7 +29,7 @@ const Editor = () => {
   }, [apiInitUrl]);
 
   return (
-    <div className={styles.container}>
+    <div className="max-w-content-full mb-10 flex mx-auto relative">
       <SQLEditor initialValue="SELECT * FROM Artist;" />
     </div>
   );

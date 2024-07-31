@@ -1,5 +1,4 @@
 // components/NavBar.js
-
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
@@ -7,9 +6,7 @@ import useStore from '../store/useStore';
 import DarkModeToggle from './DarkModeToggle';
 
 const NavBar = () => {
-  const { isDarkMode } = useStore((state) => ({
-    isDarkMode: state.isDarkMode,
-  }));
+  const isDarkMode = useStore((state) => state.isDarkMode);
   // 스크롤 상태를 관리하기 위한 상태
   const [scrolled, setScrolled] = useState(false);
 
@@ -22,7 +19,7 @@ const NavBar = () => {
     window.addEventListener('scroll', handleScroll);
     
     return () => {
-        window.removeEventListener('scroll', handleScroll)
+        window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -35,7 +32,6 @@ const NavBar = () => {
   const navWrap = `max-w-content-full mx-auto flex justify-between items-center`;
   const navList = `flex justify-center items-center gap-12`;
   const listItem = `${isDarkMode ? 'text-slate-50 hover:text-primaryDark' : 'text-slate-900 hover:text-primaryLight'} duration-300`;
-
 
   return (
     <nav className={container}>
