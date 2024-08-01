@@ -6,7 +6,7 @@ const StartPage = () => {
   const [categories, setCategories] = useState([]);
   const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_ARTIST_URL;
+  const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
   const apiCategoryUrl = process.env.NEXT_PUBLIC_API_CATEGORY_URL;
   const apiContentsUrl = process.env.NEXT_PUBLIC_API_CONTENTS_URL;
 
@@ -26,12 +26,12 @@ const StartPage = () => {
         });
 
         if (!response.ok) {
-          throw new Error('데이터베이스 생성 실패');
+          throw new Error('Database creation failed');
         }
 
-        console.log('데이터베이스가 성공적으로 생성되었습니다.');
+        console.log('Database created successfully');
       } catch (error) {
-        console.error('데이터베이스 생성 중 오류 발생:', error);
+        console.error('Error creating database:', error);
       }
     };
 
@@ -107,8 +107,8 @@ const StartPage = () => {
             ))}
           </ul>
         </aside>
-        <div className={`flex-1 flex ${isEditorOpen ? 'flex-row' : 'flex-col'}`}>
-          <main className={`p-4 overflow-auto ${isEditorOpen ? 'w-1/2' : 'w-full'}`}>
+        <div className={`flex-1 flex ${isEditorOpen ? 'flex-row' : 'flex-col'} overflow-hidden`}>
+          <main className={`flex-1 p-4 overflow-auto ${isEditorOpen ? 'w-1/2' : 'w-full'}`}>
             {content && (
               <div className="mb-8">
                 <div className="mt-4">{content}</div>
@@ -116,18 +116,18 @@ const StartPage = () => {
             )}
           </main>
           {isEditorOpen && (
-            <div className="w-1/2 border-l border-gray-300 p-4">
+            <div className="w-1/2 border-l border-gray-300 p-4 overflow-auto">
               <SQLEditor initialValue="SELECT * FROM Artist;" />
             </div>
           )}
         </div>
-        <button
-          onClick={toggleEditor}
-          className="fixed bottom-20 right-4 bg-purple-500 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110"
-        >
-          {isEditorOpen ? '편집기 닫기' : '편집기 열기'}
-        </button>
       </div>
+      <button
+        onClick={toggleEditor}
+        className="fixed bottom-20 right-4 bg-purple-500 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110"
+      >
+        {isEditorOpen ? '편집기 닫기' : '편집기 열기'}
+      </button>
     </div>
   );
 };
