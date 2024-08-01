@@ -1,7 +1,10 @@
 // component/editor/Api.js
+const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
+const apiQueryyUrl = process.env.NEXT_PUBLIC_API_QUERY_URL;
+
 export const createDatabase = async () => {
   try {
-    const response = await fetch('https://be.wiseit.kr/api/sqool/init', {
+    const response = await fetch(apiInitUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -25,7 +28,7 @@ export const executeQuery = async (query, setQueryResult) => {
   console.log('Executing query:', query);
 
   try {
-    const response = await fetch('https://be.wiseit.kr/api/sqool/query', {
+    const response = await fetch(apiQueryyUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
