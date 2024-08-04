@@ -6,7 +6,7 @@ import TeamSection from '../components/index/TeamSection';
 import styles from '../styles/index.module.css';
 
 const Index = () => {
-  const NAVBAR_HEIGHT = 68; // 네비게이션 바 높이
+  const NAVBAR_HEIGHT = 59; // 네비게이션 바 높이
 
   // 컨텐츠로 스크롤하는 함수
   const scrollToContent = () => {

@@ -1,7 +1,8 @@
 // components/DarkModeToggle.js
 import React from 'react';
-import Image from "next/image";
 import useStore from '../store/useStore';
+import { DarkToggle, LightToggle } from './IconSet'; // 아이콘 불러오기
+
 
 const DarkModeToggle = () => {
   const { isDarkMode, toggleDarkMode } = useStore((state) => ({
@@ -14,9 +15,9 @@ const DarkModeToggle = () => {
   return (
   <button onClick={toggleDarkMode} className={toggleBtn}>
       {isDarkMode ? (
-      <Image src="/img/toggle_dark.svg" alt="Dark mode" width={24} height={24} />
+        <DarkToggle width={24} height={24} title="Dark Mode" />
       ) : (
-      <Image src="/img/toggle_light.svg" alt="Light mode" width={24} height={24} />
+        <LightToggle width={24} height={24} title="Light Mode" />
       )}
   </button>
   );

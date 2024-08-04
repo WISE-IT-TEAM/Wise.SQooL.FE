@@ -1,15 +1,14 @@
 // components/index/ServiceSection.js
 import React from 'react';
 import ServiceIntro from '../ServiceIntro';
-import serviceData from '../../data/serviceData'; // 서비스 소개 데이터
+import ServiceData from '../../data/ServiceData';
 import AnimatedSection from '../AnimatedSection';
 import Slider from '../sliders/Slider';
 
 const ServiceSection = () => {
   const section = `max-w-content-width mx-auto flex flex-col justify-center items-center gap-10 pt-20 select-none`;
 
-  // 서비스 인트로 데이터를 슬라이드로 변환
-  const slides = serviceData.map((service) => (
+  const slides = ServiceData.map((service) => (
     <ServiceIntro
       key={service.id}
       icon={service.icon}
@@ -17,6 +16,7 @@ const ServiceSection = () => {
       title={service.title}
       content={service.content}
       linktext={service.linkText}
+      linkUrl={service.linkUrl}
     />
   ));
 

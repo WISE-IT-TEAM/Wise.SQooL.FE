@@ -3,8 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useDarkMode from '../hooks/useDarkMode';
-import { LinkWISE, LinkGithub, LinkDiscord } from './IconSet'; // 아이콘 불러오기
-// import styles from '../styles/footer.module.css';
+import { DarkLogo, LightLogo, LinkWISE, LinkGithub, LinkDiscord } from './IconSet'; // 아이콘 불러오기
 
 const Footer = () => {
   const { isDarkMode } = useDarkMode();
@@ -21,9 +20,9 @@ const Footer = () => {
           <Link href="/" legacyBehavior>  
             <a>
               {isDarkMode ? (
-                <Image src='/img/ci_logo_mono_dark.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
+                <Image src='/Img/ci_logo_mono_dark.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
               ) : (
-                <Image src='/img/ci_logo_mono_light.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
+                <Image src='/Img/ci_logo_mono_light.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
               )}
             </a>
           </Link>

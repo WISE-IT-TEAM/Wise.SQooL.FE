@@ -1,6 +1,6 @@
 // component/AnimatedSection.js
 import React, { useRef } from 'react';
-import useIntersection from '/hooks/useIntersection';
+import useIntersection from '../hooks/useInterSection';
 
 const AnimatedSection = ({ children }) => {
   // DOM 요소에 접근하기 위해 ref 생성

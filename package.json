@@ -2,6 +2,7 @@
   "name": "sqool",
   "version": "0.1.0",
   "private": true,
+
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,11 +12,11 @@
   "dependencies": {
     "@codemirror/lang-sql": "^6.7.0",
     "codemirror": "^6.0.1",
-    "next": "14.2.5",
-    "react": "^18",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^18",
+    "react-dom": "^18.3.1",
     "react-resizable": "^3.0.5",
     "react-swipeable": "^7.0.1",
     "zustand": "^4.5.4"

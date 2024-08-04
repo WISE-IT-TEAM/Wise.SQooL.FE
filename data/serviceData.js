@@ -1,4 +1,4 @@
-const serviceData = [
+const ServiceData = [
   { 
     id: 1, 
     icon: '', 
@@ -37,4 +37,4 @@ const serviceData = [
   },
 ];
 
-export default serviceData;
+export default ServiceData;

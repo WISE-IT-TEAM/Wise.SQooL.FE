@@ -1,9 +1,9 @@
 // components/NavBar.js
 import React, { useEffect, useState } from 'react';
-import Image from "next/image";
-import Link from "next/link";
+import Link from 'next/link';
 import useStore from '../store/useStore';
 import DarkModeToggle from './DarkModeToggle';
+import { DarkLogo, LightLogo } from './IconSet'; // 아이콘 불러오기
 
 const NavBar = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -23,7 +23,7 @@ const NavBar = () => {
     };
   }, []);
 
-  const container = `w-full py-4 text-xl font-bold fixed top-0 left-0 z-50 transition-colors duration-300 
+  const container = `w-full py-3 text-xl font-bold fixed top-0 left-0 z-50 transition-colors duration-300 
     ${scrolled ? (
         isDarkMode 
         ? 'bg-slate-900 border-b-2 border-slate-800 opacity-90'
@@ -39,9 +39,9 @@ const NavBar = () => {
         <div>
           <Link href="/">
             {isDarkMode ? (
-              <Image src="/img/logo_dark.svg" alt="다크모드 상태입니다" width={137} height={36} priority />
+              <DarkLogo width={128} height={34} title="Logo" />
             ) : (
-              <Image src="/img/logo_light.svg" alt="라이트모드 상태입니다" width={137} height={36} priority />
+              <LightLogo width={128} height={34} title="Logo" />
             )}
           </Link>
         </div>
