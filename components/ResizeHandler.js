@@ -1,6 +1,6 @@
 // components/ResizeHandler.js
 import React from 'react';
-import { ResizeRow } from '../IconSet';
+import { ResizeRow } from './IconSet';
 
 const ResizeHandler = ({
   onResize,
