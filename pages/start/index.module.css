@@ -1,7 +1,13 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  }
+.cat_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 4rem); /* Assuming the navbar height is 4rem */
+  font-family: Arial, sans-serif;
+}
+
+.cont_container {
+  display: flex;
+  height: calc(100vh - 4rem); /* Assuming the navbar height is 4rem */
+  width: 100%;
+}

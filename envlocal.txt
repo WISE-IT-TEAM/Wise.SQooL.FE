@@ -1,5 +1,0 @@
-NEXT_PUBLIC_API_INIT_URL=https://be.wiseit.kr/api/sqool/init
-NEXT_PUBLIC_API_QUERY_URL=https://be.wiseit.kr/api/sqool/query
-
-NEXT_PUBLIC_API_CATEGORY_URL=https://be.wiseit.kr/api/sqldoc/category
-NEXT_PUBLIC_API_CONTENTS_URL=https://be.wiseit.kr/api/sqldoc/document/
