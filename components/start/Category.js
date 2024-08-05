@@ -15,6 +15,10 @@ const CategoryList = ({ onSelectCategory }) => {
 
         if (data && Array.isArray(data.categories)) {
           setCategories(data.categories);
+          const firstDocCategory = data.categories.find(category => category.Tree === 'doc');
+          if (firstDocCategory) {
+            onSelectCategory(firstDocCategory.Id); // 첫 번째 "doc" 카테고리 선택
+          }
         } else {
           console.error('Unexpected response format:', data);
           setCategories([]);  // 기본값을 빈 배열로 설정
