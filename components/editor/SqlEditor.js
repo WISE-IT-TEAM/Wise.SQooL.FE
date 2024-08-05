@@ -3,8 +3,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import QuerySection from './QuerySection';
 import ResultSection from './ResultSection';
 import { createDatabase, executeQuery as executeQueryApi } from './Api';
-import { ResizeRow } from '../IconSet';
 import useDarkMode from '../../hooks/useDarkMode';
+import ResizeHandler from '../ResizeHandler';
 
 const SQLEditor = ({ initialValue, page }) => {
   const [queryResult, setQueryResult] = useState({ columns: [], rows: [] });
@@ -57,30 +57,13 @@ const SQLEditor = ({ initialValue, page }) => {
         minHeight={minEditorHeight}
         setEditorView={(view) => editorViewRef.current = view}
       />
-      <div
-        className={handler}
-        onMouseDown={(e) => {
-          const startY = e.clientY;
-          const startHeight = editorHeight;
-          let animationFrameId;
-          
-          const onMouseMove = (e) => {
-            const newHeight = Math.max(startHeight + (e.clientY - startY), minEditorHeight);
-            cancelAnimationFrame(animationFrameId);
-            setEditorHeight(newHeight);
-          };
-          const onMouseUp = () => {
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseup', onMouseUp);
-            cancelAnimationFrame(animationFrameId);
-          };
-          window.addEventListener('mousemove', onMouseMove);
-          window.addEventListener('mouseup', onMouseUp);
-        }}
+      <ResizeHandler
+        onResize={setEditorHeight}
+        startHeight={editorHeight}
+        minHeight={minEditorHeight}
+        direction="horizontal"
         title="드래그로 창 크기를 조절해보세요"
-      >
-        <ResizeRow width={48} height={22} className="fill-slate-400" />
-      </div>
+      />
       <ResultSection
         queryResult={queryResult}
         containerHeight={containerHeight}

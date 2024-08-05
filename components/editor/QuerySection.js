@@ -45,7 +45,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
         editorView.current.destroy();
       }
     };
-  }, [initialValue, isDarkMode]);
+  }, [initialValue, isDarkMode, setEditorView]);
 
   const queryWrap = `w-full flex flex-col rounded-lg border-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const queryHead = `w-full p-4 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-primaryDark text-slate-50" : "bg-primaryLight text-slate-600"} bg-opacity-10`;

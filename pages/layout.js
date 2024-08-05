@@ -1,8 +1,8 @@
 // pages/layout.js
 import React from 'react';
 import Head from 'next/head'
-import Navbar from '../components/GNB';
-import Footer from '../components/Foot';
+import Navbar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 const MetaTags = () => (
   <Head>
