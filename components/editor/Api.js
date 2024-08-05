@@ -1,6 +1,6 @@
 // component/editor/Api.js
 const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
-const apiQueryyUrl = process.env.NEXT_PUBLIC_API_QUERY_URL;
+const apiQueryUrl = process.env.NEXT_PUBLIC_API_QUERY_URL;
 
 export const createDatabase = async () => {
   try {
@@ -28,7 +28,7 @@ export const executeQuery = async (query, setQueryResult) => {
   console.log('Executing query:', query);
 
   try {
-    const response = await fetch(apiQueryyUrl, {
+    const response = await fetch(apiQueryUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',

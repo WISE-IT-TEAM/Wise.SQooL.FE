@@ -40,8 +40,10 @@ const StartPage = () => {
     createDatabase();
   }, [apiInitUrl]);
 
+  const documentWrap = `w-full p-6 flex justify-center itmes-center`
+
   return (
-    <div className="max-w-content-full mb-10 flex mx-auto relative mt-20">
+    <div className={documentWrap}>
       <div className="w-1/3 p-4">
         <CategoryList onSelectCategory={handleSelectCategory} />
       </div>

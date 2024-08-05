@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    esmExternals: true,  // 외부 모듈을 ESM으로 처리
-  },
+const NextConfig = {
   reactStrictMode: true,
 };
 
-export default nextConfig;
+export default NextConfig;
