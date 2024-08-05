@@ -40,18 +40,16 @@ const StartPage = () => {
     createDatabase();
   }, [apiInitUrl]);
 
-  const documentWrap = `w-full p-6 flex justify-center itmes-center`
-
   return (
-    <div className={documentWrap}>
-      <div className="w-1/3 p-4">
+    <div className="w-full h-screen flex">
+      <div className={`p-4 ${isEditorOpen ? 'w-1/6' : 'w-1/5'}`}>
         <CategoryList onSelectCategory={handleSelectCategory} />
       </div>
-      <div className={`transition-all duration-300 ${isEditorOpen ? 'w-1/2' : 'w-2/3'} p-4`}>
+      <div className={`transition-all duration-300 p-4 ${isEditorOpen ? 'w-2/5' : 'w-4/5'}`}>
         {selectedCategoryId && <Content documentId={selectedCategoryId} />}
       </div>
       {isEditorOpen && (
-        <div className="w-1/2 p-4 bg-gray-100 fixed right-0 top-20 bottom-0 overflow-y-auto">
+        <div className="w-2/5 p-4 bg-gray-100 fixed right-0 top-0 h-full overflow-y-auto">
           <SQLEditor initialValue="SELECT * FROM Artist;" />
         </div>
       )}
