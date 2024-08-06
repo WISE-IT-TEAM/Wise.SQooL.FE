@@ -37,16 +37,32 @@ export const executeQuery = async (query, setQueryResult) => {
       credentials: 'include',
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      const errorText = await response.text();
-      console.log('Error response text:', errorText);
-      throw new Error('Query execution failed');
+      console.log('Error response text:', result.message);
+      setQueryResult({
+        message: result.message,
+        columns: [],
+        rows: [],
+        error: result.status
+      });
+      return;
     }
 
-    const result = await response.json();
-    setQueryResult({ columns: result.columns, rows: result.result });
-  } catch (error) {
-    console.error('쿼리 실행 중 오류:', error);
-    setQueryResult({ columns: [], rows: [] });
-  }
-};
+      setQueryResult({
+        message: result.message,
+        columns: result.columns || [],
+        rows: result.result || [],
+        error: null
+      });
+    } catch (error) {
+      console.error('쿼리 실행 중 오류:', error);
+      setQueryResult({
+        message: error.message,
+        columns: [],
+        rows: [],
+        error: error.message
+      });
+    }
+  };
