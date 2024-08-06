@@ -1,3 +1,5 @@
+// component/start/Api.js
+
 const categoryUrl = process.env.NEXT_PUBLIC_API_CATEGORY_URL;
 const contentUrl = process.env.NEXT_PUBLIC_API_CONTENTS_URL;
 

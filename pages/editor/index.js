@@ -28,7 +28,7 @@ const Editor = () => {
     createDatabase();
   }, [apiInitUrl]);
   
-  const editorWrap = `max-w-content-full mb-10 flex mx-auto pt-14 relative`
+  const editorWrap = `max-w-content-full mb-10 flex mx-auto pt-14`
 
   return (
     <section className={editorWrap}>

@@ -42,8 +42,7 @@ const SQLEditor = ({ initialValue, page }) => {
     }
   };
 
-  const container = `w-full max-w-${page === 'editor' ? '1200px' : '5xl'} flex flex-col mt-20 mx-auto h-full`;
-  const handler = `flex py-3 justify-center cursor-row-resize bg-transparent`;
+  const container = `${page === 'editor' ? 'max-w-content-full' : 'w-full'} flex flex-col mx-auto h-full min-w-80`;
 
   const minEditorHeight = 320;
   const minResultHeight = 240;

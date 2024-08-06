@@ -1,40 +1,48 @@
 // components/ResizeHandler.js
 import React from 'react';
-import { ResizeRow } from './IconSet';
+import { ResizeRow, ResizeColumn } from './IconSet';
 
 const ResizeHandler = ({
   onResize,
   minHeight = 320,
+  minWidth = 320,
   startHeight,
+  startWidth,
   direction = 'horizontal',
-  iconWidth = 48,
-  iconHeight = 22,
   iconClassName = 'fill-slate-400',
   ...props
 }) => {
-  const handlerClass = `flex py-3 justify-center cursor-${direction === 'horizontal' ? 'row-resize' : 'col-resize'} bg-transparent`;
+  const handlerClass = `flex ${direction === 'horizontal' ? 'py-2 cursor-row-resize' : 'px-2 cursor-col-resize'} justify-center items-center bg-transparent`;
 
   const handleMouseDown = (e) => {
-    const startY = e.clientY;
+    const startPos = direction === 'horizontal' ? e.clientY : e.clientX;
     let animationFrameId;
 
     const onMouseMove = (e) => {
-      const newHeight = Math.max(startHeight + (e.clientY - startY), minHeight);
+      const newSize = direction === 'horizontal'
+        ? Math.max(startHeight + (e.clientY - startPos), minHeight)
+        : Math.max(startWidth + (e.clientX - startPos), minWidth);
       cancelAnimationFrame(animationFrameId);
-      onResize(newHeight);
+      onResize(newSize);
     };
+
     const onMouseUp = () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', onMouseUp);
       cancelAnimationFrame(animationFrameId);
     };
+
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup', onMouseUp);
   };
 
   return (
     <div className={handlerClass} onMouseDown={handleMouseDown} {...props}>
-      <ResizeRow width={iconWidth} height={iconHeight} className={iconClassName} />
+      {direction === 'horizontal' ? (
+        <ResizeRow className={`${iconClassName} w-12 h-4`} />
+      ) : (
+        <ResizeColumn className={`${iconClassName} w-4 h-12`} />
+      )}
     </div>
   );
 };

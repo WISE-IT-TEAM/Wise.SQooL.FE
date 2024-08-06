@@ -1,3 +1,4 @@
+// components/start/Category.js
 import React, { useEffect, useState } from 'react';
 import { getCategoryList } from './Api';
 import useDarkMode from '../../hooks/useDarkMode';
@@ -32,19 +33,19 @@ const CategoryList = ({ onSelectCategory }) => {
     };
 
     fetchCategories();
-  }, []);
+  }, []); // 빈 의존성 배열로 한 번만 호출되도록 설정
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className={`w-full max-w-5xl flex flex-col ${isDarkMode ? 'dark-mode' : ''}`}>
+    <div className={`w-full min-w-fit h-full flex flex-col rounded-lg border-1 overflow-y-scroll ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}>
       <ul>
         {categories.map(category => (
           <li 
             key={category.Id} 
-            className={`p-2 border-b border-gray-300 ${category.Tree === 'doc' ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500'}`}
+            className={`p-2 border-b border-slate-400 ${category.Tree === 'doc' ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500'}`}
             onClick={() => category.Tree === 'doc' && onSelectCategory(category.Id)}
           >
             {category.Title}

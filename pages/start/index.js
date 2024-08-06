@@ -1,18 +1,28 @@
+// pages/start/index.js
 import React, { useState, useEffect } from 'react';
-import CategoryList from '../../components/start/Category';
-import Content from '../../components/start/Content';
+import Document from '../../components/start/Document';
 import SQLEditor from '../../components/editor/SqlEditor';
+import ResizeHandler from '../../components/ResizeHandler';
+import useDarkMode from '../../hooks/useDarkMode';
 
 const StartPage = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState(true);
+  const [editorWidth, setEditorWidth] = useState(500);
+  const [documentWidth, setDocumentWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth - 500 : 1000
+  );
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
+  const minDocumentWidth = 320;
+  const { isDarkMode } = useDarkMode();
 
   const handleSelectCategory = (categoryId) => {
+    console.log(`Category selected: ${categoryId}`);
     setSelectedCategoryId(categoryId);
   };
 
   const toggleEditor = () => {
+    console.log(`Editor toggled. New state: ${!isEditorOpen}`);
     setIsEditorOpen(!isEditorOpen);
   };
 
@@ -40,27 +50,55 @@ const StartPage = () => {
     createDatabase();
   }, [apiInitUrl]);
 
+  useEffect(() => {
+    console.log(`Selected category ID changed: ${selectedCategoryId}`);
+  }, [selectedCategoryId]);
+
+  useEffect(() => {
+    if (isEditorOpen) {
+      setDocumentWidth(window.innerWidth - editorWidth);
+    } else {
+      setDocumentWidth(window.innerWidth);
+    }
+  }, [isEditorOpen, editorWidth]);
+
+  const handleResize = (newDocumentWidth) => {
+    setDocumentWidth(newDocumentWidth);
+    setEditorWidth(window.innerWidth - newDocumentWidth);
+  };
+
+  const startWrap = `flex justify-center pt-14 mx-auto duration-500 ${isEditorOpen ? 'w-full px-6' : 'max-w-content-full'}`;
+  const documentWrap = `flex flex-row justify-center flex-grow overflow-y-auto gap-4`;
+  const editorWrap = `${isEditorOpen ? 'flex' : 'hidden'} flex-grow overflow-y-auto`;
+  const toggleBtn = `fixed right-12 bottom-12 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600`;
+
   return (
-    <div className="w-full h-screen flex">
-      <div className={`p-4 ${isEditorOpen ? 'w-1/6' : 'w-1/5'}`}>
-        <CategoryList onSelectCategory={handleSelectCategory} />
-      </div>
-      <div className={`transition-all duration-300 p-4 ${isEditorOpen ? 'w-2/5' : 'w-4/5'}`}>
-        {selectedCategoryId && <Content documentId={selectedCategoryId} />}
-      </div>
-      {isEditorOpen && (
-        <div className="w-2/5 p-4 bg-gray-100 fixed right-0 top-0 h-full overflow-y-auto">
+    <section className={startWrap}>
+      <div className="flex w-full h-full">
+        <div className={documentWrap} style={{ width: documentWidth }}>
+          <Document
+            onSelectCategory={handleSelectCategory}
+            selectedCategoryId={selectedCategoryId}
+          />
+        </div>
+        {isEditorOpen && (
+          <ResizeHandler
+            onResize={handleResize}
+            startWidth={documentWidth}
+            minWidth={minDocumentWidth}
+            direction="vertical"
+            title="드래그로 창 크기를 조절해보세요"
+          />
+        )}
+        <div className={editorWrap} style={{ width: editorWidth }}>
           <SQLEditor initialValue="SELECT * FROM Artist;" />
         </div>
-      )}
-      <button
-        onClick={toggleEditor}
-        className="fixed right-4 bottom-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600"
-      >
+      </div>
+      <button onClick={toggleEditor} className={toggleBtn}>
         {isEditorOpen ? 'Close Editor' : 'Open Editor'}
       </button>
-    </div>
+    </section>
   );
-}
+};
 
 export default StartPage;
