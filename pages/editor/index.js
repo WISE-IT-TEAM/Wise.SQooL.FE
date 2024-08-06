@@ -27,11 +27,13 @@ const Editor = () => {
 
     createDatabase();
   }, [apiInitUrl]);
+  
+  const editorWrap = `max-w-content-full mb-10 flex mx-auto pt-14 relative`
 
   return (
-    <div className="max-w-content-full mb-10 flex mx-auto relative">
+    <section className={editorWrap}>
       <SQLEditor initialValue="SELECT * FROM Artist;" />
-    </div>
+    </section>
   );
 }
 

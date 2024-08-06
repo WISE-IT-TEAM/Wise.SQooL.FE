@@ -23,8 +23,8 @@ const SliderControls = ({ currentSlide, slides, isPlaying, togglePlayPause, hand
         </button>
       ))}
       <button onClick={togglePlayPause} className="bg-transparent text-white border-none cursor-pointer">
-        {isPlaying ? <SlidePause width={24} height={24} className={`${isDarkMode ? 'fill-slate-400' : 'fill-slate-400'}`} title="자동 슬라이드 멈춤" />
-          : <SlidePlay width={24} height={24} className="fill-slate-400" title="자동 슬라이드 시작"/>}
+        {isPlaying ? <SlidePause width={24} height={24} className={`fill-slate-400 duration-300 ${isDarkMode ? 'hover:fill-secondaryDark' : 'hover:fill-secondaryLight'}`} title="자동 슬라이드 멈춤" />
+          : <SlidePlay width={24} height={24} className={`fill-slate-400 duration-300 ${isDarkMode ? 'hover:fill-secondaryDark' : 'hover:fill-secondaryLight'}`} title="자동 슬라이드 시작"/>}
       </button>
     </div>
   );

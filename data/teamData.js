@@ -2,7 +2,7 @@ const TeamData = [
   {
     avatarLight: '/Img/W-light.svg',
     avatarDark: '/Img/W-dark.svg',
-    nickname: 'W = Coho',
+    nickname: 'W = Koho',
     role: 'BACK-END',
     bio: '코딩하는 호랑이 🐯',
     email: 'member1@example.com',
