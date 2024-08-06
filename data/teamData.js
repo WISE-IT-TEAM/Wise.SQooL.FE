@@ -31,7 +31,7 @@ const TeamData = [
     avatarDark: '/Img/E-dark.svg',
     nickname: 'E = Sydney',
     role: 'FRONT-END',
-    bio: 'Hello, Sydney?',
+    bio: 'Only For DB!',
     email: 'sydneysekim@gmail.com',
     github: 'https://github.com/member4',
   },
