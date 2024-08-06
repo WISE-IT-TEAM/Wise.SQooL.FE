@@ -1,4 +1,3 @@
-// component/editor/ResultSection
 import React from "react";
 import useDarkMode from "../../hooks/useDarkMode";
 
@@ -12,8 +11,8 @@ const ResultSection = ({ queryResult, minHeight }) => {
   const renderTable = (data) => {
     const { columns, rows } = data;
 
-    if (rows.length === 0) {
-      return <div>코드를 실행하면 결과가 표시됩니다</div>;
+    if (!columns || !rows || rows.length === 0) {
+      return null;
     }
 
     return (
@@ -55,7 +54,24 @@ const ResultSection = ({ queryResult, minHeight }) => {
       <div className={queryHead}>
         <span>쿼리 실행 결과</span>
       </div>
-      <div className={resultField}>{renderTable(queryResult)}</div>
+      <div className={resultField}>
+        {!queryResult || (!queryResult.message && !queryResult.error && (!queryResult.columns || queryResult.columns.length === 0)) ? (
+          <div className="mb-4 text-left font-semibold">코드를 실행하면 결과가 표시됩니다</div>
+        ) : (
+          <>
+            {queryResult.message && (
+              <div className="mb-4 text-left font-semibold">
+                {queryResult.message}
+              </div>
+            )}
+            {queryResult.error ? (
+              <div className="text-red-600 text-left">{queryResult.error}</div>
+            ) : (
+              renderTable(queryResult)
+            )}
+          </>
+        )}
+      </div>
     </section>
   );
 };
