@@ -37,6 +37,9 @@ export const theme = {
     borderWidth: {
       '1': '1px',
     },
+    rotate: {
+      '90': '90deg',
+    },
     keyframes: {
       fadeIn: {
         '0%': { opacity: 0, transform: 'translateY(24px)' },

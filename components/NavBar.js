@@ -5,31 +5,28 @@ import useStore from '../store/useStore';
 import DarkModeToggle from './DarkModeToggle';
 import { DarkLogo, LightLogo } from './IconSet'; // 아이콘 불러오기
 
-const NavBar = () => {
+const NavBar = ({ isFullWidth }) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
-  // 스크롤 상태를 관리하기 위한 상태
   const [scrolled, setScrolled] = useState(false);
 
-  // 스크롤 이벤트 핸들러 등록 및 해제
   useEffect(() => {
     const handleScroll = () => {
-        setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
-    
     return () => {
-        window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const container = `w-full py-3 text-xl font-bold fixed top-0 left-0 z-50 transition-colors duration-300 
+  const container = `w-full py-3 text-xl font-bold fixed top-0 left-0 z-50 transition-colors duration-500
     ${scrolled ? (
-        isDarkMode 
+      isDarkMode
         ? 'bg-slate-900 border-b-2 border-slate-800 opacity-90'
         : 'bg-slate-50 border-b-2 border-slate-200 opacity-90'
     ) : 'bg-transparent'}`;
-  const navWrap = `max-w-content-full mx-auto flex justify-between items-center`;
+  const navWrap = `${isFullWidth ? 'w-full' : 'max-w-content-full'} mx-auto flex justify-between items-center transition-width duration-500`;
   const navList = `flex justify-center items-center gap-12`;
   const listItem = `${isDarkMode ? 'text-slate-50 hover:text-primaryDark' : 'text-slate-900 hover:text-primaryLight'} duration-300`;
 

@@ -205,3 +205,11 @@ export const ResizeRow = ({ title, width, height, ...props }) => (
     <rect x="4" y="10" width="40" height="2" fill=""/>
   </Icon>
 );
+
+// ResizeColumn 아이콘
+export const ResizeColumn = ({ title, width, height, ...props }) => (
+  <Icon title={title} width={width} height={height} {...props}>
+    <rect x="4" y="4" width="2" height="40" fill=""/>
+    <rect x="10" y="4" width="2" height="40" fill=""/>
+  </Icon>
+);
