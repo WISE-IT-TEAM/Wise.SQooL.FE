@@ -1,10 +1,11 @@
-// component/editor/QuerySection
 import React, { useRef, useEffect, useState } from "react";
 import { EditorView, basicSetup } from "codemirror";
 import { sql } from "@codemirror/lang-sql";
+import { autocompletion } from "@codemirror/autocomplete";
 import { createSqoolTheme } from "./Styles";
 import { CodeCopy, CodeReset } from "../IconSet";
 import useDarkMode from "../../hooks/useDarkMode";
+import { sqliteCompletion } from "./sqliteKeywords";
 
 /**
  * QuerySection 컴포넌트
@@ -29,7 +30,14 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
           editorView.current.destroy();
         }
         editorView.current = new EditorView({
-          extensions: [basicSetup, sql(), createSqoolTheme(isDarkMode)],
+          extensions: [
+            basicSetup,
+            sql(),
+            createSqoolTheme(isDarkMode),
+            autocompletion({
+              override: [sqliteCompletion]
+            })
+          ],
           parent: editorElement.current,
           doc: initialValue,
         });
@@ -47,6 +55,25 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
     };
   }, [initialValue, isDarkMode, setEditorView]);
 
+  const handleCopyCode = () => {
+    if (editorView.current) {
+      const code = editorView.current.state.doc.toString();
+      navigator.clipboard.writeText(code).then(() => {
+        alert("코드가 클립보드에 복사되었습니다.");
+      }).catch((err) => {
+        console.error("코드 복사 실패: ", err);
+      });
+    }
+  };
+
+  const handleResetCode = () => {
+    if (editorView.current) {
+      editorView.current.dispatch({
+        changes: { from: 0, to: editorView.current.state.doc.length, insert: initialValue }
+      });
+    }
+  };
+
   const queryWrap = `w-full flex flex-col rounded-lg border-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const queryHead = `w-full p-4 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-primaryDark text-slate-50" : "bg-primaryLight text-slate-600"} bg-opacity-10`;
   const editorBtn = `px-2 py-1 rounded-lg flex justify-center items-center gap-1 font-bold ${isDarkMode ? "bg-slate-900 text-slate-400" : "bg-slate-50 text-slate-500"} hover:opacity-70 duration-300`;
@@ -58,11 +85,11 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
       <div className={queryHead}>
         <span>SQL 코드 작성</span>
         <div className="flex gap-2">
-          <button className={editorBtn}>
+          <button className={editorBtn} onClick={handleCopyCode}>
             <CodeCopy width={24} height={24} className={editorIcon} />
             코드 복사
           </button>
-          <button className={editorBtn}>
+          <button className={editorBtn} onClick={handleResetCode}>
             <CodeReset width={24} height={24} className={editorIcon} />
             코드 초기화
           </button>
