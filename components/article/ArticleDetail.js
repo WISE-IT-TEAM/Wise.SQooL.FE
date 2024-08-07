@@ -1,66 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { getArticleDetail } from './Api';
-import useDarkMode from '../../hooks/useDarkMode';
+import React from 'react';
 
-const ArticleDetail = ({ articleId }) => {
-    const [article, setArticle] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const { isDarkMode } = useDarkMode();
-
-    useEffect(() => {
-        const fetchArticle = async () => {
-            try {
-                const data = await getArticleDetail(articleId);
-                setArticle(data.article);
-            } catch (error) {
-                console.error('아티클 가져오는 중 오류 발생:', error);
-                setArticle(null);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        if (articleId) {
-            fetchArticle();
-        }
-    }, [articleId]);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
+const ArticleDetail = ({ article, onBack }) => {
     if (!article) {
         return <div>Error loading article</div>;
     }
 
+    const tags = Array.isArray(article.Tags) ? article.Tags : [];
     return (
-        <div className={`w-full max-w-5xl mx-auto p-8 border rounded-lg shadow-lg ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
-            <h1 className="text-3xl font-bold mb-6">{article.Title}</h1>
-            <div className="mb-4">
-                <span className="text-gray-500">Category: </span>
-                <span className="font-semibold">{article.Category}</span>
+        <div className="w-full max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mb-4">
+            <h1 className="text-3xl font-bold mb-4">{article.Title}</h1>
+            {article.Thumbnail && <img src={article.Thumbnail} alt={article.Title} className="mb-4 w-full h-auto rounded" />}
+            <div className="metadata text-gray-600 text-sm mb-4">
+                <span>조회수: {article.View_count}</span>
+                <span className="ml-4">{new Date(article.Created_at).toLocaleDateString()}</span>
             </div>
-            <div className="mb-4">
-                <span className="text-gray-500">Created at: </span>
-                <span className="font-semibold">{new Date(article.Created_at).toLocaleString()}</span>
+            <div className="tags mb-4">
+                {tags.map(tag => <span key={tag} className="tag bg-gray-200 text-gray-800 px-2 py-1 rounded mr-2">{tag}</span>)}
             </div>
-            <div className="mb-4">
-                <span className="text-gray-500">Views: </span>
-                <span className="font-semibold">{article.View_count}</span>
-            </div>
-            <div className="mb-4">
-                <span className="text-gray-500">Comments: </span>
-                <span className="font-semibold">{article.Comment_count}</span>
-            </div>
-            <div className="mb-4">
-                <span className="text-gray-500">Tags: </span>
-                {article.Tags.split(',').map(tag => (
-                    <span key={tag} className="inline-block bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                        {tag}
-                    </span>
-                ))}
-            </div>
-            <div className="content" dangerouslySetInnerHTML={{ __html: article.Content }} />
+            <div dangerouslySetInnerHTML={{ __html: article.Content }} className="prose mb-4" />
+            <button 
+                className="p-2 bg-blue-500 text-white rounded shadow"
+                onClick={onBack}
+            >
+                Back to List
+            </button>
         </div>
     );
 };
