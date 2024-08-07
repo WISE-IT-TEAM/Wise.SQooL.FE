@@ -1,6 +1,6 @@
-// pages/start/index.js
 import React, { useState, useEffect } from 'react';
-import Document from '../../components/start/Document';
+import CategoryList from '../../components/start/Category';
+import Content from '../../components/start/Content';
 import SQLEditor from '../../components/editor/SqlEditor';
 import ResizeHandler from '../../components/ResizeHandler';
 import useDarkMode from '../../hooks/useDarkMode';
@@ -12,9 +12,29 @@ const StartPage = () => {
   const [documentWidth, setDocumentWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth - 500 : 1000
   );
+  const [query, setQuery] = useState("");
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
   const minDocumentWidth = 320;
   const { isDarkMode } = useDarkMode();
+
+  useEffect(() => {
+    const storedIsEditorOpen = localStorage.getItem('isEditorOpen');
+    if (storedIsEditorOpen !== null) {
+      setIsEditorOpen(storedIsEditorOpen === 'true');
+    }
+    const storedQuery = localStorage.getItem('query');
+    if (storedQuery !== null) {
+      setQuery(storedQuery);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('isEditorOpen', isEditorOpen);
+  }, [isEditorOpen]);
+
+  useEffect(() => {
+    localStorage.setItem('query', query);
+  }, [query]);
 
   const handleSelectCategory = (categoryId) => {
     console.log(`Category selected: ${categoryId}`);
@@ -76,10 +96,16 @@ const StartPage = () => {
     <section className={startWrap}>
       <div className="flex w-full h-full">
         <div className={documentWrap} style={{ width: documentWidth }}>
-          <Document
-            onSelectCategory={handleSelectCategory}
-            selectedCategoryId={selectedCategoryId}
-          />
+          <div className="w-full">
+            <CategoryList onSelectCategory={handleSelectCategory} />
+          </div>
+          <div className="w-full">
+            {selectedCategoryId ? (
+              <Content documentId={selectedCategoryId} key={selectedCategoryId} />
+            ) : (
+              <p>카테고리를 선택해주세요.</p>
+            )}
+          </div>
         </div>
         {isEditorOpen && (
           <ResizeHandler
@@ -91,7 +117,7 @@ const StartPage = () => {
           />
         )}
         <div className={editorWrap} style={{ width: editorWidth }}>
-          <SQLEditor initialValue="SELECT * FROM Artist;" />
+          <SQLEditor initialValue="" placeholder="쿼리문을 입력해주세요. 예시) SELECT * FROM Artist;" query={query} setQuery={setQuery} />
         </div>
       </div>
       <button onClick={toggleEditor} className={toggleBtn}>

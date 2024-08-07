@@ -1,4 +1,3 @@
-// src/store/useStore.js
 import { create } from 'zustand';
 
 const useStore = create((set) => ({
@@ -41,6 +40,28 @@ const useStore = create((set) => ({
 
   showToast: (message, type = 'success') => set(() => ({ toastMessage: message, toastType: type })),
   hideToast: () => set(() => ({ toastMessage: '' })),
+
+  resetDatabase: async () => {
+    const apiResetUrl = process.env.NEXT_PUBLIC_API_RESET_URL;
+    try {
+      const response = await fetch(apiResetUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Database reset failed');
+      }
+
+      console.log('Database reset successfully');
+      return true;
+    } catch (error) {
+      console.error('Error resetting database:', error);
+      return false;
+    }
+  },
 }));
 
 export default useStore;
