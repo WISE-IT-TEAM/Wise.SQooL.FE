@@ -14,13 +14,17 @@ const sqliteKeywords = [
   "KEY", "LAST", "MATERIALIZED", "NATURAL", "NO", "NOTHING", "NOTNULL", "NULLS", "OF", "ONLY", "OTHERS",
   "OUTER", "OVER", "PARTITION", "PLAN", "PRAGMA", "PRECEDING", "QUERY", "RAISE", "RANGE", "RECURSIVE",
   "REGEXP", "REINDEX", "RELEASE", "RENAME", "REPLACE", "RESTRICT", "RETURNING", "ROLLBACK", "ROW",
-  "ROWS", "SAVEPOINT", "TEMPORARY", "TIES", "TRANSACTION", "UNBOUNDED", "VACUUM", "WITHOUT"
+  "ROWS", "SAVEPOINT", "TEMPORARY", "TIES", "TRANSACTION", "UNBOUNDED", "VACUUM", "WITHOUT",
+  "Artist" // 테이블 이름 추가
 ].map(keyword => ({ label: keyword, type: "keyword", boost: 1 }));
 
 // boost 값 추가하여 우선순위 조정
 sqliteKeywords.forEach(keyword => {
   if (["SELECT", "INSERT", "UPDATE", "DELETE"].includes(keyword.label)) {
     keyword.boost = 2; // 높은 우선순위
+  }
+  if (keyword.label === "Artist") {
+    keyword.boost = 1.5; // 테이블 이름에 대한 우선순위 설정
   }
 });
 
