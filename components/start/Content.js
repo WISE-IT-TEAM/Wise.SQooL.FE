@@ -11,23 +11,21 @@ const Content = ({ documentId }) => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        console.log(`Fetching content for document ID: ${documentId}`);
         const data = await getContent(documentId);
-        console.log('문서 데이터:', data);
         setContent(data.document);
       } catch (error) {
         console.error('문서 가져오는 중 오류 발생:', error);
-        setContent(null);  // 에러 발생 시 null로 설정
+        setContent(null);
       } finally {
         setIsLoading(false);
       }
     };
 
     if (documentId) {
-      setIsLoading(true); // 새로운 documentId가 들어오면 로딩 상태로 설정
+      setIsLoading(true);
       fetchContent();
     }
-  }, [documentId]); // documentId 의존성 배열을 확인합니다.
+  }, [documentId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -44,9 +42,27 @@ const Content = ({ documentId }) => {
   return (
     <div className={contentWrap}>
       <h1 className={contentHead}>{content.Title}</h1>
-      <div className={contentField} dangerouslySetInnerHTML={{ __html: content.Content }} />
+      <div className={contentField} dangerouslySetInnerHTML={{ __html: adjustImagePaths(content.Content) }} />
     </div>
   );
+};
+
+const adjustImagePaths = (htmlContent) => {
+  const serverBaseUrl = process.env.NEXT_PUBLIC_API_CONTENTS_URL.replace('/api/sqldoc/document/', '');
+
+  const div = document.createElement('div');
+  div.innerHTML = htmlContent;
+  const images = div.getElementsByTagName('img');
+
+  for (let img of images) {
+    const originalSrc = img.getAttribute('src');
+    if (originalSrc.startsWith('/static/Uploads')) {
+      const newSrc = `${serverBaseUrl}${originalSrc}`;
+      img.setAttribute('src', newSrc);
+    }
+  }
+
+  return div.innerHTML;
 };
 
 export default Content;
