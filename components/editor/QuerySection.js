@@ -6,6 +6,8 @@ import { createSqoolTheme } from "./Styles";
 import { CodeCopy, CodeReset, DatabaseReset } from "../IconSet"; // Add DatabaseReset icon
 import useDarkMode from "../../hooks/useDarkMode";
 import { sqliteCompletion } from "./sqliteKeywords";
+import { keymap } from "@codemirror/view";
+import { defaultKeymap } from "@codemirror/commands";
 
 /**
  * QuerySection 컴포넌트
@@ -38,7 +40,26 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
             createSqoolTheme(isDarkMode),
             autocompletion({
               override: [sqliteCompletion]
-            })
+            }),
+            keymap.of([
+              ...defaultKeymap,
+              {
+                key: "Ctrl-Enter",
+                run: () => {
+                  setQueryValue(editorView.current.state.doc.toString()); // 쿼리 상태 업데이트
+                  executeQuery();
+                  return true;
+                }
+              },
+              {
+                key: "Mod-Enter",
+                run: () => {
+                  setQueryValue(editorView.current.state.doc.toString()); // 쿼리 상태 업데이트
+                  executeQuery();
+                  return true;
+                }
+              }
+            ])
           ],
           parent: editorElement.current,
           doc: queryValue, // 상태로 관리되는 값을 사용
@@ -55,7 +76,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
         editorView.current.destroy();
       }
     };
-  }, [queryValue, isDarkMode, setEditorView]); // queryValue 추가
+  }, [queryValue, isDarkMode, setEditorView, executeQuery]); // queryValue와 executeQuery 추가
 
   const handleCopyCode = () => {
     if (editorView.current) {
