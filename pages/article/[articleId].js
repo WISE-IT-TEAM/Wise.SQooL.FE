@@ -1,42 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import ArticleDetail from '../../components/article/ArticleDetail';
-import { getArticleDetail } from '../../components/article/Api';
 
 const ArticleDetailPage = () => {
     const router = useRouter();
     const { articleId } = router.query;
-    const [article, setArticle] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        if (articleId) {
-            const fetchArticle = async () => {
-                try {
-                    const data = await getArticleDetail(articleId);
-                    setArticle(data);
-                } catch (error) {
-                    console.error('Error fetching article detail:', error);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
-
-            fetchArticle();
-        }
-    }, [articleId]);
-
-    const handleBack = () => {
-        router.push('/article');
-    };
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    const article = router.query.article ? JSON.parse(router.query.article) : null;
 
     if (!article) {
         return <div>Error loading article</div>;
     }
+
+    const handleBack = () => {
+        router.push('/article');
+    };
 
     return (
         <div className="w-full h-screen flex flex-col items-center p-4" style={{ marginTop: '40px' }}>

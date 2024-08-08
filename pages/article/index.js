@@ -30,7 +30,11 @@ const ArticlePage = () => {
     }, [page, selectedCategory]);
 
     const handleSelectArticle = (articleId) => {
-        router.push(`/article/${articleId}`);
+        const selectedArticle = articles.find(article => article.Id === articleId);
+        router.push({
+            pathname: `/article/${articleId}`,
+            query: { article: JSON.stringify(selectedArticle) }
+        });
     };
 
     const handleSelectCategory = (category) => {

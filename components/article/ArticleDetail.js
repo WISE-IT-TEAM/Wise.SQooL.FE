@@ -11,7 +11,6 @@ const ArticleDetail = ({ article, onBack }) => {
     return (
         <div className="w-full max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mb-4">
             <h1 className="text-3xl font-bold mb-4">{article.Title}</h1>
-            {article.Thumbnail && <img src={article.Thumbnail} alt={article.Title} className="mb-4 w-full h-auto rounded" />}
             <div className="metadata text-gray-600 text-sm mb-4">
                 <span>조회수: {article.View_count}</span>
                 <span className="ml-4">{new Date(article.Created_at).toLocaleDateString()}</span>
