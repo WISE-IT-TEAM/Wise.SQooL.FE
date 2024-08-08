@@ -3,12 +3,15 @@ const articleDetailUrl = process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL;
 
 export const getArticleList = async (page, perPage, category) => {
     try {
+        console.log('Fetching articles from:', `${articleListUrl}?page=${page}&perpage=${perPage}&category=${category}`);
         const response = await fetch(`${articleListUrl}?page=${page}&perpage=${perPage}&category=${category}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch articles: ${response.statusText}`);
         }
         const data = await response.json();
-        return data.articlelist.map(article => ({
+        console.log('Fetched article list data:', data);
+        const articleList = data.articlelist || [];
+        return articleList.map(article => ({
             ...article,
             Tags: typeof article.Tags === 'string' ? article.Tags.split(',') : []
         }));
@@ -20,15 +23,15 @@ export const getArticleList = async (page, perPage, category) => {
 
 export const getArticleDetail = async (articleId) => {
     try {
+        console.log(`Fetching article detail for ID: ${articleId}`);
         const response = await fetch(`${articleDetailUrl}/${articleId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch article detail: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Fetched article detail:', data); // 로그 추가
-        const articleInfo = data.article || {};  // article 속성을 추출
+        console.log('Fetched article detail data:', data);
+        const articleInfo = data.article || {};
 
-        // 각 필드를 적절하게 변환
         return {
             ...articleInfo,
             Tags: typeof articleInfo.Tags === 'string' ? articleInfo.Tags.split(',') : [],

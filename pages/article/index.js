@@ -44,7 +44,7 @@ const ArticlePage = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <main className="flex-grow w-full flex flex-col items-center p-4" style={{ marginTop: '40px' }}> {/* magin 추가 디자인수정요망 */}
+            <main className="flex-grow w-full flex flex-col items-center p-4" style={{ marginTop: '40px' }}>
                 <div className="flex w-full">
                     <div className="w-1/4">
                         <CategoryList onSelectCategory={handleSelectCategory} />

@@ -3,7 +3,11 @@ import ArticleCard from './ArticleCard';
 
 const ArticleList = ({ articles, onSelectArticle, isLoading, page, perPage, onPageChange }) => {
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>; // 로딩 상태 표시
+    }
+
+    if (articles.length === 0) {
+        return <div>No articles found</div>;
     }
 
     const totalPages = Math.ceil(articles.length / perPage);
