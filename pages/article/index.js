@@ -43,22 +43,24 @@ const ArticlePage = () => {
     };
 
     return (
-        <div className="w-full h-screen flex flex-col items-center p-4">
-            <div className="flex w-full">
-                <div className="w-1/4">
-                    <CategoryList onSelectCategory={handleSelectCategory} />
+        <div className="flex flex-col min-h-screen">
+            <main className="flex-grow w-full flex flex-col items-center p-4" style={{ marginTop: '40px' }}> {/* magin 추가 디자인수정요망 */}
+                <div className="flex w-full">
+                    <div className="w-1/4">
+                        <CategoryList onSelectCategory={handleSelectCategory} />
+                    </div>
+                    <div className="w-3/4">
+                        <ArticleList 
+                            articles={articles} 
+                            onSelectArticle={handleSelectArticle} 
+                            isLoading={isLoading}
+                            page={page}
+                            perPage={perPage}
+                            onPageChange={handlePageChange}
+                        />
+                    </div>
                 </div>
-                <div className="w-3/4">
-                    <ArticleList 
-                        articles={articles} 
-                        onSelectArticle={handleSelectArticle} 
-                        isLoading={isLoading}
-                        page={page}
-                        perPage={perPage}
-                        onPageChange={handlePageChange}
-                    />
-                </div>
-            </div>
+            </main>
         </div>
     );
 };

@@ -39,9 +39,10 @@ const ArticleDetailPage = () => {
     }
 
     return (
-        <div className="w-full h-screen flex flex-col items-center p-4">
+        <div className="w-full h-screen flex flex-col items-center p-4" style={{ marginTop: '40px' }}> {/* magin 추가 디자인수정요망 */}
             <ArticleDetail article={article} onBack={handleBack} />
         </div>
+        
     );
 };
 
