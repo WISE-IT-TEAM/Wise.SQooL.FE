@@ -91,7 +91,8 @@ const StartPage = () => {
           />
         )}
         <div className={editorWrap} style={{ width: editorWidth }}>
-          <SQLEditor initialValue="SELECT * FROM Artist;" />
+          <SQLEditor/>
+          {/* <SQLEditor initialValue="SELECT * FROM Artist;" /> */}
         </div>
       </div>
       <button onClick={toggleEditor} className={toggleBtn}>

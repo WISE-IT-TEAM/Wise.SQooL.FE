@@ -32,7 +32,8 @@ const Editor = () => {
 
   return (
     <section className={editorWrap}>
-      <SQLEditor initialValue="SELECT * FROM Artist;" />
+      <SQLEditor/>
+      {/* <SQLEditor initialValue="SELECT * FROM Artist;" /> */}
     </section>
   );
 }
