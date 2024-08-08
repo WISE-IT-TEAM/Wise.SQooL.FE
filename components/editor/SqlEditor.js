@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import QuerySection from './QuerySection';
 import ResultSection from './ResultSection';
-import { createDatabase, executeQuery as executeQueryApi } from './Api';
+import { createDatabase, executeQuery as executeQueryApi, resetDatabase as resetDatabaseApi } from './Api';
 import useDarkMode from '../../hooks/useDarkMode';
 import ResizeHandler from '../ResizeHandler';
 
@@ -42,6 +42,12 @@ const SQLEditor = ({ initialValue, page }) => {
     }
   };
 
+  const resetDatabase = () => {
+    resetDatabaseApi().then(() => {
+      setQueryResult({ columns: [], rows: [] });
+    });
+  };
+
   const container = `${page === 'editor' ? 'max-w-content-full' : 'w-full'} flex flex-col mx-auto h-full min-w-80`;
 
   const minEditorHeight = 320;
@@ -55,6 +61,7 @@ const SQLEditor = ({ initialValue, page }) => {
         executeQuery={executeQuery}
         minHeight={minEditorHeight}
         setEditorView={(view) => editorViewRef.current = view}
+        resetDatabase={resetDatabase}
       />
       <ResizeHandler
         onResize={setEditorHeight}
@@ -74,4 +81,3 @@ const SQLEditor = ({ initialValue, page }) => {
 };
 
 export default SQLEditor;
-

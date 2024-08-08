@@ -3,7 +3,7 @@ import { EditorView, basicSetup } from "codemirror";
 import { sql } from "@codemirror/lang-sql";
 import { autocompletion } from "@codemirror/autocomplete";
 import { createSqoolTheme } from "./Styles";
-import { CodeCopy, CodeReset } from "../IconSet";
+import { CodeCopy, CodeReset, DatabaseReset } from "../IconSet"; // Add DatabaseReset icon
 import useDarkMode from "../../hooks/useDarkMode";
 import { sqliteCompletion } from "./sqliteKeywords";
 
@@ -15,8 +15,9 @@ import { sqliteCompletion } from "./sqliteKeywords";
  * @param {function} props.executeQuery - 쿼리 실행 함수
  * @param {number} props.minHeight - 최소 높이
  * @param {function} props.setEditorView - editorView 설정 함수
+ * @param {function} props.resetDatabase - 데이터베이스 초기화 함수
  */
-const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, setEditorView }) => {
+const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, setEditorView, resetDatabase }) => {
   const editorElement = useRef(null);
   const editorView = useRef(null); // 내부에서 editorView 관리
   const { isDarkMode } = useDarkMode();
@@ -92,6 +93,10 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
           <button className={editorBtn} onClick={handleResetCode}>
             <CodeReset width={24} height={24} className={editorIcon} />
             코드 초기화
+          </button>
+          <button className={editorBtn} onClick={resetDatabase}>
+            <DatabaseReset width={24} height={24} className={editorIcon} />
+            DB 초기화
           </button>
         </div>
       </div>

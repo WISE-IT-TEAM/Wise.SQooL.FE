@@ -24,6 +24,28 @@ export const createDatabase = async () => {
   }
 };
 
+export const resetDatabase = async () => {
+  try {
+    const response = await fetch(apiInitUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({ dbname: 'Artist', reset: true }), // Assuming the API accepts a reset flag
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Database reset failed');
+    }
+
+    const data = await response.json();
+    console.log('Database reset successfully', data);
+  } catch (error) {
+    console.error('Error resetting database:', error);
+  }
+};
+
 export const executeQuery = async (query, setQueryResult) => {
   console.log('Executing query:', query);
 
@@ -50,19 +72,19 @@ export const executeQuery = async (query, setQueryResult) => {
       return;
     }
 
-      setQueryResult({
-        message: result.message,
-        columns: result.columns || [],
-        rows: result.result || [],
-        error: null
-      });
-    } catch (error) {
-      console.error('쿼리 실행 중 오류:', error);
-      setQueryResult({
-        message: error.message,
-        columns: [],
-        rows: [],
-        error: error.message
-      });
-    }
-  };
+    setQueryResult({
+      message: result.message,
+      columns: result.columns || [],
+      rows: result.result || [],
+      error: null
+    });
+  } catch (error) {
+    console.error('쿼리 실행 중 오류:', error);
+    setQueryResult({
+      message: error.message,
+      columns: [],
+      rows: [],
+      error: error.message
+    });
+  }
+};
