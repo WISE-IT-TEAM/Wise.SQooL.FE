@@ -9,9 +9,7 @@ const StartPage = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [isEditorOpen, setIsEditorOpen] = useState(true);
   const [editorWidth, setEditorWidth] = useState(500);
-  const [documentWidth, setDocumentWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth - 500 : 1000
-  );
+  const [documentWidth, setDocumentWidth] = useState(1000);
   const [query, setQuery] = useState("");
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
   const minDocumentWidth = 320;
@@ -26,6 +24,9 @@ const StartPage = () => {
     if (storedQuery !== null) {
       setQuery(storedQuery);
     }
+
+    const initialWidth = typeof window !== 'undefined' ? window.innerWidth - 500 : 1000;
+    setDocumentWidth(initialWidth);
   }, []);
 
   useEffect(() => {
@@ -87,25 +88,21 @@ const StartPage = () => {
     setEditorWidth(window.innerWidth - newDocumentWidth);
   };
 
-  const startWrap = `flex justify-center pt-14 mx-auto duration-500 ${isEditorOpen ? 'w-full px-6' : 'max-w-content-full'}`;
-  const documentWrap = `flex flex-row justify-center flex-grow overflow-y-auto gap-4`;
-  const editorWrap = `${isEditorOpen ? 'flex' : 'hidden'} flex-grow overflow-y-auto`;
+  const container = `flex justify-center pt-14 mx-auto duration-500 ${isEditorOpen ? 'w-full px-6' : 'max-w-content-full'}`;
+  const documentWrap = `flex flex-row justify-center flex-grow gap-4`;
+  const editorWrap = `max-w-content-full min-w-content-half ${isEditorOpen ? 'flex' : 'hidden'} flex-grow`;
   const toggleBtn = `fixed right-12 bottom-12 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600`;
 
   return (
-    <section className={startWrap}>
+    <section className={container}>
       <div className="flex w-full h-full">
         <div className={documentWrap} style={{ width: documentWidth }}>
-          <div className="w-full">
             <CategoryList onSelectCategory={handleSelectCategory} />
-          </div>
-          <div className="w-full">
             {selectedCategoryId ? (
               <Content documentId={selectedCategoryId} key={selectedCategoryId} />
             ) : (
               <p>카테고리를 선택해주세요.</p>
             )}
-          </div>
         </div>
         {isEditorOpen && (
           <ResizeHandler
@@ -117,7 +114,7 @@ const StartPage = () => {
           />
         )}
         <div className={editorWrap} style={{ width: editorWidth }}>
-          <SQLEditor initialValue="" placeholder="쿼리문을 입력해주세요. 예시) SELECT * FROM Artist;" query={query} setQuery={setQuery} />
+          <SQLEditor initialValue="" placeholder="쿼리문을 입력해주세요. 예시) SELECT * FROM Artist;" />
         </div>
       </div>
       <button onClick={toggleEditor} className={toggleBtn}>

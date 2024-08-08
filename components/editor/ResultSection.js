@@ -1,3 +1,4 @@
+// component/editor/ResultSection.js
 import React from "react";
 import useDarkMode from "../../hooks/useDarkMode";
 
@@ -7,6 +8,8 @@ const ResultSection = ({ queryResult, minHeight }) => {
   const queryWrap = `w-full flex flex-col rounded-lg border-1 flex-grow ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const queryHead = `w-full p-4 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-slate-800 text-slate-50" : "bg-slate-200 text-slate-600"}`;
   const resultField = `w-full h-full p-4 flex-grow overflow-auto`;
+  const resultHead = `py-2 px-4 border-b ${isDarkMode ? "border-slate-800 text-slate-200" : "border-slate-200 text-slate-400"} `;
+  const resultCell = `py-2 px-4 border-b ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
 
   const renderTable = (data) => {
     const { columns, rows } = data;
@@ -17,13 +20,13 @@ const ResultSection = ({ queryResult, minHeight }) => {
 
     return (
       <div className="flex justify-center">
-        <table className="min-w-full bg-white text-center">
+        <table className="min-w-full bg-transparent text-center">
           <thead>
             <tr>
               {columns.map((header, index) => (
                 <th
                   key={index}
-                  className="py-2 px-4 border-b border-gray-200 bg-gray-100"
+                  className={resultHead}
                 >
                   {header}
                 </th>
@@ -36,7 +39,7 @@ const ResultSection = ({ queryResult, minHeight }) => {
                 {row.map((cell, cellIndex) => (
                   <td
                     key={cellIndex}
-                    className="py-2 px-4 border-b border-gray-200"
+                    className={resultCell}
                   >
                     {cell}
                   </td>
@@ -52,11 +55,11 @@ const ResultSection = ({ queryResult, minHeight }) => {
   return (
     <section className={queryWrap} style={{ minHeight }}>
       <div className={queryHead}>
-        <span>쿼리 실행 결과</span>
+        <span>코드 실행 결과</span>
       </div>
       <div className={resultField}>
         {!queryResult || (!queryResult.message && !queryResult.error && (!queryResult.columns || queryResult.columns.length === 0)) ? (
-          <div className="mb-4 text-left font-semibold">코드를 실행하면 결과가 표시됩니다</div>
+          <div className="mb-4 text-left font-semibold">코드를 실행하면 이곳에 결과가 나타납니다</div>
         ) : (
           <>
             {queryResult.message && (

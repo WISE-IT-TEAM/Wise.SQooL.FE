@@ -1,81 +1,49 @@
-import React, { useRef, useEffect, useState } from "react";
-import { EditorView, basicSetup } from "codemirror";
-import { sql } from "@codemirror/lang-sql";
-import { autocompletion } from "@codemirror/autocomplete";
-import { createSqoolTheme } from "./Styles";
-import { CodeCopy, CodeReset } from "../IconSet";
-import useDarkMode from "../../hooks/useDarkMode";
-import { sqliteCompletion } from "./sqliteKeywords";
+import React, { useEffect, useRef } from 'react';
+import useEditor from '../../hooks/useEditor';
+import { CodeCopy, CodeReset } from '../IconSet';
+import useDarkMode from '../../hooks/useDarkMode';
+import useStore from '../../store/useStore';
 
-/**
- * QuerySection 컴포넌트
- * @param {object} props - 컴포넌트 속성
- * @param {string} props.initialValue - 초기 SQL 코드 값
- * @param {number} props.editorHeight - 에디터 높이
- * @param {function} props.executeQuery - 쿼리 실행 함수
- * @param {number} props.minHeight - 최소 높이
- * @param {function} props.setEditorView - editorView 설정 함수
- */
 const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, setEditorView }) => {
-  const editorElement = useRef(null);
-  const editorView = useRef(null); // 내부에서 editorView 관리
   const { isDarkMode } = useDarkMode();
-  const [initialized, setInitialized] = useState(false);
+  const { showToast, query, setQuery, resetDatabase } = useStore();
+  const editorElement = useEditor(initialValue, isDarkMode, setQuery);
+  const editorViewRef = useRef(null);
 
-  // 에디터 초기화 및 다크 모드 변경 시 재초기화
   useEffect(() => {
-    const initializeEditor = () => {
-      if (editorElement.current) {
-        if (editorView.current) {
-          editorView.current.destroy();
-        }
-        editorView.current = new EditorView({
-          extensions: [
-            basicSetup,
-            sql(),
-            createSqoolTheme(isDarkMode),
-            autocompletion({
-              override: [sqliteCompletion]
-            })
-          ],
-          parent: editorElement.current,
-          doc: initialValue,
-        });
-        setEditorView(editorView.current); // editorView 설정
-      }
-    };
-
-    initializeEditor();
-    setInitialized(true);
-
-    return () => {
-      if (editorView.current) {
-        editorView.current.destroy();
-      }
-    };
-  }, [initialValue, isDarkMode, setEditorView]);
+    if (editorElement.current) {
+      setEditorView(editorElement.current);
+      editorViewRef.current = editorElement.current.view; // 올바르게 editorViewRef를 설정
+    }
+  }, [editorElement, setEditorView]);
 
   const handleCopyCode = () => {
-    if (editorView.current) {
-      const code = editorView.current.state.doc.toString();
+    if (editorViewRef.current) {
+      const code = editorViewRef.current.state.doc.toString();
       navigator.clipboard.writeText(code).then(() => {
-        alert("코드가 클립보드에 복사되었습니다.");
+        showToast('코드 복사 성공!', 'success');
       }).catch((err) => {
+        showToast('코드 복사 실패: ' + err.message, 'error');
         console.error("코드 복사 실패: ", err);
       });
+    } else {
+      console.error('EditorView is not initialized');
     }
   };
 
-  const handleResetCode = () => {
-    if (editorView.current) {
-      editorView.current.dispatch({
-        changes: { from: 0, to: editorView.current.state.doc.length, insert: initialValue }
-      });
+  const handleResetCode = async () => {
+    const success = await resetDatabase();
+    if (success) {
+      setQuery(initialValue);
+      showToast('데이터베이스가 초기화되었습니다.', 'success');
+      console.log('Database reset to initial state');
+    } else {
+      showToast('데이터베이스 초기화에 실패했습니다.', 'error');
     }
   };
 
   const queryWrap = `w-full flex flex-col rounded-lg border-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
-  const queryHead = `w-full p-4 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-primaryDark text-slate-50" : "bg-primaryLight text-slate-600"} bg-opacity-10`;
+  const queryHead = `w-full px-4 py-3 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-primaryDark text-slate-50" : "bg-primaryLight text-slate-600"} bg-opacity-10`;
   const editorBtn = `px-2 py-1 rounded-lg flex justify-center items-center gap-1 font-bold ${isDarkMode ? "bg-slate-900 text-slate-400" : "bg-slate-50 text-slate-500"} hover:opacity-70 duration-300`;
   const editorIcon = `${isDarkMode ? "fill-primaryDark" : "fill-primaryLight"}`;
   const queryBtn = `w-full py-4 rounded-bl-lg rounded-br-lg ${isDarkMode ? "bg-primaryDark text-slate-900 hover:bg-secondaryDark" : "bg-primaryLight text-slate-50 hover:bg-secondaryLight"} font-bold duration-300`;
@@ -95,8 +63,8 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
           </button>
         </div>
       </div>
-      <div ref={editorElement} className="w-full h-full flex-grow overflow-auto"></div>
-      <button onClick={executeQuery} className={queryBtn}>
+      <div ref={editorElement} className="w-full h-full flex-grow overflow-y-scroll"></div>
+      <button onClick={() => executeQuery(query)} className={queryBtn}>
         <span>코드 실행(Ctrl + Enter)</span>
       </button>
     </section>

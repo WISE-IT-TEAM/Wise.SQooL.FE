@@ -1,8 +1,11 @@
+// src/store/useStore.js
 import { create } from 'zustand';
 
 const useStore = create((set) => ({
   isDarkMode: false,
   isFullWidth: false,
+  query: '',
+  setQuery: (newQuery) => set(() => ({ query: newQuery })),
 
   toggleDarkMode: () => set((state) => {
     const newMode = !state.isDarkMode;

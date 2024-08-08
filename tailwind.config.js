@@ -2,11 +2,13 @@
 /** @type {import('tailwindcss').Config} */
 import * as colors from './tailwind/colors.js';
 import * as fonts from './tailwind/fonts.js';
+import flowbite from 'flowbite/plugin'; 
 
 export const content = [
   "./pages/**/*.{js,ts,jsx,tsx,mdx}",
   "./components/**/*.{js,ts,jsx,tsx,mdx}",
   "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  "./node_modules/flowbite-react/**/*.js", 
 ];
 
 export const theme = {
@@ -29,7 +31,9 @@ export const theme = {
     },
     maxWidth: {
       'content-full': '1200px',
-      'content-half': '592px',
+    },
+    minWidth: {
+      'content-half': '640px',
     },
     lineHeight: {
       'h1': '72px',
@@ -53,4 +57,4 @@ export const theme = {
   darkMode: 'class', // 다크모드 활성화
 };
 
-export const plugins = [];
+export const plugins = [flowbite]; 

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import './fonts.css';
+@import 'flowbite';
 
 :root {
   --foreground-rgb: 15, 23, 42;
@@ -15,8 +16,8 @@
 .dark {
   --foreground-rgb: 248, 250, 252;
   --background-rgb: 17, 21, 25;
-  --drag-background-color: #444444;
-  --drag-text-color: #ffffff;
+  --drag-background-color: #444;
+  --drag-text-color: #fff;
 }
 
 body {
@@ -25,7 +26,23 @@ body {
   font-family: 'NanumSquareNeo-Variable', sans-serif;
 }
 
-.dragging {
-  background-color: var(--drag-background-color) !important;
-  color: var(--drag-text-color) !important;
+/* 웹킷 기반 브라우저에서 스크롤바 스타일 설정 */
+::-webkit-scrollbar {
+  width: 8px;  /* 스크롤바 너비 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cccccc; /* 스크롤바 색상 */
+  border-radius: 8px;    /* 스크롤바 모서리 둥글게 */
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f8f8;    /* 스크롤바 트랙 배경색 */
+  border-radius: 8px;
+}
+
+/* Firefox에서 스크롤바 스타일 설정 */
+html {
+  scrollbar-width: thin;          /* 스크롤바 너비 설정 (auto, thin, none) */
+  scrollbar-color: #cccccc #f8f8f8;  /* 스크롤바 색상 (스크롤바, 트랙) */
 }

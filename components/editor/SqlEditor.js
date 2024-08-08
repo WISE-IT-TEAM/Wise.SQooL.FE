@@ -1,5 +1,5 @@
-// component/editor/SqlEditor.js
-import React, { useEffect, useState, useRef } from 'react';
+// components/editor/SQLEditor.js
+import React, { useEffect, useRef, useState } from 'react';
 import QuerySection from './QuerySection';
 import ResultSection from './ResultSection';
 import { createDatabase, executeQuery as executeQueryApi } from './Api';
@@ -32,17 +32,16 @@ const SQLEditor = ({ initialValue, page }) => {
     };
   }, []);
 
-  const executeQuery = () => {
-    const editorView = editorViewRef.current;
-    if (editorView) {
-      const query = editorView.state.doc.toString();
-      executeQueryApi(query, setQueryResult);
-    } else {
-      console.error("EditorView is not initialized");
-    }
+  const executeQuery = (query) => {
+    console.log('Executing query:', query);
+    executeQueryApi(query, setQueryResult).then(() => {
+      console.log('쿼리 실행');
+    }).catch((err) => {
+      console.error("쿼리 실행 실패: ", err);
+    });
   };
 
-  const container = `${page === 'editor' ? 'max-w-content-full' : 'w-full'} flex flex-col mx-auto h-full min-w-80`;
+  const container = `${page === 'editor' ? 'max-w-content-full' : 'w-full'} flex flex-col mx-auto h-full`;
 
   const minEditorHeight = 320;
   const minResultHeight = 240;
@@ -54,7 +53,7 @@ const SQLEditor = ({ initialValue, page }) => {
         editorHeight={editorHeight}
         executeQuery={executeQuery}
         minHeight={minEditorHeight}
-        setEditorView={(view) => editorViewRef.current = view}
+        setEditorView={(view) => (editorViewRef.current = view)}
       />
       <ResizeHandler
         onResize={setEditorHeight}
@@ -74,4 +73,3 @@ const SQLEditor = ({ initialValue, page }) => {
 };
 
 export default SQLEditor;
-

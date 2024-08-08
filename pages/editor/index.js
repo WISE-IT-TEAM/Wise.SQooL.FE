@@ -32,7 +32,7 @@ const Editor = () => {
 
   return (
     <section className={editorWrap}>
-      <SQLEditor initialValue="SELECT * FROM Artist;" />
+      <SQLEditor initialValue="" placeholder="쿼리문을 입력해주세요. 예시) SELECT * FROM Artist;" />
     </section>
   );
 }
