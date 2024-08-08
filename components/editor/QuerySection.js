@@ -22,6 +22,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
   const editorView = useRef(null); // 내부에서 editorView 관리
   const { isDarkMode } = useDarkMode();
   const [initialized, setInitialized] = useState(false);
+  const [queryValue, setQueryValue] = useState(initialValue); // 상태로 초기값 관리
 
   // 에디터 초기화 및 다크 모드 변경 시 재초기화
   useEffect(() => {
@@ -40,7 +41,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
             })
           ],
           parent: editorElement.current,
-          doc: initialValue,
+          doc: queryValue, // 상태로 관리되는 값을 사용
         });
         setEditorView(editorView.current); // editorView 설정
       }
@@ -54,7 +55,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
         editorView.current.destroy();
       }
     };
-  }, [initialValue, isDarkMode, setEditorView]);
+  }, [queryValue, isDarkMode, setEditorView]); // queryValue 추가
 
   const handleCopyCode = () => {
     if (editorView.current) {
@@ -72,6 +73,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
       editorView.current.dispatch({
         changes: { from: 0, to: editorView.current.state.doc.length, insert: initialValue }
       });
+      setQueryValue(initialValue); // 초기값으로 되돌림
     }
   };
 
@@ -101,7 +103,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
         </div>
       </div>
       <div ref={editorElement} className="w-full h-full flex-grow overflow-auto"></div>
-      <button onClick={executeQuery} className={queryBtn}>
+      <button onClick={() => { setQueryValue(editorView.current.state.doc.toString()); executeQuery(); }} className={queryBtn}>
         <span>코드 실행(Ctrl + Enter)</span>
       </button>
     </section>
