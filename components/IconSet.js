@@ -181,6 +181,15 @@ export const CodeReset = ({ title, width, height, ...props }) => (
   </Icon>
 );
 
+// DatabaseReset 아이콘
+export const DatabaseReset = ({ title, width, height, ...props }) => (
+  <Icon title={title} width={width} height={height} {...props}>
+    <path d="M2 12C2 10.89 2.89 10 4 10H20C21.11 10 22 10.89 22 12V17C22 18.11 21.11 19 20 19H4C2.89 19 2 18.11 2 17V12ZM5 13H19V16H5V13Z" fill="#33E364"/>
+    <path d="M11.47 14.5H12.53V15.57H11.47V14.5ZM11.47 12.5H12.53V13.57H11.47V12.5ZM10 14H11.06V15.07H10V14ZM10 12H11.06V13.07H10V12ZM8.53 14H9.59V15.07H8.53V14ZM8.53 12H9.59V13.07H8.53V12ZM13 14H14.06V15.07H13V14ZM13 12H14.06V13.07H13V12ZM15.47 14H16.53V15.07H15.47V14ZM15.47 12H16.53V13.07H15.47V12Z" fill="#33E364"/>
+    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 8C14.76 8 17 10.24 17 13C17 15.76 14.76 18 12 18C9.24 18 7 15.76 7 13C7 10.24 9.24 8 12 8Z" fill="#33E364"/>
+  </Icon>
+);
+
 // SlidePlay 아이콘
 export const SlidePlay = ({ title, width, height, ...props }) => (
   <Icon title={title} width={width} height={height} {...props}>
