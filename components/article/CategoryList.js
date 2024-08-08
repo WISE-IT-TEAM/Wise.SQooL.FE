@@ -25,7 +25,7 @@ const CategoryList = ({ onSelectCategory }) => {
                 {categories.map(category => (
                     <li 
                         key={category.Id} 
-                        className={`p-4 border-b border-slate-400 ${category.Tree === 'doc' ? 'cursor-pointer hover:bg-gray-200' : 'cursor-not-allowed text-gray-500'} ${selectedCategory === category.Id ? 'bg-blue-500 text-white' : ''}`}
+                        className={`p-2 border-b border-slate-400 ${category.Tree === 'doc' ? 'cursor-pointer' : 'cursor-not-allowed text-gray-500'}`}
                         onClick={() => category.Tree === 'doc' && handleCategoryClick(category.Id)}
                     >
                         {category.Title}
