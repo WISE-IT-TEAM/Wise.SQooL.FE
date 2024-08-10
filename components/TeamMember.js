@@ -16,7 +16,7 @@ const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, emai
   // 이메일 주소를 클립보드에 복사하는 함수
   const copyClipboard = () => {
     navigator.clipboard.writeText(email).then(() => {
-      showToast("✉️ 이메일 주소가 복사 성공", 'success');
+      showToast("✉️ 이메일 주소 복사 성공!", 'success');
     }).catch(() => {
       showToast("⚠️ 이메일 주소 복사 오류", 'error');
     });

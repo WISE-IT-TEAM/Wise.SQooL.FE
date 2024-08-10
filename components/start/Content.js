@@ -18,17 +18,17 @@ const Content = ({ documentId }) => {
         setContent(data.document);
       } catch (error) {
         console.error('문서 가져오는 중 오류 발생:', error);
-        setContent(null);  // 에러 발생 시 null로 설정
+        setContent(null);
       } finally {
         setIsLoading(false);
       }
     };
 
     if (documentId) {
-      setIsLoading(true); // 새로운 documentId가 들어오면 로딩 상태로 설정
+      setIsLoading(true);
       fetchContent();
     }
-  }, [documentId]); // documentId 의존성 배열을 확인합니다.
+  }, [documentId]); 
 
   if (isLoading) {
     return <div className='w-full h-full flex justify-center items-center'>로딩 중 입니다</div>;

@@ -1,12 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 import useEditor from '../../hooks/useEditor';
-import { CodeCopy, CodeReset } from '../IconSet';
+import { CodeCopy, DBReset } from '../IconSet';
 import useDarkMode from '../../hooks/useDarkMode';
 import useStore from '../../store/useStore';
+import { resetDatabase as resetDatabaseApi } from './Api'; // resetDatabaseApi 가져오기
+
+/**
+ * QuerySection 컴포넌트
+ * @param {object} props - 컴포넌트 속성
+ * @param {string} props.initialValue - 초기 SQL 코드 값
+ * @param {number} props.editorHeight - 에디터 높이
+ * @param {function} props.executeQuery - 쿼리 실행 함수
+ * @param {number} props.minHeight - 최소 높이
+ * @param {function} props.setEditorView - editorView 설정 함수
+ */
 
 const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, setEditorView }) => {
   const { isDarkMode } = useDarkMode();
-  const { showToast, query, setQuery, resetDatabase } = useStore();
+  const { showToast, query, setQuery } = useStore();
   const editorElement = useEditor(initialValue, isDarkMode, setQuery);
   const editorViewRef = useRef(null);
 
@@ -31,14 +42,24 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
     }
   };
 
-  const handleResetCode = async () => {
-    const success = await resetDatabase();
+  const handleResetDatabase = async () => {
+    const success = await resetDatabaseApi(); // 데이터베이스 초기화 API 호출
     if (success) {
-      setQuery(initialValue);
-      showToast('데이터베이스 초기화 성공!', 'success');
-      console.log('Database reset to initial state');
+      resetEditor(); // 에디터 내용을 초기화하는 함수 호출
+      setQuery(''); // 에디터 상태도 빈 문자열로 설정
+      showToast('데이터베이스 및 코드 초기화 성공!', 'success'); // 성공 토스트
+      console.log('Database and code reset to initial state');
     } else {
-      showToast('데이터베이스 초기화에 실패', 'error');
+      showToast('데이터베이스 초기화에 실패', 'error'); // 실패 토스트
+      console.error('Database reset failed');
+    }
+  };
+
+  const resetEditor = () => {
+    if (editorViewRef.current) {
+      editorViewRef.current.dispatch({
+        changes: { from: 0, to: editorViewRef.current.state.doc.length, insert: '' }, // 에디터 내용을 비우기
+      });
     }
   };
 
@@ -57,9 +78,9 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
             <CodeCopy width={24} height={24} className={editorIcon} />
             코드 복사
           </button>
-          <button className={editorBtn} onClick={handleResetCode}>
-            <CodeReset width={24} height={24} className={editorIcon} />
-            코드 초기화
+          <button className={editorBtn} onClick={handleResetDatabase}>
+            <DBReset width={24} height={24} className={editorIcon} />
+            DB 초기화
           </button>
         </div>
       </div>

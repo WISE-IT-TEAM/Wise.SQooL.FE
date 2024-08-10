@@ -1,4 +1,3 @@
-// components/editor/SQLEditor.js
 import React, { useEffect, useRef, useState } from 'react';
 import QuerySection from './QuerySection';
 import ResultSection from './ResultSection';
@@ -12,12 +11,18 @@ const SQLEditor = ({ initialValue, page }) => {
   const [containerHeight, setContainerHeight] = useState(0);
   const editorViewRef = useRef(null);
   const { isDarkMode } = useDarkMode();
+  const isDatabaseInitialized = useRef(false); // 플래그 추가
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setContainerHeight(window.innerHeight - 100);
     }
-    createDatabase();
+    
+    // 데이터베이스가 초기화되지 않았다면 초기화 수행
+    if (!isDatabaseInitialized.current) {
+      createDatabase();
+      isDatabaseInitialized.current = true; // 초기화 후 플래그 설정
+    }
   }, []);
 
   useEffect(() => {

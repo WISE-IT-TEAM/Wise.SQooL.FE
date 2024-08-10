@@ -33,7 +33,7 @@ const TeamData = [
     role: 'FRONT-END',
     bio: 'Only For DB!',
     email: 'sydneysekim@gmail.com',
-    github: 'https://github.com/member4',
+    github: 'https://github.com/sydneyskim',
   },
   ];
 
