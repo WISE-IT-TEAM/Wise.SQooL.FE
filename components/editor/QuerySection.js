@@ -50,14 +50,6 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
                   executeQuery();
                   return true;
                 }
-              },
-              {
-                key: "Mod-Enter",
-                run: () => {
-                  setQueryValue(editorView.current.state.doc.toString()); // 쿼리 상태 업데이트
-                  executeQuery();
-                  return true;
-                }
               }
             ])
           ],
