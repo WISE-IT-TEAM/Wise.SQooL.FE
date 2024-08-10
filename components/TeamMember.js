@@ -16,9 +16,9 @@ const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, emai
   // 이메일 주소를 클립보드에 복사하는 함수
   const copyClipboard = () => {
     navigator.clipboard.writeText(email).then(() => {
-      showToast("✉️ 이메일 주소가 복사 되었습니다", 'success');
+      showToast("✉️ 이메일 주소가 복사 성공", 'success');
     }).catch(() => {
-      showToast("⚠️ 이메일 주소 복사에 실패했습니다", 'error');
+      showToast("⚠️ 이메일 주소 복사 오류", 'error');
     });
   };
   
@@ -31,7 +31,7 @@ const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, emai
     <div className={memberCard}>
       <div style={{ position: 'relative', width: '160px', height: '160px' }}>
         <Image 
-          src={isDarkMode ? avatarDark : avatarLight} 
+          src={isDarkMode ? `/imgs/${avatarDark}` : `/imgs/${avatarLight}`} 
           alt={`${nickname} 아바타`} 
           fill 
           style={{ objectFit: 'contain' }} 

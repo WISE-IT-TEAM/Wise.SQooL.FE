@@ -20,9 +20,9 @@ const Footer = () => {
           <Link href="/" legacyBehavior>  
             <a>
               {isDarkMode ? (
-                <Image src='/Img/ci_logo_mono_dark.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
+                <Image src='/imgs/ci_logo_mono_dark.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
               ) : (
-                <Image src='/Img/ci_logo_mono_light.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
+                <Image src='/imgs/ci_logo_mono_light.svg' alt='Logo' width={117} height={24} className='mr-2' priority />  
               )}
             </a>
           </Link>

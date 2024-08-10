@@ -3,11 +3,11 @@
 }
 
 .heroLight {
-  background-image: url('/img/hero_bg_light.png');
+  background-image: url('/imgs/hero_bg_light.png');
   background-size: cover;
 }
 
 .heroDark {
-  background-image: url('/img/hero_bg_dark.png');
+  background-image: url('/imgs/hero_bg_dark.png');
   background-size: cover;
 }
