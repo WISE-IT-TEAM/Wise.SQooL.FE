@@ -23,15 +23,14 @@ const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, emai
   };
   
   const memberCard = `w-card-pc flex flex-col gap-3 px-6 py-10 justify-center items-center border-1 rounded-2xl`;
-  const iconWrap = `flex gap-2`;
   const memberIcon = `${isDarkMode ? 'fill-slate-400 hover:fill-subDark' : 'fill-slate-400 hover:fill-subLight'} duration-300`;
   const roleBadge = `text-xs px-2 py-1 rounded font-semibold ${isDarkMode ? 'bg-primaryDark text-slate-900' : 'bg-primaryLight text-slate-50'}`
 
   return (
     <div className={memberCard}>
-      <div style={{ position: 'relative', width: '160px', height: '160px' }}>
+      <div className="relative w-40 h-40">
         <Image 
-          src={isDarkMode ? `/imgs/${avatarDark}` : `/imgs/${avatarLight}`} 
+          src={isDarkMode ? avatarDark : avatarLight} 
           alt={`${nickname} 아바타`} 
           fill 
           style={{ objectFit: 'contain' }} 
@@ -39,14 +38,14 @@ const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, emai
       </div>
       <h3 className="text-xl font-bold">{nickname}</h3>
       <span className={roleBadge}>{role}</span>
-      <p className='text-center'>{bio}</p>
-      <div className={iconWrap}>
+      <p className="text-center">{bio}</p>
+      <div className="flex gap-2">
         <Link href={github} legacyBehavior>
           <a target="_blank" rel="noopener noreferrer">
             <MemberGithub width={24} height={24} className={memberIcon} />
           </a>
         </Link>
-        <button onClick={copyClipboard} className='inline-flex gap-2'>
+        <button onClick={copyClipboard} className="inline-flex gap-2">
           <MemberEmail width={24} height={24} className={memberIcon} />
         </button>
       </div>

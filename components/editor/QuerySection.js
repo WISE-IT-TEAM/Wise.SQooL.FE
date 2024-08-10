@@ -35,10 +35,10 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
     const success = await resetDatabase();
     if (success) {
       setQuery(initialValue);
-      showToast('데이터베이스가 초기화되었습니다.', 'success');
+      showToast('데이터베이스 초기화 성공!', 'success');
       console.log('Database reset to initial state');
     } else {
-      showToast('데이터베이스 초기화에 실패했습니다.', 'error');
+      showToast('데이터베이스 초기화에 실패', 'error');
     }
   };
 
