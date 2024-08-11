@@ -39,8 +39,18 @@ const ArticleDetailPage = () => {
     }
 
     return (
-        <div className="w-full h-screen flex flex-col items-center p-4" style={{ marginTop: '40px' }}>
-            <ArticleDetail article={article} onBack={handleBack} />
+        <div className="flex flex-col min-h-screen">
+            <main className="flex-grow w-full flex flex-col items-center p-4" style={{ marginTop: '40px' }}>
+                <ArticleDetail article={article} />
+                <div className="w-full flex justify-end">
+                    <button 
+                        onClick={handleBack} 
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Back To List
+                    </button>
+                </div>
+            </main>
         </div>
     );
 };

@@ -19,12 +19,6 @@ const ArticleDetail = ({ article, onBack }) => {
                 {tags.map(tag => <span key={tag} className="tag bg-gray-200 text-gray-800 px-2 py-1 rounded mr-2">{tag}</span>)}
             </div>
             <div dangerouslySetInnerHTML={{ __html: article.Content }} className="prose mb-4" />
-            <button 
-                className="p-2 bg-blue-500 text-white rounded shadow"
-                onClick={onBack}
-            >
-                Back to List
-            </button>
         </div>
     );
 };
