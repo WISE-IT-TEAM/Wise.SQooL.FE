@@ -37,7 +37,7 @@ const Content = ({ documentId }) => {
 
   const contentWrap = `w-full min-w-80 h-full flex flex-col rounded-lg border-1 overflow-y-scroll ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const contentHead = `w-full p-4 font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-slate-800 text-slate-50" : "bg-slate-200 text-slate-600"}`;
-  const contentField = `w-full p-4 items-center ${isDarkMode ? "text-slate-50" : "text-slate-900"}`;
+  const contentField = `w-full p-4 items-center prose ${isDarkMode ? "prose-invert" : ""}`;
 
   return (
     <div className={contentWrap}>
