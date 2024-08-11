@@ -1,4 +1,3 @@
-// pages/start/index.js
 import React, { useState, useEffect } from 'react';
 import Document from '../../components/start/Document';
 import SQLEditor from '../../components/editor/SqlEditor';
@@ -68,8 +67,8 @@ const StartPage = () => {
   };
 
   const startWrap = `flex justify-center pt-14 mx-auto duration-500 ${isEditorOpen ? 'w-full px-6' : 'max-w-content-full'}`;
-  const documentWrap = `flex flex-row justify-center flex-grow overflow-y-auto gap-4`;
-  const editorWrap = `${isEditorOpen ? 'flex' : 'hidden'} flex-grow overflow-y-auto`;
+  const documentWrap = `flex flex-row justify-center flex-grow overflow-hidden gap-4`;
+  const editorWrap = `${isEditorOpen ? 'flex' : 'hidden'} flex-grow overflow-hidden`;
   const toggleBtn = `fixed right-12 bottom-12 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600`;
 
   return (
@@ -90,9 +89,8 @@ const StartPage = () => {
             title="드래그로 창 크기를 조절해보세요"
           />
         )}
-        <div className={editorWrap} style={{ width: editorWidth }}>
+        <div id="editor" className={editorWrap} style={{ width: editorWidth, position: 'sticky', top: 0 }}>
           <SQLEditor/>
-          {/* <SQLEditor initialValue="SELECT * FROM Artist;" /> */}
         </div>
       </div>
       <button onClick={toggleEditor} className={toggleBtn}>

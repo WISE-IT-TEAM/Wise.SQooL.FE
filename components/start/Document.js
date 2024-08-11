@@ -1,5 +1,4 @@
-// components/start/Document.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CategoryList from './Category';
 import Content from './Content';
 import ResizeHandler from '../ResizeHandler';
@@ -9,19 +8,37 @@ const Document = ({ onSelectCategory, selectedCategoryId }) => {
   const minCategoryWidth = 240;
   const minContentWidth = 320;
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const content = document.getElementById('content');
+      const category = document.getElementById('category');
+      const editor = document.getElementById('editor');
+
+      if (content && category && editor) {
+        const scrollTop = content.scrollTop;
+        category.style.transform = `translateY(-${scrollTop}px)`;
+        editor.style.transform = `translateY(-${scrollTop}px)`;
+      }
+    };
+
+    const content = document.getElementById('content');
+    if (content) {
+      content.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (content) {
+        content.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   return (
-    <section className="flex flex-grow w-full h-full gap-4 mb-10">
-      <div style={{ width: categoryWidth, minWidth: minCategoryWidth }}>
+    <section className="flex flex-grow w-full h-full gap-4 mb-10 overflow-hidden">
+      <div id="category" style={{ width: categoryWidth, minWidth: minCategoryWidth, position: 'sticky', top: 0 }}>
         <CategoryList onSelectCategory={onSelectCategory} />
       </div>
-      {/* <ResizeHandler
-        onResize={setCategoryWidth}
-        startWidth={categoryWidth}
-        minWidth={minCategoryWidth}
-        direction="vertical"
-        title="드래그로 카테고리 창 크기를 조절해보세요"
-      /> */}
-      <div style={{ flex: 1, minWidth: minContentWidth, overflow: 'hidden' }}>
+      <div id="content" style={{ flex: 1, minWidth: minContentWidth, overflowY: 'scroll', height: '100vh' }}>
         {selectedCategoryId ? (
           <Content documentId={selectedCategoryId} key={selectedCategoryId} />
         ) : (
