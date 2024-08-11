@@ -3,11 +3,12 @@ import { EditorView, basicSetup } from "codemirror";
 import { sql } from "@codemirror/lang-sql";
 import { autocompletion } from "@codemirror/autocomplete";
 import { createSqoolTheme } from "./Styles";
-import { CodeCopy, CodeReset, DatabaseReset } from "../IconSet"; // Add DatabaseReset icon
+import { CodeCopy, CodeReset, DatabaseReset } from "../IconSet";
 import useDarkMode from "../../hooks/useDarkMode";
 import { sqliteCompletion } from "./sqliteKeywords";
 import { keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
+import { placeholder } from "@codemirror/view";
 
 /**
  * QuerySection 컴포넌트
@@ -51,7 +52,8 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
                   return true;
                 }
               }
-            ])
+            ]),
+            placeholder("SELECT * FROM Artist;") // 플레이스홀더 설정
           ],
           parent: editorElement.current,
           doc: queryValue, // 상태로 관리되는 값을 사용
