@@ -12,7 +12,7 @@ const Editor = () => {
           headers: {
             'Content-Type': 'application/json; charset=UTF-8'
           },
-          body: JSON.stringify({ dbname: "Artist" })
+          body: JSON.stringify({ dbname: "Artist" }),
         });
 
         if (!response.ok) {
@@ -27,15 +27,16 @@ const Editor = () => {
 
     createDatabase();
   }, [apiInitUrl]);
-  
-  const editorWrap = `max-w-content-full mb-10 flex mx-auto pt-14`
+    
+  // const editorContainer = `max-w-content-full mb-10 flex mx-auto pt-14` // 여백있는 레이아웃
+  const editorContainer = `max-w-full min-h-screen flex justify-center items-start pt-14 pb-10`; // 꽉찬 레이아웃
 
   return (
-    <section className={editorWrap}>
-      <SQLEditor/>
+    <section className={editorContainer}>
+      <SQLEditor />
       {/* <SQLEditor initialValue="SELECT * FROM Artist;" /> */}
     </section>
   );
-}
+};
 
 export default Editor;
