@@ -1,8 +1,11 @@
+// API URL 정의
 const articleListUrl = process.env.NEXT_PUBLIC_API_ARTICLE_LIST_URL;
 const articleDetailUrl = process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL;
+const contentsBaseUrl = process.env.NEXT_PUBLIC_BASE_URL; // 이미지가 호스팅되는 서버의 기본 URL
 
+// adjustImagePaths 함수 정의
 const adjustImagePaths = (htmlContent) => {
-    const serverBaseUrl = process.env.NEXT_PUBLIC_API_CONTENTS_URL.replace('/api/sqldoc/document/', '');
+    const contentsBaseUrl = 'https://be.wiseit.kr'; // 이미지가 호스팅되는 서버의 기본 URL
 
     const div = document.createElement('div');
     div.innerHTML = htmlContent;
@@ -11,7 +14,7 @@ const adjustImagePaths = (htmlContent) => {
     for (let img of images) {
         const originalSrc = img.getAttribute('src');
         if (originalSrc && originalSrc.startsWith('/static/Uploads')) {
-            const newSrc = `${serverBaseUrl}${originalSrc}`;
+            const newSrc = `${contentsBaseUrl}${originalSrc}`;
             img.setAttribute('src', newSrc);
         }
     }
@@ -19,21 +22,7 @@ const adjustImagePaths = (htmlContent) => {
     return div.innerHTML;
 };
 
-const extractThumbnail = (content) => {
-    const adjustedContent = adjustImagePaths(content);
-    const div = document.createElement('div');
-    div.innerHTML = adjustedContent;
-    const img = div.querySelector('img');
-    return img ? img.src : '';
-};
-
-const extractDescription = (content) => {
-    const div = document.createElement('div');
-    div.innerHTML = content;
-    const firstParagraph = div.querySelector('p');
-    return firstParagraph ? firstParagraph.innerText : '';
-};
-
+// getArticleList 함수 정의
 export const getArticleList = async (page, perPage, category) => {
     try {
         console.log('Fetching articles from:', `${articleListUrl}?page=${page}&perpage=${perPage}&category=${category}`);
@@ -44,15 +33,11 @@ export const getArticleList = async (page, perPage, category) => {
         const data = await response.json();
         console.log('Fetched article list data:', data);
         const articleList = data.articlelist || [];
-        return Promise.all(articleList.map(async article => {
-            const articleDetail = await getArticleDetail(article.Id);
-            return {
-                ...article,
-                Tags: typeof article.Tags === 'string' ? article.Tags.split(',') : [],
-                Thumbnail: extractThumbnail(articleDetail.Content),
-                Description: article.Description || extractDescription(articleDetail.Content),
-                Content: articleDetail.Content // 상세 내용을 추가로 포함
-            };
+        return articleList.map(article => ({
+            ...article,
+            Tags: typeof article.Tags === 'string' ? article.Tags.split(',') : [],
+            Thumbnail: article.Thumbnail ? `${contentsBaseUrl}${article.Thumbnail}` : null, // 썸네일 경로 조정
+            Description: article.Description
         }));
     } catch (error) {
         console.error('Error fetching article list:', error);
@@ -60,6 +45,7 @@ export const getArticleList = async (page, perPage, category) => {
     }
 };
 
+// getArticleDetail 함수 정의
 export const getArticleDetail = async (articleId) => {
     try {
         console.log(`Fetching article detail for ID: ${articleId}`);
@@ -71,12 +57,13 @@ export const getArticleDetail = async (articleId) => {
         console.log('Fetched article detail data:', data);
         const articleInfo = data.article || {};
 
+        // adjustImagePaths 함수 호출
         return {
             ...articleInfo,
             Tags: typeof articleInfo.Tags === 'string' ? articleInfo.Tags.split(',') : [],
             View_count: parseInt(articleInfo.View_count, 10) || 0,
             Created_at: new Date(articleInfo.Created_at),
-            Content: adjustImagePaths(articleInfo.Content) // Ensure the content is adjusted here as well
+            Content: adjustImagePaths(articleInfo.Content) // 이미지 경로 조정
         };
     } catch (error) {
         console.error('Error fetching article detail:', error);

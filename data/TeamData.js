@@ -35,6 +35,6 @@ const TeamData = [
     email: 'sydneysekim@gmail.com',
     github: 'https://github.com/member4',
   },
-  ];
+];
 
-  export default TeamData;
+export default TeamData;

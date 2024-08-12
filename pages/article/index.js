@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ArticleList from '../../components/article/ArticleList';
 import CategoryList from '../../components/article/CategoryList';
-import { getArticleList } from '../../components/article/Api';
+import { getArticleList } from '../../components/article/Api';  // 함수 가져오기
 
 const ArticlePage = () => {
     const [selectedCategory, setSelectedCategory] = useState('공지사항');
@@ -30,11 +30,7 @@ const ArticlePage = () => {
     }, [page, selectedCategory]);
 
     const handleSelectArticle = (articleId) => {
-        const selectedArticle = articles.find(article => article.Id === articleId);
-        router.push({
-            pathname: `/article/${articleId}`,
-            query: { article: JSON.stringify(selectedArticle) }
-        });
+        router.push(`/article/${articleId}`);
     };
 
     const handleSelectCategory = (category) => {
