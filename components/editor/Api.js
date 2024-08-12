@@ -67,7 +67,7 @@ export const executeQuery = async (query, setQueryResult) => {
         message: result.message,
         columns: [],
         rows: [],
-        error: result.status
+        error: null //status 값이 화면에 뜨지 않도록 수정
       });
       return;
     }

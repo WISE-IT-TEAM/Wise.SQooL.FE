@@ -1,4 +1,3 @@
-// component/editor/SqlEditor.js
 import React, { useEffect, useState, useRef } from 'react';
 import QuerySection from './QuerySection';
 import ResultSection from './ResultSection';
@@ -48,19 +47,18 @@ const SQLEditor = ({ initialValue, page }) => {
     });
   };
 
-  const container = `${page === 'editor' ? 'max-w-content-full' : 'w-full'} flex flex-col mx-auto h-full min-w-80`;
-
+  const containerClass = `${page === 'editor' ? 'max-w-content-full' : 'w-full'} flex flex-col mx-auto h-full min-w-80`;
   const minEditorHeight = 320;
   const minResultHeight = 240;
 
   return (
-    <section className={container} style={{ height: containerHeight }}>
+    <section className={containerClass} style={{ height: containerHeight }}>
       <QuerySection
         initialValue={initialValue}
         editorHeight={editorHeight}
         executeQuery={executeQuery}
         minHeight={minEditorHeight}
-        setEditorView={(view) => editorViewRef.current = view}
+        setEditorView={(view) => (editorViewRef.current = view)}
         resetDatabase={resetDatabase}
       />
       <ResizeHandler
