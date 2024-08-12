@@ -1,7 +1,7 @@
 const TeamData = [
   {
-    avatarLight: '/Img/W-light.svg',
-    avatarDark: '/Img/W-dark.svg',
+    avatarLight: '/imgs/W-light.svg',
+    avatarDark: '/imgs/W-dark.svg',
     nickname: 'W = Koho',
     role: 'BACK-END',
     bio: '코딩하는 호랑이 🐯',
@@ -9,8 +9,8 @@ const TeamData = [
     github: 'https://github.com/yw5123',
   },
   {
-    avatarLight: '/Img/I-light.svg',
-    avatarDark: '/Img/I-dark.svg',
+    avatarLight: '/imgs/I-light.svg',
+    avatarDark: '/imgs/I-dark.svg',
     nickname: 'I = Baristacus',
     role: 'BACK-END',
     bio: '코딩하는 바리스타 ☕',
@@ -18,8 +18,8 @@ const TeamData = [
     github: 'https://github.com/Baristacus',
   },
   {
-    avatarLight: '/Img/S-light.svg',
-    avatarDark: '/Img/S-dark.svg',
+    avatarLight: '/imgs/S-light.svg',
+    avatarDark: '/imgs/S-dark.svg',
     nickname: 'S = Green',
     role: 'FRONT-END',
     bio: '수상하리만치 디자인 잘 알인 프엔',
@@ -27,8 +27,8 @@ const TeamData = [
     github: 'https://github.com/gr22nist',
   },
   {
-    avatarLight: '/Img/E-light.svg',
-    avatarDark: '/Img/E-dark.svg',
+    avatarLight: '/imgs/E-light.svg',
+    avatarDark: '/imgs/E-dark.svg',
     nickname: 'E = Sydney',
     role: 'FRONT-END',
     bio: 'Only For DB!',
