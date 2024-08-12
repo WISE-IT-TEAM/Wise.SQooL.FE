@@ -99,7 +99,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
   const queryBtn = `w-full py-4 rounded-bl-lg rounded-br-lg ${isDarkMode ? "bg-primaryDark text-slate-900 hover:bg-secondaryDark" : "bg-primaryLight text-slate-50 hover:bg-secondaryLight"} font-bold duration-300`;
 
   return (
-    <section className={queryWrap} style={{ minHeight, height: editorHeight }}>
+    <section className={queryWrap}>
       <div className={queryHead}>
         <span>SQL 코드 작성</span>
         <div className="flex gap-2">
@@ -117,7 +117,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
           </button>
         </div>
       </div>
-      <div ref={editorElement} className="w-full h-full flex-grow overflow-auto"></div>
+      <div ref={editorElement} className="w-full h-full min-h-100 flex-grow overflow-auto"></div>
       <button onClick={() => { setQueryValue(editorView.current.state.doc.toString()); executeQuery(); }} className={queryBtn}>
         <span>코드 실행(Ctrl + Enter)</span>
       </button>

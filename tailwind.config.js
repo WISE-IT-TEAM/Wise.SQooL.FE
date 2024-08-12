@@ -3,11 +3,13 @@
 import * as colors from './tailwind/colors.js';
 import * as fonts from './tailwind/fonts.js';
 import typography from '@tailwindcss/typography';
+import flowbite from 'flowbite/plugin'; 
 
 export const content = [
   "./pages/**/*.{js,ts,jsx,tsx,mdx}",
   "./components/**/*.{js,ts,jsx,tsx,mdx}",
   "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  "./node_modules/flowbite-react/**/*.js", 
 ];
 
 export const theme = {
@@ -55,5 +57,5 @@ export const theme = {
 };
 
 export const plugins = [
-  typography,
+  typography, flowbite
 ];

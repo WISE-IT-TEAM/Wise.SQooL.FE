@@ -1,5 +1,6 @@
 // components/start/Content.js
 import React, { useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { getContent } from './Api';
 import useDarkMode from '../../hooks/useDarkMode';
 
@@ -11,7 +12,9 @@ const Content = ({ documentId }) => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
+        console.log(`Fetching content for document ID: ${documentId}`);
         const data = await getContent(documentId);
+        console.log('문서 데이터:', data);
         setContent(data.document);
       } catch (error) {
         console.error('문서 가져오는 중 오류 발생:', error);
@@ -22,47 +25,33 @@ const Content = ({ documentId }) => {
     };
 
     if (documentId) {
-      setIsLoading(true);
+      setIsLoading(true); // 새로운 documentId가 들어오면 로딩 상태로 설정
       fetchContent();
     }
-  }, [documentId]);
+  }, [documentId]); // documentId 의존성 배열을 확인합니다.
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='w-full h-full flex justify-center items-center'>로딩 중 입니다</div>;
   }
 
   if (!content) {
-    return <div>Error loading content</div>;
+    return <div className='w-full h-full flex justify-center items-center'>로딩 오류가 발생했습니다</div>;
   }
 
-  const contentWrap = `w-full min-w-80 h-full flex flex-col rounded-lg border-1 overflow-y-scroll ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
+  const container = `w-full h-full flex flex-col flex-grow rounded-lg border-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const contentHead = `w-full p-4 font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-slate-800 text-slate-50" : "bg-slate-200 text-slate-600"}`;
-  const contentField = `w-full p-4 items-center prose ${isDarkMode ? "prose-invert" : ""}`;
+  const contentField = `w-full p-4 flex-grow items-center overflow-y-scroll ${isDarkMode ? "text-slate-50" : "text-slate-900"}`;
 
   return (
-    <div className={contentWrap}>
-      <h1 className={contentHead}>{content.Title}</h1>
-      <div className={contentField} dangerouslySetInnerHTML={{ __html: adjustImagePaths(content.Content) }} />
-    </div>
+    <TransitionGroup className='w-full'>
+      <CSSTransition key={documentId} timeout={300} classNames="fade">
+        <div className={container}>
+          <h1 className={contentHead}>{content.Title}</h1>
+          <div className={contentField} dangerouslySetInnerHTML={{ __html: content.Content }} />
+        </div>
+      </CSSTransition>
+    </TransitionGroup>
   );
-};
-
-const adjustImagePaths = (htmlContent) => {
-  const serverBaseUrl = process.env.NEXT_PUBLIC_API_CONTENTS_URL.replace('/api/sqldoc/document/', '');
-
-  const div = document.createElement('div');
-  div.innerHTML = htmlContent;
-  const images = div.getElementsByTagName('img');
-
-  for (let img of images) {
-    const originalSrc = img.getAttribute('src');
-    if (originalSrc.startsWith('/static/Uploads')) {
-      const newSrc = `${serverBaseUrl}${originalSrc}`;
-      img.setAttribute('src', newSrc);
-    }
-  }
-
-  return div.innerHTML;
 };
 
 export default Content;

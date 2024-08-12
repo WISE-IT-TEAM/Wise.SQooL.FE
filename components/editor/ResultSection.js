@@ -4,8 +4,8 @@ import useDarkMode from "../../hooks/useDarkMode";
 const ResultSection = ({ queryResult, minHeight }) => {
   const { isDarkMode } = useDarkMode();
 
-  const queryWrap = `w-full flex flex-col rounded-lg border-1 flex-grow ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
-  const queryHead = `w-full p-4 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-slate-800 text-slate-50" : "bg-slate-200 text-slate-600"}`;
+  const resultWrap = `w-full flex flex-col rounded-lg border-1 flex-grow ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
+  const resultHead = `w-full p-4 flex justify-between items-center font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-slate-800 text-slate-50" : "bg-slate-200 text-slate-600"}`;
   const resultField = `w-full h-full p-4 flex-grow overflow-auto`;
 
   const renderTable = (data) => {
@@ -50,8 +50,8 @@ const ResultSection = ({ queryResult, minHeight }) => {
   };
 
   return (
-    <section className={queryWrap} style={{ minHeight }}>
-      <div className={queryHead}>
+    <section className={resultWrap} style={{ minHeight }}>
+      <div className={resultHead}>
         <span>쿼리 실행 결과</span>
       </div>
       <div className={resultField}>
