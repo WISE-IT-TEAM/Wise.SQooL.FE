@@ -48,6 +48,6 @@ body {
 
 /* Firefox에서 스크롤바 스타일 설정 */
 html {
-  scrollbar-width: thin;          /* 스크롤바 너비 설정 (auto, thin, none) */
+  scrollbar-width: thin; /* 스크롤바 너비 설정 (auto, thin, none) */
   scrollbar-color: #cccccc #f8f8f8;  /* 스크롤바 색상 (스크롤바, 트랙) */
 }
