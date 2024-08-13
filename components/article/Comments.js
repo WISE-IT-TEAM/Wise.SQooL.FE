@@ -32,8 +32,16 @@ const Comment = ({
     }, [articleId, getArticleComments]);
 
     const handleCommentSubmit = async () => {
-        if (!passwords.new) {
+        if (!nickname.trim()) {
+            alert("닉네임을 입력해주세요.");
+            return;
+        }
+        if (!passwords.new || !passwords.new.trim()) {
             alert("비밀번호를 입력해주세요.");
+            return;
+        }
+        if (!newComment.trim()) {
+            alert("댓글 내용을 입력해주세요.");
             return;
         }
 
@@ -110,86 +118,90 @@ const Comment = ({
                             </div>
                             <button 
                                 onClick={() => toggleOptions(comment.Id)} 
-                                className="text-gray-400 hover:text-gray-600"
+                                className="text-gray-400 hover:text-gray-600 relative"
                             >
                                 ...
                             </button>
+                            {showOptions[comment.Id] && (
+                                <div className="absolute right-0 top-10 bg-white border border-gray-300 shadow-lg rounded-md p-2 w-24 z-10">
+                                    <button 
+                                        onClick={() => {
+                                            setEditingCommentId(comment.Id);
+                                            setEditingContent(comment.Content);
+                                            setShowOptions((prev) => ({ ...prev, [comment.Id]: false }));
+                                        }}
+                                        className="bg-yellow-500 text-white px-2 py-1 rounded w-full mb-1"
+                                    >
+                                        수정
+                                    </button>
+                                    <button 
+                                        onClick={() => {
+                                            setDeletingCommentId(comment.Id);
+                                            setShowOptions((prev) => ({ ...prev, [comment.Id]: false }));
+                                        }}
+                                        className="bg-red-500 text-white px-2 py-1 rounded w-full"
+                                    >
+                                        삭제
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                        {showOptions[comment.Id] && (
-                            <div className="mt-4">
-                                {editingCommentId === comment.Id ? (
-                                    <div className="mt-2">
-                                        <textarea
-                                            className="w-full p-2 border rounded"
-                                            rows="3"
-                                            value={editingContent}
-                                            onChange={(e) => setEditingContent(e.target.value)}
-                                        />
-                                        <input
-                                            type="password"
-                                            placeholder="비밀번호"
-                                            className="w-full p-2 border rounded mb-2"
-                                            value={passwords[editingCommentId] || ''}
-                                            onChange={(e) => handlePasswordChange(editingCommentId, e.target.value)}
-                                        />
-                                        <button 
-                                            onClick={handleCommentUpdate}
-                                            className="mt-2 bg-green-500 text-white px-4 py-2 rounded"
-                                        >
-                                            수정 완료
-                                        </button>
-                                        <button 
-                                            onClick={() => setEditingCommentId(null)}
-                                            className="mt-2 ml-2 bg-red-500 text-white px-4 py-2 rounded"
-                                        >
-                                            취소
-                                        </button>
-                                    </div>
-                                ) : deletingCommentId === comment.Id ? (
-                                    <>
-                                        <input
-                                            type="password"
-                                            placeholder="비밀번호"
-                                            className="w-full p-2 border rounded mb-2"
-                                            value={passwords[comment.Id] || ''}
-                                            onChange={(e) => handlePasswordChange(comment.Id, e.target.value)}
-                                        />
-                                        <button 
-                                            onClick={handleCommentDelete}
-                                            className="bg-red-500 text-white px-4 py-2 rounded w-full"
-                                        >
-                                            삭제 확인
-                                        </button>
-                                        <button 
-                                            onClick={() => setDeletingCommentId(null)}
-                                            className="bg-gray-500 text-white px-4 py-2 rounded w-full mt-2"
-                                        >
-                                            취소
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <button 
-                                            onClick={() => {
-                                                setEditingCommentId(comment.Id);
-                                                setEditingContent(comment.Content);
-                                            }}
-                                            className="bg-yellow-500 text-white px-4 py-2 rounded w-full"
-                                        >
-                                            수정
-                                        </button>
-                                        <button 
-                                            onClick={() => setDeletingCommentId(comment.Id)}
-                                            className="bg-red-500 text-white px-4 py-2 rounded w-full mt-2"
-                                        >
-                                            삭제
-                                        </button>
-                                    </>
-                                )}
+                        {/* 수정 모드 */}
+                        {editingCommentId === comment.Id && (
+                            <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+                                <textarea
+                                    className="w-full p-3 border rounded mb-2"
+                                    rows="5"
+                                    value={editingContent}
+                                    onChange={(e) => setEditingContent(e.target.value)}
+                                />
+                                <input
+                                    type="password"
+                                    placeholder="비밀번호"
+                                    className="w-full p-2 border rounded mb-2"
+                                    value={passwords[editingCommentId] || ''}
+                                    onChange={(e) => handlePasswordChange(editingCommentId, e.target.value)}
+                                />
+                                <button 
+                                    onClick={handleCommentUpdate}
+                                    className="mt-2 bg-green-500 text-white px-4 py-2 rounded w-full"
+                                >
+                                    수정 완료
+                                </button>
+                                <button 
+                                    onClick={() => setEditingCommentId(null)}
+                                    className="mt-2 bg-red-500 text-white px-4 py-2 rounded w-full"
+                                >
+                                    취소
+                                </button>
+                            </div>
+                        )}
+                        {/* 삭제 모드 */}
+                        {deletingCommentId === comment.Id && (
+                            <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+                                <input
+                                    type="password"
+                                    placeholder="비밀번호"
+                                    className="w-full p-2 border rounded mb-2"
+                                    value={passwords[comment.Id] || ''}
+                                    onChange={(e) => handlePasswordChange(comment.Id, e.target.value)}
+                                />
+                                <button 
+                                    onClick={handleCommentDelete}
+                                    className="bg-red-500 text-white px-4 py-2 rounded w-full"
+                                >
+                                    삭제 확인
+                                </button>
+                                <button 
+                                    onClick={() => setDeletingCommentId(null)}
+                                    className="bg-gray-500 text-white px-4 py-2 rounded w-full mt-2"
+                                >
+                                    취소
+                                </button>
                             </div>
                         )}
                         {/* 답댓글 렌더링 */}
-                        {comment.Sub && comment.Sub.length > 0 && (
+                        {/* {comment.Sub && comment.Sub.length > 0 && (
                             <div className="ml-8 mt-4 bg-gray-50 p-4 rounded-lg">
                                 {comment.Sub.map((subComment) => (
                                     <div key={subComment.Id} className="mb-2">
@@ -198,7 +210,7 @@ const Comment = ({
                                     </div>
                                 ))}
                             </div>
-                        )}
+                        )} */}
                     </div>
                 ))
             ) : (
