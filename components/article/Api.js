@@ -70,3 +70,85 @@ export const getArticleDetail = async (articleId) => {
         throw error;
     }
 };
+
+// 댓글 관련 함수 정의
+export const getArticleComments = async (articleId) => {
+    try {
+        const response = await fetch(`${articleDetailUrl}/${articleId}/comments`);
+        if (!response.ok) {
+            throw new Error(`댓글을 불러오는 데 실패했습니다: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data.comments || [];
+    } catch (error) {
+        console.error('댓글을 불러오는 중 오류 발생:', error);
+        throw error;
+    }
+};
+
+export const postArticleComment = async (articleId, nickname, password, content) => {
+    try {
+        const response = await fetch(`${articleDetailUrl}/${articleId}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nickname,
+                password,
+                content,
+            }),
+        });
+        if (!response.ok) {
+            throw new Error(`댓글 작성에 실패했습니다: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('댓글 작성 중 오류 발생:', error);
+        throw error;
+    }
+};
+
+export const updateArticleComment = async (articleId, commentId, password, content) => {
+    try {
+        const response = await fetch(`${articleDetailUrl}/comments/${commentId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                comment_id: commentId,
+                password,
+                content,
+            }),
+        });
+        if (!response.ok) {
+            throw new Error(`댓글 수정에 실패했습니다: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('댓글 수정 중 오류 발생:', error);
+        throw error;
+    }
+};
+
+export const deleteArticleComment = async (commentId, password) => {
+    try {
+        const response = await fetch(`${articleDetailUrl}/comments/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                password: password, // 요청 본문에 비밀번호 포함
+            }),
+        });
+        if (!response.ok) {
+            throw new Error(`댓글 삭제에 실패했습니다: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('댓글 삭제 중 오류 발생:', error);
+        throw error;
+    }
+};
