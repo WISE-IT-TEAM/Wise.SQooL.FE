@@ -1,8 +1,8 @@
-// File: pages/editor/index.js
+// pages/editor/index.js
 
 import React, { useEffect, useState } from 'react';
 import SQLEditor from '../../components/editor/SqlEditor';
-import layoutConditions from '../../utils/layoutConditions';
+import useStore from '../../store/useStore';
 
 /**
  * Editor 컴포넌트
@@ -14,7 +14,7 @@ import layoutConditions from '../../utils/layoutConditions';
  */
 const Editor = () => {
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
-  const { totalOffset } = layoutConditions('/editor');
+  const isFullWidth = useStore((state) => state.isFullWidth); // Zustand에서 상태 가져오기
   const [queryResult, setQueryResult] = useState({ columns: [], rows: [] });
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Editor = () => {
   }, [apiInitUrl]); // apiInitUrl이 변경될 때마다 useEffect가 다시 실행됨
 
   // 컨테이너 클래스 정의
-  const container = `max-w-content-full mx-auto duration-500 h-full min-h-[calc(100vh-${totalOffset}px)]`;
+  const container = `flex flex-col ${isFullWidth ? 'w-full' : 'max-w-content-full mx-auto'} h-full`;
 
   return (
     <section className={container}>

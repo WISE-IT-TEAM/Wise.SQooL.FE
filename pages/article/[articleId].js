@@ -39,13 +39,13 @@ const ArticleDetailPage = () => {
     }
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <main className="flex-grow w-full flex flex-col items-center p-4" style={{ marginTop: '40px' }}>
+        <div className="max-w-content-full mx-auto flex flex-col pt-nav min-h-screen">
+            <main className="flex-grow w-full flex flex-col items-center gap-6">
                 <ArticleDetail article={article} />
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-center">
                     <button 
                         onClick={handleBack} 
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="bg-primaryLight text-slate-50 hover:bg-secondaryLight px-4 py-2 rounded duration-300"
                     >
                         Back To List
                     </button>

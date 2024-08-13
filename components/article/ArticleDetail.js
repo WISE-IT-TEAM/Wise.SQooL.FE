@@ -10,13 +10,13 @@ const ArticleDetail = ({ article, onBack }) => {
 
     const tags = Array.isArray(article.Tags) ? article.Tags : [];
 
-    const containerClass = `w-full max-w-4xl mx-auto p-6 shadow-md rounded-lg mb-4 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`;
+    const container = `w-full mx-auto p-6 shadow-md rounded-lg ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`;
     const metadataClass = `metadata text-sm mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`;
     const tagClass = `tag px-2 py-1 rounded mr-2 ${isDarkMode ? "bg-gray-700 text-gray-200" : "bg-gray-200 text-gray-800"}`;
-    const contentClass = `prose mb-4 ${isDarkMode ? "prose-invert" : ""}`;
+    const contentClass = `prose prose-lg w-full max-w-none mb-4 ${isDarkMode ? "prose-invert" : ""}`;
 
     return (
-        <div className={containerClass}>
+        <div className={container}>
             <h1 className="text-3xl font-bold mb-4">{article.Title}</h1>
             <div className={metadataClass}>
                 <span>조회수: {article.View_count}</span>

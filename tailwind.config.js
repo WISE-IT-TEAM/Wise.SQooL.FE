@@ -29,6 +29,7 @@ export const theme = {
     },
     width: {
       'card-pc': '288px',
+      'article': '588px',
     },
     maxWidth: {
       'content-full': '1200px',

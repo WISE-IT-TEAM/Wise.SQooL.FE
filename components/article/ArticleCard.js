@@ -5,7 +5,7 @@ const ArticleCard = ({ article, onSelectArticle }) => {
 
     return (
         <div 
-            className="article-card border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-200" 
+            className="article-card w-article border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-200" 
             onClick={() => onSelectArticle(article.Id)}
         >
             <h2 className="text-xl font-bold mb-2">{article.Title}</h2>
