@@ -1,10 +1,10 @@
 // components/ServiceIntro.js
 import React from 'react';
 import Link from 'next/link';
-import useDarkMode from '../hooks/useDarkMode';
+import useStore from '../store/useStore';
 
 const ServiceIntro = ({ summary, title, content, linkText, linkUrl }) => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore();
 
   const serviceCard = `w-full flex flex-col gap-3 px-6 pt-10 pb-20 rounded-lg shadow justify-center items-center border-1`;
   const serviceSummary = `text-sm font-semibold text-green-600 mb-2 text-center`;

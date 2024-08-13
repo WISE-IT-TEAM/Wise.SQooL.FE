@@ -16,7 +16,7 @@ const AnimatedSection = ({ children }) => {
   return (
     <div
       ref={ref}
-      className={`transition-opacity duration-300 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+      className={`transition-opacity duration-500 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
     >
     {children}
     </div>

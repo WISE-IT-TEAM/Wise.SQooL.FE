@@ -21,7 +21,7 @@ const Toast = () => {
 
   if (!toastMessage) return null;
 
-  const baseClass = 'fixed top-32 left-1/2 transform -translate-x-1/2 py-4 px-8 rounded transition-opacity duration-300';
+  const baseClass = 'fixed top-32 left-1/2 transform -translate-x-1/2 py-4 px-8 rounded transition-opacity duration-500';
   const typeClass = toastType === 'success' ? 'bg-green-500 bg-opacity-85 text-slate-50' : 'bg-red-500 bg-opacity-85 text-slate-50';
   const toastClass = `${baseClass} ${typeClass}`;
 

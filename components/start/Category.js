@@ -1,7 +1,7 @@
 // components/start/Category.js
 import React, { useEffect, useState } from 'react';
 import { getCategoryList } from './Api';
-import useDarkMode from '../../hooks/useDarkMode';
+import useStore from '../../store/useStore';
 
 /**
  * CategoryList 컴포넌트
@@ -15,7 +15,7 @@ const CategoryList = ({ onSelectCategory }) => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null); // 선택된 카테고리 상태
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -62,7 +62,7 @@ const CategoryList = ({ onSelectCategory }) => {
   }
 
   const container = `min-w-60 h-full flex flex-col rounded-lg border-1 overflow-y-scroll ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
-  const catagoryItem = `p-4 border-b-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"} duration-300`;
+  const catagoryItem = `p-4 border-b-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"} duration-500`;
   
   return (
     <div className={container}>

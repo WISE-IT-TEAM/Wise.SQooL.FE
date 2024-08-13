@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ArticleDetail from '../../components/article/ArticleDetail';
 import Comment from '../../components/article/Comments';
+import useStore from "../../store/useStore";
 import { getArticleDetail, getArticleComments, postArticleComment, updateArticleComment, deleteArticleComment } from '../../components/article/Api';
 
 const ArticleDetailPage = () => {
@@ -9,6 +10,7 @@ const ArticleDetailPage = () => {
     const { articleId } = router.query;
     const [article, setArticle] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { isDarkMode } = useStore();
 
     useEffect(() => {
         if (articleId) {
@@ -39,8 +41,11 @@ const ArticleDetailPage = () => {
         return <div>아티클을 불러오는 중 오류 발생</div>;
     }
 
+    const container = `max-w-content-full mx-auto flex flex-col pt-nav`;
+    const backBtn = `px-6 py-3 rounded-lg duration-500 font-bold ${ isDarkMode ? "bg-primaryDark text-slate-900 hover:bg-secondaryDark" : "bg-primaryLight text-slate-50 hover:bg-secondaryLight" }`;
+
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className={container}>
             <main className="flex-grow w-full flex flex-col items-center p-4">
                 <ArticleDetail article={article} />
                 <Comment 
@@ -54,7 +59,7 @@ const ArticleDetailPage = () => {
             <footer className="w-full flex justify-center p-4">
                 <button 
                     onClick={handleBack} 
-                    className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md"
+                    className={backBtn}
                 >
                     목록으로 돌아가기
                 </button>

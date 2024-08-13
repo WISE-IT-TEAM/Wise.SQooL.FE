@@ -4,7 +4,6 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import QuerySection from './QuerySection';
 import ResultSection from './ResultSection';
 import { createDatabase, executeQuery as executeQueryApi, resetDatabase as resetDatabaseApi } from './Api';
-import useDarkMode from '../../hooks/useDarkMode';
 import ResizeHandler from '../ResizeHandler';
 import useStore from '../../store/useStore';
 
@@ -18,7 +17,7 @@ const SQLEditor = ({ initialValue, page }) => {
   const [queryResult, setQueryResult] = useState({ columns: [], rows: [] });
   const [editorHeight, setEditorHeight] = useState(400);
   const editorViewRef = useRef(null);
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore();
   const { showToast } = useStore();
 
   // 데이터베이스 초기화를 위한 useEffect

@@ -46,8 +46,7 @@ const Editor = () => {
     createDatabase();
   }, [apiInitUrl]); // apiInitUrl이 변경될 때마다 useEffect가 다시 실행됨
 
-  // 컨테이너 클래스 정의
-  const container = `max-w-content-full mx-auto duration-500 h-full min-h-[calc(100vh-${totalOffset}px)]`;
+  const container = `max-w-content-full mx-auto h-full min-h-[calc(100vh-${totalOffset}px)]`;
 
   return (
     <section className={container}>

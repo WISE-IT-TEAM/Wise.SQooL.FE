@@ -1,9 +1,19 @@
+// pages/article/index.js
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ArticleList from '../../components/article/ArticleList';
 import CategoryList from '../../components/article/CategoryList';
-import { getArticleList } from '../../components/article/Api';  // 함수 가져오기
+import { getArticleList } from '../../components/article/Api';
+import useStore from '../../store/useStore';
 
+/**
+ * ArticlePage 컴포넌트
+ * - 카테고리별로 게시물을 표시하는 페이지입니다.
+ * - 사용자가 카테고리를 선택하고, 게시물 목록을 조회할 수 있습니다.
+ *
+ * @returns {JSX.Element} 카테고리와 게시물 목록을 렌더링하는 컴포넌트
+ */
 const ArticlePage = () => {
     const [selectedCategory, setSelectedCategory] = useState('공지사항');
     const [articles, setArticles] = useState([]);
@@ -11,6 +21,10 @@ const ArticlePage = () => {
     const [page, setPage] = useState(1);
     const perPage = 10;
     const router = useRouter();
+    const isFullWidth = useStore((state) => state.isFullWidth); // Zustand에서 전체 너비 상태 가져오기
+
+    // 컨테이너 클래스 정의
+    const container = `flex flex-col gap-6 ${isFullWidth ? 'w-full' : 'max-w-content-full mx-auto'} min-h-screen`;
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -43,25 +57,17 @@ const ArticlePage = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <main className="flex-grow w-full flex flex-col items-center p-4" style={{ marginTop: '40px' }}>
-                <div className="flex w-full">
-                    <div className="w-1/4">
-                        <CategoryList onSelectCategory={handleSelectCategory} />
-                    </div>
-                    <div className="w-3/4">
-                        <ArticleList 
-                            articles={articles} 
-                            onSelectArticle={handleSelectArticle} 
-                            isLoading={isLoading}
-                            page={page}
-                            perPage={perPage}
-                            onPageChange={handlePageChange}
-                        />
-                    </div>
-                </div>
-            </main>
-        </div>
+        <section className={container}>
+            <CategoryList onSelectCategory={handleSelectCategory} />
+            <ArticleList 
+                articles={articles} 
+                onSelectArticle={handleSelectArticle} 
+                isLoading={isLoading}
+                page={page}
+                perPage={perPage}
+                onPageChange={handlePageChange}
+            />
+        </section>
     );
 };
 

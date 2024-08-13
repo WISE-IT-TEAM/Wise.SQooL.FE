@@ -10,7 +10,7 @@ const DarkModeToggle = () => {
   toggleDarkMode: state.toggleDarkMode,
   }));
 
-  const toggleBtn = `p-1 rounded-lg hover:animate-pulse duration-300 ${isDarkMode ? 'bg-secondaryDark' : 'bg-secondaryLight'}`;
+  const toggleBtn = `p-1 rounded-lg hover:animate-pulse duration-500 ${isDarkMode ? 'bg-secondaryDark' : 'bg-secondaryLight'}`;
 
   return (
   <button onClick={toggleDarkMode} className={toggleBtn}>

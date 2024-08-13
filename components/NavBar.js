@@ -28,7 +28,7 @@ const NavBar = ({ isFullWidth }) => {
     ) : 'bg-transparent'}`;
   const navWrap = `${isFullWidth ? 'w-full px-6' : 'max-w-content-full'} mx-auto flex justify-between items-center transition-width duration-500`;
   const navList = `flex justify-center items-center gap-12`;
-  const listItem = `${isDarkMode ? 'text-slate-50 hover:text-primaryDark' : 'text-slate-900 hover:text-primaryLight'} duration-300`;
+  const listItem = `${isDarkMode ? 'text-slate-50 hover:text-primaryDark' : 'text-slate-900 hover:text-primaryLight'} duration-500`;
 
   return (
     <nav className={container}>
