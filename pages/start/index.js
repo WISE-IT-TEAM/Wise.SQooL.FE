@@ -6,7 +6,7 @@ import SQLEditor from '../../components/editor/SqlEditor';
 import ResizeHandler from '../../components/ResizeHandler';
 import { HeroBtn } from '../../components/IconSet';
 import useDarkMode from '../../hooks/useDarkMode';
-import useStore from '../../store/useStore'; // 상태 관리를 위한 zustand 훅
+import useStore from '../../store/useStore'; // Zustand 상태 관리를 위한 훅
 import layoutConditions from '../../utils/layoutConditions';
 
 const StartPage = () => {
@@ -15,8 +15,9 @@ const StartPage = () => {
   const [editorWidth, setEditorWidth] = useState(500);
   const [documentWidth, setDocumentWidth] = useState(1000);
   const [query, setQuery] = useState("");
-  const setFullWidth = useStore((state) => state.setFullWidth); // zustand의 setFullWidth 액션을 가져옴
-  const isFullWidth = useStore((state) => state.isFullWidth); // zustand의 isFullWidth 상태를 가져옴
+  const setFullWidth = useStore((state) => state.setFullWidth); // Zustand의 setFullWidth 액션을 가져옴
+  const resetFullWidth = useStore((state) => state.resetFullWidth); // Zustand의 resetFullWidth 액션을 가져옴
+  const isFullWidth = useStore((state) => state.isFullWidth); // Zustand의 isFullWidth 상태를 가져옴
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
   const minDocumentWidth = 320;
   const { totalOffset, useFullHeight } = layoutConditions('/start'); // layoutConditions 수정
@@ -39,7 +40,8 @@ const StartPage = () => {
   useEffect(() => {
     localStorage.setItem('isEditorOpen', isEditorOpen);
     setFullWidth(isEditorOpen); // isEditorOpen이 변경될 때마다 네비바의 전체 너비 설정을 업데이트
-  }, [isEditorOpen, setFullWidth]);
+    return () => resetFullWidth(); // 페이지 전환 시 전체 너비 상태 리셋
+  }, [isEditorOpen, setFullWidth, resetFullWidth]);
 
   useEffect(() => {
     localStorage.setItem('query', query);
@@ -91,7 +93,7 @@ const StartPage = () => {
   };
 
   // 조건부로 클래스를 설정합니다.
-  const containerClass = `flex justify-center mx-auto duration-500 ${useFullHeight ? `h-[calc(100vh-${totalOffset}px)]` : 'min-h-screen'} ${isEditorOpen ? 'w-full' : 'max-w-content-full'}`;
+  const containerClass = `flex justify-center mx-auto duration-500 h-full ${useFullHeight ? `h-[calc(100vh-${totalOffset}px)]` : 'min-h-screen'} ${isFullWidth ? 'w-full px-8' : 'max-w-content-full'}`;
   const documentWrap = `flex min-w-80 flex-row justify-center flex-grow gap-4`;
   const editorWrap = `max-w-content-full min-w-content-half ${isEditorOpen ? 'flex' : 'hidden'} flex-grow`;
   const toggleBtn = `fixed w-16 h-16 flex flex-col justify-center items-center gap-1 right-12 bottom-12 rounded-lg shadow-lg hover:opacity-80 duration-300 font-bold`;

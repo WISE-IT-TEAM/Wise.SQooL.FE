@@ -1,10 +1,28 @@
-import React, { useEffect } from 'react';
-import SQLEditor from '../../components/editor/SqlEditor';
+// File: pages/editor/index.js
 
+import React, { useEffect, useState } from 'react';
+import SQLEditor from '../../components/editor/SqlEditor';
+import layoutConditions from '../../utils/layoutConditions';
+
+/**
+ * Editor 컴포넌트
+ * - SQL 편집기 화면을 렌더링합니다.
+ * - 초기 로딩 시, API를 통해 데이터베이스를 생성합니다.
+ * - SQL 쿼리 결과를 보여주기 위해 상태를 관리합니다.
+ *
+ * @returns {JSX.Element} SQL 편집기 페이지를 렌더링하는 컴포넌트
+ */
 const Editor = () => {
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
+  const { totalOffset } = layoutConditions('/editor');
+  const [queryResult, setQueryResult] = useState({ columns: [], rows: [] });
 
   useEffect(() => {
+    /**
+     * createDatabase 함수
+     * - API를 호출하여 데이터베이스를 생성합니다.
+     * - 페이지가 로드될 때 한 번 실행됩니다.
+     */
     const createDatabase = async () => {
       try {
         const response = await fetch(apiInitUrl, {
@@ -26,17 +44,20 @@ const Editor = () => {
     };
 
     createDatabase();
-  }, [apiInitUrl]);
-    
-  // const editorContainer = `max-w-content-full mb-10 flex mx-auto pt-14` // 여백있는 레이아웃
-  const editorContainer = `max-w-full min-h-screen flex justify-center items-start pt-14 pb-10`; // 꽉찬 레이아웃
+  }, [apiInitUrl]); // apiInitUrl이 변경될 때마다 useEffect가 다시 실행됨
+
+  // 컨테이너 클래스 정의
+  const container = `max-w-content-full mx-auto duration-500 h-full min-h-[calc(100vh-${totalOffset}px)]`;
 
   return (
-    <section className={editorContainer}>
-      <SQLEditor />
-      {/* <SQLEditor initialValue="SELECT * FROM Artist;" /> */}
+    <section className={container}>
+      <SQLEditor 
+        placeholder="쿼리문을 입력해주세요. 예시) SELECT * FROM Artist;" 
+        queryResult={queryResult}
+        setQueryResult={setQueryResult}
+      />
     </section>
   );
-};
+}
 
 export default Editor;

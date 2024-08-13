@@ -2,8 +2,8 @@
 /** @type {import('tailwindcss').Config} */
 import * as colors from './tailwind/colors.js';
 import * as fonts from './tailwind/fonts.js';
+import flowbite from 'flowbite/plugin';
 import typography from '@tailwindcss/typography';
-import flowbite from 'flowbite/plugin'; 
 
 export const content = [
   "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -32,7 +32,12 @@ export const theme = {
     },
     maxWidth: {
       'content-full': '1200px',
-      'content-half': '592px',
+    },
+    minWidth: {
+      'content-half': '640px',
+    },
+    spacing: {
+      'nav': '59px',
     },
     lineHeight: {
       'h1': '72px',

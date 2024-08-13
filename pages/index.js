@@ -31,6 +31,16 @@ const Index = () => {
     fetchInitialData();
   }, []);
 
+  const handleSelectCategory = async (categoryId) => {
+    setSelectedCategoryId(categoryId);
+    try {
+      const contentData = await getContent(categoryId);
+      setContent(contentData.document);
+    } catch (error) {
+      console.error('Error fetching content:', error);
+    }
+  };
+
   const scrollToContent = () => {
     const content = document.getElementById('service-section');
     if (content) {

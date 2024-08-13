@@ -45,14 +45,14 @@ const CategoryList = ({ onSelectCategory }) => {
     fetchCategories();
   }, []); // 빈 의존성 배열로 한 번만 호출되도록 설정
 
-   /**
+  /**
    * 카테고리 클릭 핸들러
    * - 선택된 카테고리 ID를 상태로 설정하고, 상위 컴포넌트에 전달합니다.
    * 
    * @param {string} categoryId - 선택된 카테고리의 ID
    */
 
-   const handleCategoryClick = (categoryId) => {
+  const handleCategoryClick = (categoryId) => {
     setSelectedCategoryId(categoryId); // 선택된 카테고리 업데이트
     onSelectCategory(categoryId); // 상위 컴포넌트에 선택된 카테고리 전달
   };

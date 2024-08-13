@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@codemirror/lang-sql": "^6.7.0",
+    "@tailwindcss/typography": "^0.5.14",
     "codemirror": "^6.0.1",
+    "dompurify": "^3.1.6",
     "flowbite": "^2.5.1",
+    "html-react-parser": "^5.1.12",
     "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dnd": "^16.0.1",
@@ -23,7 +26,6 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.14",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",

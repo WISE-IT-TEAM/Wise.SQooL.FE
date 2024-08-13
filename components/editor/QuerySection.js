@@ -1,19 +1,27 @@
+// components/editor/QuerySection.js
 import React, { useRef, useEffect, useState } from "react";
+import useDarkMode from "../../hooks/useDarkMode";
+import useStore from '../../store/useStore';
 import { EditorView, basicSetup } from "codemirror";
 import { sql } from "@codemirror/lang-sql";
 import { autocompletion } from "@codemirror/autocomplete";
 import { createSqoolTheme } from "./Styles";
-import { CodeCopy, CodeReset, DatabaseReset } from "../IconSet";
-import useDarkMode from "../../hooks/useDarkMode";
+import { CodeCopy, DBReset } from "../IconSet";
 import { sqliteCompletion } from "./SqliteKeywords";
 import { keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 import { placeholder } from "@codemirror/view";
 
-const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, setEditorView, resetDatabase }) => {
+/**
+ * QuerySection 컴포넌트
+ * - SQL 쿼리 작성, 실행, 데이터베이스 초기화 기능을 담당합니다.
+ * - 부모 컴포넌트에서 전달된 상태와 함수를 사용하여 상호작용합니다.
+ */
+const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight = 320, setEditorView, resetDatabase }) => {
   const editorElement = useRef(null);
   const editorView = useRef(null);
   const { isDarkMode } = useDarkMode();
+  const { showToast, setQuery } = useStore();
   const [queryValue, setQueryValue] = useState(initialValue);
 
   useEffect(() => {
@@ -39,7 +47,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
                 },
               },
             ]),
-            placeholder("SELECT * FROM Artist;"),
+            placeholder("쿼리문을 입력해주세요. 예시: SELECT * FROM Artist;"),
           ],
           parent: editorElement.current,
           doc: queryValue,
@@ -60,18 +68,14 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
   const handleCopyCode = () => {
     if (editorView.current) {
       const code = editorView.current.state.doc.toString();
-      navigator.clipboard.writeText(code)
-        .then(() => alert("코드가 클립보드에 복사되었습니다."))
-        .catch((err) => console.error("코드 복사 실패: ", err));
-    }
-  };
-
-  const handleResetCode = () => {
-    if (editorView.current) {
-      editorView.current.dispatch({
-        changes: { from: 0, to: editorView.current.state.doc.length, insert: initialValue },
+      navigator.clipboard.writeText(code).then(() => {
+        showToast('코드 복사 성공!', 'success');
+      }).catch((err) => {
+        showToast('코드 복사 실패: ' + err.message, 'error');
+        console.error("코드 복사 실패: ", err);
       });
-      setQueryValue(initialValue);
+    } else {
+      console.error('EditorView is not initialized');
     }
   };
 
@@ -82,7 +86,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
   const queryBtn = `w-full py-3 mt-2 rounded-lg ${isDarkMode ? "bg-primaryDark text-slate-900 hover:bg-secondaryDark" : "bg-primaryLight text-slate-50 hover:bg-secondaryLight"} font-bold transition-colors duration-300`;
 
   return (
-    <section className={queryWrap}>
+    <section className={queryWrap} style={{ minHeight: `${minHeight}px`, height: `${editorHeight}px` }}>
       <div className={queryHead}>
         <span>SQL 코드 작성</span>
         <div className="flex gap-3">
@@ -90,17 +94,13 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight, set
             <CodeCopy width={20} height={20} className={editorIcon} />
             코드 복사
           </button>
-          <button className={editorBtn} onClick={handleResetCode}>
-            <CodeReset width={20} height={20} className={editorIcon} />
-            코드 초기화
-          </button>
           <button className={editorBtn} onClick={resetDatabase}>
-            <DatabaseReset width={20} height={20} className={editorIcon} />
+            <DBReset width={20} height={20} className={editorIcon} />
             DB 초기화
           </button>
         </div>
       </div>
-      <div ref={editorElement} className="w-full h-full min-h-100 flex-grow overflow-auto"></div>
+      <div ref={editorElement} className="w-full h-full flex-grow overflow-auto"></div>
       <button onClick={() => { setQueryValue(editorView.current.state.doc.toString()); executeQuery(); }} className={queryBtn}>
         <span>코드 실행 (Ctrl + Enter)</span>
       </button>
