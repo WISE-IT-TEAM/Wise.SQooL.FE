@@ -48,7 +48,7 @@ const NavBar = ({ isFullWidth }) => {
               <Link href="/">홈</Link>
             </li>
             <li className={listItem}>
-              <Link href="/start">시작하기</Link>
+              <Link href="/start">학습하기</Link>
             </li>
             <li className={listItem}>
               <Link href="/editor">에디터</Link>
