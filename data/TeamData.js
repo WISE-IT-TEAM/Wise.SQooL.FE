@@ -2,7 +2,7 @@ const TeamData = [
   {
     avatarLight: '/img/W-light.svg',
     avatarDark: '/img/W-dark.svg',
-    nickname: 'W = Koho',
+    nickname: 'W = KoHo',
     role: 'BACK-END',
     bio: '코딩을 합시다 💻😎',
     email: 'sesac.yw@gmail.com',
@@ -33,7 +33,7 @@ const TeamData = [
     role: 'FRONT-END',
     bio: 'Only For DB!💗',
     email: 'sydneysekim@gmail.com',
-    github: 'https://github.com/member4',
+    github: 'https://github.com/sydneyskim',
   },
 ];
 

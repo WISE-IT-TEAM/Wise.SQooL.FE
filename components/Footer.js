@@ -39,20 +39,20 @@ const Footer = () => {
             </li>
             <li>
               <a className={linkIcon}
-                href='https://github.com'
+                href='https://github.com/WISE-IT-TEAM/Wise.SQooL.FE'
                 target='_blank'
                 rel='noopener noreferrer'>
                 <LinkGithub width={20} height={20} className="fill-slate-400" title="Github 링크" />
               </a>
             </li>
-            <li>
+            {/* <li>
               <a className={linkIcon}
                 href='https://discord.com'
                 target='_blank'
                 rel='noopener noreferrer'>
                 <LinkDiscord width={20} height={20} className="fill-slate-400" title="Discord 링크" />
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

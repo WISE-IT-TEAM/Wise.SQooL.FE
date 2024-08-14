@@ -4,7 +4,7 @@ import Content from '../../components/start/Content';
 import SQLEditor from '../../components/editor/SqlEditor';
 import ResizeHandler from '../../components/ResizeHandler';
 import { HeroBtn } from '../../components/IconSet';
-import useStore from '../../store/useStore'; // Zustand 상태 관리를 위한 훅
+import useStore from '../../store/useStore';
 
 const StartPage = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -99,7 +99,7 @@ const StartPage = () => {
   };
 
   // 조건부로 클래스를 설정합니다.
-  const containerClass = `flex justify-center mx-auto duration-500 h-full ${useFullHeight ? `h-[calc(100vh-${totalOffset}px)]` : 'min-h-screen'} ${isFullWidth ? 'w-full px-8' : 'max-w-content-full'}`;
+  const container = `flex justify-center mx-auto duration-500 h-full ${useFullHeight ? `h-[calc(100vh-${totalOffset}px)]` : 'min-h-screen'} ${isFullWidth ? 'w-full px-8' : 'max-w-content-full'}`;
   const documentWrap = `flex min-w-80 flex-row justify-center flex-grow gap-4`;
   const editorWrap = `max-w-content-full min-w-content-half ${isEditorOpen ? 'flex' : 'hidden'} flex-grow`;
   const toggleBtn = `fixed w-16 h-16 flex flex-col justify-center items-center gap-1 right-12 bottom-12 rounded-lg shadow-lg hover:opacity-80 duration-300 font-bold`;
@@ -109,7 +109,7 @@ const StartPage = () => {
   const buttonClass = `${toggleBtn} ${btnBg}`;
 
   return (
-    <section className={containerClass}>
+    <section className={container}>
       <div className={documentWrap} style={{ width: documentWidth }}>
         <CategoryList onSelectCategory={handleSelectCategory} />
         {selectedCategoryId ? (

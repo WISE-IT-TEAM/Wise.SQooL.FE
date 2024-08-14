@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
 
   // 경로에 따라 레이아웃 조건을 설정합니다.
   const shouldShowFooter = router.pathname !== "/start"; // `/start` 페이지에서는 푸터를 숨깁니다.
-  const useFullHeight = router.pathname === "/start" || router.pathname === "/editor"; // `/start`와 `/editor` 페이지에서 전체 높이를 사용합니다.
+  const useFullHeight = router.pathname === "/start" || router.pathname === "/editor"; router.pathname === "/404";
   const applyNavPadding = router.pathname !== "/"; // 메인 인덱스 페이지에서는 pt-nav를 적용하지 않음
 
   // 조건부로 클래스를 설정합니다.

@@ -15,6 +15,7 @@ import useStore from '../../store/useStore';
 const Editor = () => {
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
   const isFullWidth = useStore((state) => state.isFullWidth); // Zustand에서 상태 가져오기
+  const totalOffset = useStore((state) => state.totalOffset); // Zustand에서 totalOffset 가져오기
   const [queryResult, setQueryResult] = useState({ columns: [], rows: [] });
 
   useEffect(() => {
