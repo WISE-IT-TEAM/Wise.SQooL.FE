@@ -5,6 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { getContent } from './Api';
 import useStore from '../../store/useStore';
 import DOMPurify from 'dompurify';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 /**
  * Content 컴포넌트
@@ -43,7 +44,11 @@ const Content = ({ documentId }) => {
   }, [documentId]);
 
   if (isLoading) {
-    return <div className='w-full h-full flex justify-center items-center'>로딩 중 입니다</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (!content) {

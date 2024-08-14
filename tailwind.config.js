@@ -53,10 +53,15 @@ export const theme = {
       fadeIn: {
         '0%': { opacity: 0, transform: 'translateY(24px)' },
         '100%': { opacity: 1, transform: 'translateY(0)' },
-      }
+      },
+      spin: {
+        '0%': { transform: 'rotate(0deg)' },
+        '100%': { transform: 'rotate(360deg)' },
+      },
     },
     animation: {
       fadeIn: 'fadeIn .6s ease-out',
+      spin: 'spin 1s linear infinite',
     },
   },
   darkMode: 'class', // 다크모드 활성화

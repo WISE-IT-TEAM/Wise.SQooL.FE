@@ -1,9 +1,14 @@
 import React from 'react';
 import ArticleCard from './ArticleCard';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const ArticleList = ({ articles, onSelectArticle, isLoading, page, perPage, onPageChange }) => {
   if (isLoading) {
-    return <div className='w-full h-full flex justify-center items-center'>로딩 중 입니다</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (articles.length === 0) {

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCategoryList } from './Api';
 import useStore from '../../store/useStore';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 /**
  * CategoryList 컴포넌트
@@ -58,7 +59,11 @@ const CategoryList = ({ onSelectCategory }) => {
   };
 
   if (isLoading) {
-    return <div className='w-full h-full flex justify-center items-center'>로딩 중 입니다</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   const container = `min-w-60 h-full flex flex-col rounded-lg border-1 overflow-y-auto scrollbar-hide ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
