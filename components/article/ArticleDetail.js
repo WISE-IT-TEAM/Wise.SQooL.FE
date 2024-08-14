@@ -20,7 +20,7 @@ const ArticleDetail = ({ article, onBack }) => {
   const tagClass = `tag px-4 py-2 rounded-full mr-2 ${
     isDarkMode ? "bg-slate-700 text-slate-200" : "bg-gray-200 text-gray-800"
   }`;
-  const content = `prose mb-4 ${isDarkMode ? "prose-invert" : ""}`;
+  const content = `prose w-full max-w-none mb-4 ${isDarkMode ? "prose-invert" : ""}`;
 
   const cleanContent = DOMPurify.sanitize(article.Content);
 
