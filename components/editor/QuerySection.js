@@ -101,7 +101,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight = 32
       </div>
       <div ref={editorElement} className="w-full h-full flex-grow overflow-auto scrollbar-hide"></div>
       <button onClick={() => { setQueryValue(editorView.current.state.doc.toString()); executeQuery(); }} className={queryBtn}>
-        <span>코드 실행 (Ctrl + Enter)</span>
+        <span>코드 실행</span>
       </button>
     </section>
   );
