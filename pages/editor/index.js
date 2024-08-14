@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import SQLEditor from '../../components/editor/SqlEditor';
 import useStore from '../../store/useStore';
+import totalOffset from '../../store/useStore';
 
 /**
  * Editor 컴포넌트
@@ -50,8 +51,8 @@ const Editor = () => {
 
   return (
     <section className={container}>
-      <SQLEditor 
-        placeholder="쿼리문을 입력해주세요. 예시) SELECT * FROM Artist;" 
+      <SQLEditor
+        placeholder="쿼리문을 입력해주세요. 예시) SELECT * FROM Artist;"
         queryResult={queryResult}
         setQueryResult={setQueryResult}
       />
