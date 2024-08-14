@@ -4,12 +4,12 @@
 import React from 'react'; 
 import Image from 'next/image';
 import Link from 'next/link';
-import useDarkMode from '../hooks/useDarkMode';
+import useStore from '../store/useStore';
 import useToast from '../hooks/useToast';
 import { MemberGithub, MemberEmail } from './IconSet';
 
 const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, email, className }) => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore();
   // Toast 메시지 표시 함수
   const showToast = useToast();
   
@@ -24,7 +24,7 @@ const TeamMember = ({ avatarDark, avatarLight, bio, role, nickname, github, emai
   
   const memberCard = `w-card-pc flex flex-col gap-3 px-6 py-10 justify-center items-center border-1 rounded-2xl`;
   const iconWrap = `flex gap-2`;
-  const memberIcon = `${isDarkMode ? 'fill-slate-400 hover:fill-subDark' : 'fill-slate-400 hover:fill-subLight'} duration-300`;
+  const memberIcon = `${isDarkMode ? 'fill-slate-400 hover:fill-subDark' : 'fill-slate-400 hover:fill-subLight'} duration-500`;
   const roleBadge = `text-xs px-2 py-1 rounded font-semibold ${isDarkMode ? 'bg-primaryDark text-slate-900' : 'bg-primaryLight text-slate-50'}`
 
   return (

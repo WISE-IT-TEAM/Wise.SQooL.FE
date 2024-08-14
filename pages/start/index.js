@@ -18,6 +18,7 @@ const StartPage = () => {
   const isFullWidth = useStore((state) => state.isFullWidth); // Zustand의 isFullWidth 상태를 가져옴
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
   const minDocumentWidth = 320;
+  const { totalOffset, useFullHeight } = layoutConditions('/start'); // layoutConditions 수정
   const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
@@ -90,9 +91,9 @@ const StartPage = () => {
   };
 
   // 조건부로 클래스를 설정합니다.
-  const containerClass = `flex justify-center mx-auto duration-500 h-full ${isFullWidth ? 'w-full px-8' : 'max-w-content-full'}`;
+  const containerClass = `flex justify-center mx-auto duration-500 h-full ${useFullHeight ? `h-[calc(100vh-${totalOffset}px)]` : 'min-h-screen'} ${isFullWidth ? 'w-full px-8' : 'max-w-content-full'}`;
   const documentWrap = `flex min-w-80 flex-row justify-center flex-grow gap-4`;
-  const editorWrap = `max-w-content-full min-w-content-half ${isEditorOpen ? 'flex' : 'hidden'} flex-grow h-full`;
+  const editorWrap = `max-w-content-full min-w-content-half ${isEditorOpen ? 'flex' : 'hidden'} flex-grow`;
   const toggleBtn = `fixed w-16 h-16 flex flex-col justify-center items-center gap-1 right-12 bottom-12 rounded-lg shadow-lg hover:opacity-80 duration-300 font-bold`;
   const btnBg = isEditorOpen 
     ? (isDarkMode ? 'bg-slate-500 text-slate-900' : 'bg-slate-400 text-slate-50') 
@@ -100,7 +101,7 @@ const StartPage = () => {
   const buttonClass = `${toggleBtn} ${btnBg}`;
 
   return (
-    <section className={containerClass}>
+    <section className={container}>
       <div className={documentWrap} style={{ width: documentWidth }}>
         <CategoryList onSelectCategory={handleSelectCategory} />
         {selectedCategoryId ? (

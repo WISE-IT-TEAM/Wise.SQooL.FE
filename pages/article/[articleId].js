@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ArticleDetail from '../../components/article/ArticleDetail';
-import { getArticleDetail } from '../../components/article/Api';
+import Comment from '../../components/article/Comments';
+import useStore from "../../store/useStore";
+import { getArticleDetail, getArticleComments, postArticleComment, updateArticleComment, deleteArticleComment } from '../../components/article/Api';
 
 const ArticleDetailPage = () => {
     const router = useRouter();
     const { articleId } = router.query;
     const [article, setArticle] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { isDarkMode } = useStore();
 
     useEffect(() => {
         if (articleId) {
             const fetchArticle = async () => {
                 try {
-                    const data = await getArticleDetail(articleId); // 이 시점에만 조회수 증가
-                    setArticle(data);
+                    const articleData = await getArticleDetail(articleId);
+                    setArticle(articleData);
                 } catch (error) {
-                    console.error('Error fetching article detail:', error);
+                    console.error('아티클 상세 정보를 불러오는 중 오류 발생:', error);
                 } finally {
                     setIsLoading(false);
                 }
@@ -31,26 +34,36 @@ const ArticleDetailPage = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>로딩 중...</div>;
     }
 
     if (!article) {
-        return <div>Error loading article</div>;
+        return <div>아티클을 불러오는 중 오류 발생</div>;
     }
 
+    const container = `max-w-content-full mx-auto flex flex-col pt-nav`;
+    const backBtn = `px-6 py-3 rounded-lg duration-500 font-bold ${ isDarkMode ? "bg-primaryDark text-slate-900 hover:bg-secondaryDark" : "bg-primaryLight text-slate-50 hover:bg-secondaryLight" }`;
+
     return (
-        <div className="max-w-content-full mx-auto flex flex-col pt-nav min-h-screen">
-            <main className="flex-grow w-full flex flex-col items-center gap-6">
+        <div className={container}>
+            <main className="flex-grow w-full flex flex-col items-center p-4">
                 <ArticleDetail article={article} />
-                <div className="w-full flex justify-center">
-                    <button 
-                        onClick={handleBack} 
-                        className="bg-primaryLight text-slate-50 hover:bg-secondaryLight px-4 py-2 rounded duration-300"
-                    >
-                        Back To List
-                    </button>
-                </div>
+                <Comment 
+                    articleId={articleId}
+                    getArticleComments={getArticleComments}
+                    postArticleComment={postArticleComment}
+                    updateArticleComment={updateArticleComment}
+                    deleteArticleComment={deleteArticleComment}
+                />
             </main>
+            <footer className="w-full flex justify-center p-4">
+                <button 
+                    onClick={handleBack} 
+                    className={backBtn}
+                >
+                    목록으로 돌아가기
+                </button>
+            </footer>
         </div>
     );
 };

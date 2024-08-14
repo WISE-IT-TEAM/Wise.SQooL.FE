@@ -1,10 +1,10 @@
 // components/sliders/SliderControls.js
 import React from 'react';
 import { SlidePlay, SlidePause } from '../IconSet'; // 아이콘 불러오기
-import useDarkMode from '../../hooks/useDarkMode';
+import useStore from '../../store/useStore';
 
 const SliderControls = ({ currentSlide, slides, isPlaying, togglePlayPause, handleIndicatorClick }) => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore();
 
   const controlContainer = `p-2 rounded-full ${isDarkMode ? 'bg-slate-50' : 'bg-slate-900' } bg-opacity-5 absolute bottom-14 left-1/2 transform -translate-x-1/2 flex gap-2 items-center`;
   const indicatorStyle = `w-6 h-6 text-xs ${isDarkMode ? 'text-slate-50' : 'text-slate-900'} border-none cursor-pointer`;
@@ -23,8 +23,8 @@ const SliderControls = ({ currentSlide, slides, isPlaying, togglePlayPause, hand
         </button>
       ))}
       <button onClick={togglePlayPause} className="bg-transparent text-white border-none cursor-pointer">
-        {isPlaying ? <SlidePause width={24} height={24} className={`fill-slate-400 duration-300 ${isDarkMode ? 'hover:fill-secondaryDark' : 'hover:fill-secondaryLight'}`} title="자동 슬라이드 멈춤" />
-          : <SlidePlay width={24} height={24} className={`fill-slate-400 duration-300 ${isDarkMode ? 'hover:fill-secondaryDark' : 'hover:fill-secondaryLight'}`} title="자동 슬라이드 시작"/>}
+        {isPlaying ? <SlidePause width={24} height={24} className={`fill-slate-400 duration-500 ${isDarkMode ? 'hover:fill-secondaryDark' : 'hover:fill-secondaryLight'}`} title="자동 슬라이드 멈춤" />
+          : <SlidePlay width={24} height={24} className={`fill-slate-400 duration-500 ${isDarkMode ? 'hover:fill-secondaryDark' : 'hover:fill-secondaryLight'}`} title="자동 슬라이드 시작"/>}
       </button>
     </div>
   );

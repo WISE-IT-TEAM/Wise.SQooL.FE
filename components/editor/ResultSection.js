@@ -50,7 +50,7 @@ const DataTable = ({ columns, rows, isDarkMode }) => {
  * @param {number} minHeight - 섹션의 최소 높이 (픽셀 단위)
  */
 const ResultSection = ({ queryResult, minHeight }) => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore();
   const { showToast } = useStore();
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-// File: pages/article/index.js
+// pages/article/index.js
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -24,7 +24,7 @@ const ArticlePage = () => {
     const isFullWidth = useStore((state) => state.isFullWidth); // Zustand에서 전체 너비 상태 가져오기
 
     // 컨테이너 클래스 정의
-    const container = `flex flex-col ${isFullWidth ? 'w-full' : 'max-w-content-full mx-auto'} min-h-screen`;
+    const container = `flex flex-col gap-6 ${isFullWidth ? 'w-full' : 'max-w-content-full mx-auto'} min-h-screen`;
 
     useEffect(() => {
         const fetchArticles = async () => {

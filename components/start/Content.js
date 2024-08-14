@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { getContent } from './Api';
-import useDarkMode from '../../hooks/useDarkMode';
+import useStore from '../../store/useStore';
 import DOMPurify from 'dompurify';
 
 /**
@@ -19,7 +19,7 @@ import DOMPurify from 'dompurify';
 const Content = ({ documentId }) => {
   const [content, setContent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode } = useStore();
 
   useEffect(() => {
     const fetchContent = async () => {
