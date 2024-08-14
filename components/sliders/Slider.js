@@ -81,7 +81,7 @@ const Slider = ({ slides }) => {
     }
   };
 
-  const slider = `max-w-content-full py-10 relative overflow-hidden cursor-grab`;
+  const slider = `max-w-content-full py-10 relative overflow-hidden scrollbar-hide cursor-grab`;
   const slidesWrapper = `flex ${transitionEnabled ? 'transition-transform duration-500 ease-in-out' : ''}`;
 
   return (

@@ -4,7 +4,6 @@ import Content from '../../components/start/Content';
 import SQLEditor from '../../components/editor/SqlEditor';
 import ResizeHandler from '../../components/ResizeHandler';
 import { HeroBtn } from '../../components/IconSet';
-import useDarkMode from '../../hooks/useDarkMode';
 import useStore from '../../store/useStore'; // Zustand 상태 관리를 위한 훅
 
 const StartPage = () => {
@@ -13,13 +12,18 @@ const StartPage = () => {
   const [editorWidth, setEditorWidth] = useState(500);
   const [documentWidth, setDocumentWidth] = useState(1000);
   const [query, setQuery] = useState("");
-  const setFullWidth = useStore((state) => state.setFullWidth); // Zustand의 setFullWidth 액션을 가져옴
-  const resetFullWidth = useStore((state) => state.resetFullWidth); // Zustand의 resetFullWidth 액션을 가져옴
-  const isFullWidth = useStore((state) => state.isFullWidth); // Zustand의 isFullWidth 상태를 가져옴
+  
+  const setFullWidth = useStore((state) => state.setFullWidth); 
+  const resetFullWidth = useStore((state) => state.resetFullWidth);
+  const isFullWidth = useStore((state) => state.isFullWidth);
+  const isDarkMode = useStore((state) => state.isDarkMode);
+  const useFullHeight = useStore((state) => state.useFullHeight);
+  const totalOffset = useStore((state) => state.totalOffset);
+  const setUseFullHeight = useStore((state) => state.setUseFullHeight);
+  const setTotalOffset = useStore((state) => state.setTotalOffset);
+
   const apiInitUrl = process.env.NEXT_PUBLIC_API_INIT_URL;
   const minDocumentWidth = 320;
-  const { totalOffset, useFullHeight } = layoutConditions('/start'); // layoutConditions 수정
-  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     const storedIsEditorOpen = localStorage.getItem('isEditorOpen');
@@ -33,7 +37,11 @@ const StartPage = () => {
 
     const initialWidth = typeof window !== 'undefined' ? window.innerWidth - 500 : 1000;
     setDocumentWidth(initialWidth);
-  }, []);
+
+    // 레이아웃 조건 초기 설정
+    setUseFullHeight(true); // 예시로 전체 높이를 사용하는 상태로 설정
+    setTotalOffset(64); // 예시로 64px의 오프셋을 설정
+  }, [setUseFullHeight, setTotalOffset]);
 
   useEffect(() => {
     localStorage.setItem('isEditorOpen', isEditorOpen);
@@ -101,7 +109,7 @@ const StartPage = () => {
   const buttonClass = `${toggleBtn} ${btnBg}`;
 
   return (
-    <section className={container}>
+    <section className={containerClass}>
       <div className={documentWrap} style={{ width: documentWidth }}>
         <CategoryList onSelectCategory={handleSelectCategory} />
         {selectedCategoryId ? (

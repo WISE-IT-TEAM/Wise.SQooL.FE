@@ -52,7 +52,7 @@ const Content = ({ documentId }) => {
 
   const container = `w-full h-full flex flex-col flex-grow rounded-lg border-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const contentHead = `w-full p-4 font-bold rounded-tl-lg rounded-tr-lg ${isDarkMode ? "bg-slate-800 text-slate-50" : "bg-slate-200 text-slate-600"}`;
-  const contentField = `w-full max-w-none p-4 flex-grow items-center overflow-y-scroll ${isDarkMode ? "text-slate-50" : "text-slate-900"} prose ${isDarkMode ? "prose-dark" : ""}`;
+  const contentField = `w-full max-w-none p-4 flex-grow items-center overflow-y-auto scrollbar-hide ${isDarkMode ? "text-slate-50" : "text-slate-900"} prose ${isDarkMode ? "prose-dark" : ""}`;
 
   const cleanContent = DOMPurify.sanitize(content.Content);
 

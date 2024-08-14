@@ -8,6 +8,8 @@ const useStore = create((set) => ({
   query: '', // SQL 쿼리 상태
   toastMessage: '', // 토스트 메시지 상태
   toastType: 'success', // 토스트 타입 상태
+  useFullHeight: false, // 페이지가 전체 높이를 사용하는지 여부
+  totalOffset: 0, // 레이아웃 오프셋 (패딩 등)
 
   // 다크 모드 토글 함수
   toggleDarkMode: () => set((state) => {
@@ -63,6 +65,16 @@ const useStore = create((set) => ({
   // 토스트 메시지 숨김 함수
   hideToast: () => set(() => ({
     toastMessage: ''
+  })),
+
+  // 전체 높이 사용 설정 함수
+  setUseFullHeight: (useFullHeight) => set(() => ({
+    useFullHeight
+  })),
+
+  // 레이아웃 오프셋 설정 함수
+  setTotalOffset: (offset) => set(() => ({
+    totalOffset: offset
   })),
 }));
 

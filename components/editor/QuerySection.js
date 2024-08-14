@@ -1,13 +1,12 @@
 // components/editor/QuerySection.js
 import React, { useRef, useEffect, useState } from "react";
-import useDarkMode from "../../hooks/useDarkMode";
 import useStore from '../../store/useStore';
 import { EditorView, basicSetup } from "codemirror";
 import { sql } from "@codemirror/lang-sql";
 import { autocompletion } from "@codemirror/autocomplete";
 import { createSqoolTheme } from "./Styles";
 import { CodeCopy, DBReset } from "../IconSet";
-import { sqliteCompletion } from "./sqliteKeywords";
+import { sqliteCompletion } from "./SqliteKeywords";
 import { keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 import { placeholder } from "@codemirror/view";
@@ -100,7 +99,7 @@ const QuerySection = ({ initialValue, editorHeight, executeQuery, minHeight = 32
           </button>
         </div>
       </div>
-      <div ref={editorElement} className="w-full h-full flex-grow overflow-auto"></div>
+      <div ref={editorElement} className="w-full h-full flex-grow overflow-auto scrollbar-hide"></div>
       <button onClick={() => { setQueryValue(editorView.current.state.doc.toString()); executeQuery(); }} className={queryBtn}>
         <span>코드 실행 (Ctrl + Enter)</span>
       </button>

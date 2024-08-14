@@ -61,7 +61,7 @@ const CategoryList = ({ onSelectCategory }) => {
     return <div className='w-full h-full flex justify-center items-center'>로딩 중 입니다</div>;
   }
 
-  const container = `min-w-60 h-full flex flex-col rounded-lg border-1 overflow-y-scroll ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
+  const container = `min-w-60 h-full flex flex-col rounded-lg border-1 overflow-y-auto scrollbar-hide ${isDarkMode ? "border-slate-800" : "border-slate-200"}`;
   const catagoryItem = `p-4 border-b-1 ${isDarkMode ? "border-slate-800" : "border-slate-200"} duration-500`;
   
   return (

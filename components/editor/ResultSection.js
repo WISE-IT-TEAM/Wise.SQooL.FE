@@ -14,7 +14,7 @@ const DataTable = ({ columns, rows, isDarkMode }) => {
   const tableCellClass = `py-3 px-5 border-b ${isDarkMode ? "text-slate-300 border-slate-700" : "text-gray-600 border-gray-200"}`;
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-y-auto scrollbar-hide">
       <table className={tableContainerClass}>
         <thead>
           <tr>
